@@ -1,4 +1,4 @@
-package com.application.entities;
+package com.application.models;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
