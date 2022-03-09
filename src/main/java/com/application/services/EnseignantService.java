@@ -11,9 +11,12 @@ import com.application.repositories.EnseignantRepository;
 
 @Service
 public class EnseignantService {
-	@Autowired
-	private EnseignantRepository enseignantRepository;
+	private final EnseignantRepository enseignantRepository ;
 		
+	public EnseignantService(EnseignantRepository enseignantRepo) {
+		
+		enseignantRepository=enseignantRepo;
+	}
 	public Enseignant create(Enseignant ens)
 	{
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
