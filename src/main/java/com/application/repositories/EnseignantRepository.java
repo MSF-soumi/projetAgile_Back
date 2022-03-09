@@ -8,9 +8,13 @@ import com.application.models.Enseignant;
 
 @Repository
 <<<<<<< HEAD
+<<<<<<< HEAD
 public interface EnseignantRepository extends JpaRepository<Enseignant,Long> {
 =======
 public interface EnseignantRepository extends JpaRepository<Enseignant, Long> {
 >>>>>>> b18b7eff5ae3745bbb6568f5f3ce6c533bfefa4f
+=======
+public interface EnseignantRepository extends JpaRepository<Enseignant, Long> {
+>>>>>>> c0989964b50c16a17bef4780ffbafac02423578e
 
 }
