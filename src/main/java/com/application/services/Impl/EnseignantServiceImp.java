@@ -1,7 +1,8 @@
-package com.application.services;
+package com.application.services.Impl;
 
 import java.util.List;
 
+import com.application.services.EnseignantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import com.application.repositories.EnseignantRepository;
 
 
 @Service
-public class EnseignantServiceImp implements EnseignantService{
+public class EnseignantServiceImp implements EnseignantService {
 	
 	@Autowired
 	private final EnseignantRepository enseignantRepository ;

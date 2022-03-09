@@ -1,4 +1,4 @@
-package com.application.services;
+package com.application.services.Impl;
 
 public class PromotionServiceImp {
 
