@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.application.models.Enseignant;
+import com.application.models.Sexe;
 
 @SpringBootApplication
 public class ProjetAgileApplication implements CommandLineRunner{
@@ -25,11 +26,11 @@ public class ProjetAgileApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		String sql = "select * from enseignant";
-		List<Enseignant> enseignants = jdbcTemplate.query(sql,
-				BeanPropertyRowMapper.newInstance(Enseignant.class));
+		String sql = "select * from v_sexe";
+		List<Sexe> sexes = jdbcTemplate.query(sql,
+				BeanPropertyRowMapper.newInstance(Sexe.class));
 		
-		enseignants.forEach(System.out :: println);
+		sexes.forEach(System.out :: println);
 	}
 
 }
