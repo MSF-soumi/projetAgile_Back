@@ -2,13 +2,9 @@ package com.application.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.application.models.Enseignant;
-import com.application.repositories.EnseignantRepository;
 
-
+<<<<<<< Updated upstream
 @Service
 public class EnseignantService {
 	@Autowired
@@ -26,32 +22,17 @@ public class EnseignantService {
 	{
 		return enseignantRepository.findAll();
 	}
+=======
+public interface EnseignantService {
+>>>>>>> Stashed changes
 	
-	public Enseignant getById(Long id)
-	{
-		return enseignantRepository.getById(id);
-	}
+	public Enseignant create(Enseignant ens);
 	
-	public Enseignant update(Enseignant enseignant) {
-		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		Enseignant.setNom(enseignant.getNom());
-		Enseignant.setPrenom(enseignant.getPrenom());
-		Enseignant.setSexe(enseignant.getSexe());
-		Enseignant.setType(enseignant.getType());
-		Enseignant.setPays(enseignant.getPays());
-		Enseignant.setVille(enseignant.getVille());
-		Enseignant.setAdresse(enseignant.getAdresse());
-		Enseignant.setEmail_Perso(enseignant.getEmail_Perso());
-	//	Enseignant.setEmailUbo(enseignant.getEmailUbo()); *non modifiable
-		Enseignant.setMobile(enseignant.getMobile());
-		Enseignant.setTelephone(enseignant.getTelephone());
-		Enseignant.setCode_Postal(enseignant.getCode_Postal());
-		return enseignantRepository.save(Enseignant);
-	}
+	public List<Enseignant> getAll();
 	
-	public void delete(Long id)
-	{
-		enseignantRepository.deleteById(id);
-	}
-
+	public Enseignant getById(Long id);
+	
+	public Enseignant update(Enseignant enseignant);
+	
+	public void delete(Long id);
 }
