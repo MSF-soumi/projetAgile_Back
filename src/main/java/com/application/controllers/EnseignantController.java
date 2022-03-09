@@ -10,9 +10,6 @@ import com.application.services.EnseignantService;
 @RestController
 @RequestMapping("/enseignants")
 public class EnseignantController {
-
-	@Autowired
-	private ModelMapper modelMapper;
 	
 	private EnseignantService enseignantService;
 }
