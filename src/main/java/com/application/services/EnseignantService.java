@@ -11,9 +11,12 @@ import com.application.repositories.EnseignantRepository;
 
 @Service
 public class EnseignantService {
-	@Autowired
-	private EnseignantRepository enseignantRepository;
+	private final EnseignantRepository enseignantRepository ;
 		
+	public EnseignantService(EnseignantRepository enseignantRepo) {
+		
+		enseignantRepository=enseignantRepo;
+	}
 	public Enseignant create(Enseignant ens)
 	{
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
@@ -27,7 +30,7 @@ public class EnseignantService {
 		return enseignantRepository.findAll();
 	}
 	
-	public Enseignant getById(int id)
+	public Enseignant getById(Long id)
 	{
 		return enseignantRepository.getById(id);
 	}
@@ -49,7 +52,7 @@ public class EnseignantService {
 		return enseignantRepository.save(Enseignant);
 	}
 	
-	public void delete(int id)
+	public void delete(Long id)
 	{
 		enseignantRepository.deleteById(id);
 	}
