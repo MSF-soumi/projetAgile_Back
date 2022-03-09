@@ -1,10 +1,12 @@
 package com.application.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
 @Embeddable
-public class PromotionPK {
+public class PromotionPK implements Serializable{
 	
 	@NotBlank(message = "Le code formation est obligatoire")
 	private String code_Formation;

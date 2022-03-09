@@ -16,28 +16,17 @@ public class Enseignant {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonIgnore
 	private int no_Enseignant;
-	@NotBlank(message = "Le nom est obligatoire")
 	private String nom;
-	@NotBlank(message = "Le prénom est obligatoire")
 	private String prenom;
-	@NotBlank(message = "Le sexe est obligatoire")
 	private String sexe;
-	@NotBlank(message = "Le type est obligatoire")
 	private String type;
-	@NotBlank(message = "Le pays est obligatoire")
 	private String pays;
-	@NotBlank(message = "La ville est obligatoire")
 	private String ville;
-	@NotBlank(message = "L'adresse est obligatoire")
 	private String adresse;	
 	private String email_Perso;
-	@NotBlank(message = "L'email UBO est obligatoire")
 	private String email_Ubo;
-	@NotBlank(message = "Le mobile est obligatoire")
 	private String mobile;
-	@NotBlank(message = "Le telephone est obligatoire")
 	private String telephone;
-	@NotBlank(message = "Le code postal est obligatoire")
 	private String code_Postal;
 	
 	public Enseignant() {
