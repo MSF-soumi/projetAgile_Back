@@ -5,10 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Builder
@@ -18,11 +17,10 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Table(name="Enseignant")
-public class Enseignant {
+public class Enseignant implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
-	private int no_Enseignant;
+	private Long no_Enseignant;
 	private String nom;
 	private String prenom;
 	private String sexe;

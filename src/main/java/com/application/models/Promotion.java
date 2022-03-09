@@ -1,14 +1,13 @@
 package com.application.models;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Builder
@@ -18,11 +17,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Table(name="Promotion")
-public class Promotion {
+public class Promotion implements Serializable {
 
-	@JsonIgnore
 	@EmbeddedId
 	private PromotionPK id;
+
 	@ManyToOne
 	@JoinColumn(name="NO_ENSEIGNANT")
 	private Enseignant Enseignant;
@@ -31,11 +30,11 @@ public class Promotion {
 
 	private int nb_Max_Etudiant;
 
-	private String date_Reponse_Lp;
+	private LocalDate date_Reponse_Lp;
 
-	private String date_Reponse_Lalp;
+	private LocalDate date_Reponse_Lalp;
 
-	private String date_Rentree;
+	private LocalDate date_Rentree;
 
 	private String lieu_Rentree;
 
