@@ -1,6 +1,9 @@
 package com.application.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -8,28 +11,40 @@ import lombok.Data;
 public class EnseignantDTO {
 	
 	private int no_Enseignant;
-    @NotBlank(message = "Le nom Promotion est obligatoire")
+    @NotBlank(message = "Le nom enseignant est obligatoire")
 	private String nom;
-    @NotBlank(message = "Le prenom Promotion est obligatoire")
+    @NotBlank(message = "Le prenom enseignant est obligatoire")
 	private String prenom;
-    @NotBlank(message = "Le sexe Promotion est obligatoire")
+    @NotBlank(message = "Le sexe enseignant est obligatoire")
 	private String sexe;
-    @NotBlank(message = "Le sigle Promotion est obligatoire")
+    @NotBlank(message = "Le type enseignant est obligatoire")
 	private String type;
-    @NotBlank(message = "Le type Promotion est obligatoire")
+    @NotBlank(message = "Le pays enseignant est obligatoire")
 	private String pays;
-    @NotBlank(message = "Le ville Promotion est obligatoire")
+    @NotBlank(message = "Le ville enseignant est obligatoire")
 	private String ville;
-    @NotBlank(message = "Le adresse Promotion est obligatoire")
-	private String adresse;	
+    @NotBlank(message = "L'adresse enseignant est obligatoire")
+	private String adresse;
+    @Email
 	private String email_Perso;
-    @NotBlank(message = "L'email UBO Promotion est obligatoire")
+	@Email
+    @NotBlank(message = "L'email UBO enseignant est obligatoire")
 	private String email_Ubo;
-    @NotBlank(message = "Le mobile Promotion est obligatoire")
+	@Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+					+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+					+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "mobile invalide")
+    @NotBlank(message = "Le mobile enseignant est obligatoire")
 	private String mobile;
-    @NotBlank(message = "Le telephone Promotion est obligatoire")
+
+	@Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+			+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+			+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "mobile invalide")
+    @NotBlank(message = "Le telephone enseignant est obligatoire")
 	private String telephone;
-    @NotBlank(message = "Le code postal Promotion est obligatoire")
+
+	@Size(min = 5, max = 5)
+	@Pattern(regexp = "[0-9]+")
+    @NotBlank(message = "Le code postal enseignant est obligatoire")
 	private String code_Postal;
 
 }
