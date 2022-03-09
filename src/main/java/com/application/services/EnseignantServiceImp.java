@@ -19,6 +19,8 @@ public class EnseignantServiceImp implements EnseignantService{
 		
 		enseignantRepository=enseignantRepo;
 	}
+	
+	@Override
 	public Enseignant create(Enseignant ens)
 	{
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
@@ -27,16 +29,19 @@ public class EnseignantServiceImp implements EnseignantService{
 		enseignantRepository.save(newEns);
 		return newEns;
 	}
+	@Override
 	public List<Enseignant> getAll()
 	{
 		return enseignantRepository.findAll();
 	}
 	
+	@Override
 	public Enseignant getById(Long id)
 	{
 		return enseignantRepository.getById(id);
 	}
 	
+	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
@@ -54,6 +59,7 @@ public class EnseignantServiceImp implements EnseignantService{
 		return enseignantRepository.save(Enseignant);
 	}
 	
+	@Override
 	public void delete(Long id)
 	{
 		enseignantRepository.deleteById(id);
