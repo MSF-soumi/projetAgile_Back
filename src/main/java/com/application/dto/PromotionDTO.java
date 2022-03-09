@@ -11,6 +11,7 @@ public class PromotionDTO {
 
     private PromotionPK id;
 
+    @JsonIgnore
     private Enseignant Enseignant;
 
     @NotBlank(message = "Le sigle Promotion est obligatoire")

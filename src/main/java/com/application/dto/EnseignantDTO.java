@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class EnseignantDTO {
-	
 	private int no_Enseignant;
 	private String nom;
 	private String prenom;
