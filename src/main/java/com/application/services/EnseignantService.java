@@ -27,7 +27,7 @@ public class EnseignantService {
 		return enseignantRepository.findAll();
 	}
 	
-	public Enseignant getById(int id)
+	public Enseignant getById(Long id)
 	{
 		return enseignantRepository.getById(id);
 	}
@@ -49,7 +49,7 @@ public class EnseignantService {
 		return enseignantRepository.save(Enseignant);
 	}
 	
-	public void delete(int id)
+	public void delete(Long id)
 	{
 		enseignantRepository.deleteById(id);
 	}
