@@ -16,9 +16,9 @@ public class EnseignantService {
 		
 	public Enseignant create(Enseignant ens)
 	{
-		Enseignant newEns=new Enseignant(ens.getNoEnseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-				ens.getVille(), ens.getAdresse(), ens.getEmailPerso(), ens.getEmailUbo(), ens.getMobile(), ens.getTelephone(),
-				ens.getCodePostal());
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
+				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
+				ens.getCode_Postal());
 		enseignantRepository.save(newEns);
 		return newEns;
 	}
@@ -33,7 +33,7 @@ public class EnseignantService {
 	}
 	
 	public Enseignant update(Enseignant enseignant) {
-		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNoEnseignant());
+		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
 		Enseignant.setPrenom(enseignant.getPrenom());
 		Enseignant.setSexe(enseignant.getSexe());
@@ -41,11 +41,11 @@ public class EnseignantService {
 		Enseignant.setPays(enseignant.getPays());
 		Enseignant.setVille(enseignant.getVille());
 		Enseignant.setAdresse(enseignant.getAdresse());
-		Enseignant.setEmailPerso(enseignant.getEmailPerso());
+		Enseignant.setEmail_Perso(enseignant.getEmail_Perso());
 	//	Enseignant.setEmailUbo(enseignant.getEmailUbo()); *non modifiable
 		Enseignant.setMobile(enseignant.getMobile());
 		Enseignant.setTelephone(enseignant.getTelephone());
-		Enseignant.setCodePostal(enseignant.getCodePostal());
+		Enseignant.setCode_Postal(enseignant.getCode_Postal());
 		return enseignantRepository.save(Enseignant);
 	}
 	
