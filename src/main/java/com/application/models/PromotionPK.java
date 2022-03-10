@@ -10,8 +10,12 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Getter
+@Setter
 @Embeddable
 public class PromotionPK implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private String code_Formation;
 	private String annee_Universitaire;
 }

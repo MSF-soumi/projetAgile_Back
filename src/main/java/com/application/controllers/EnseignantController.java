@@ -3,11 +3,16 @@ package com.application.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/enseignants")
 public class EnseignantController {
@@ -75,10 +81,24 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})	
 	@PostMapping
-	public EnseignantDTO createEnseignant(@RequestBody Enseignant enseignantRequest) {
-		var enseignant = enseignantService.create(enseignantRequest);
+	public EnseignantDTO createEnseignant(@Valid @RequestBody EnseignantDTO enseignantRequest) {
+		Enseignant enseignant = convertToEntity(enseignantRequest);
+		var newEnseignant = enseignantService.create(enseignant);
 		return this.convertToDto(enseignant);
 		
+	}
+	@ApiOperation(value="Modifier un enseignant")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requette réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
+			@ApiResponse(code=400,message="Requette non réussie")
+	})	
+	@PutMapping(path = "/{id}")
+	public EnseignantDTO updateEnseignant(@PathVariable Long id,@Valid @RequestBody EnseignantDTO enseignantRequest) {
+		Enseignant enseignant = convertToEntity(enseignantRequest);
+	        var newEnseignant = enseignantService.updateById(id,enseignant);
+//	            enseignantService.createEnseignant(enseignant);
+	        return convertToDto(newEnseignant);
 	}
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
@@ -95,6 +115,7 @@ public class EnseignantController {
         	System.out.println(e);
         }
     }
+	
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
 		return modelMapper.map(enseignant, EnseignantDTO.class);
 	}

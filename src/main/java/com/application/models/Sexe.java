@@ -31,7 +31,4 @@ public class Sexe {
 	private String code;
 	private String abreviation;
 	private String signification;
-	
-	
-	
 }
