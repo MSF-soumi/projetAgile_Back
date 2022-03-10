@@ -70,5 +70,14 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+	@Override
+	public Enseignant updateById(Long id, Enseignant enseignantRequest)
+	{
+		if(this.getById(id) !=null && id == enseignantRequest.getNo_Enseignant()) {
+			return this.update(enseignantRequest);
+		}
+		return null;
+		
+	}
 
 }
