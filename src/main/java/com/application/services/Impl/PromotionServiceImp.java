@@ -18,6 +18,11 @@ public class PromotionServiceImp implements PromotionService {
     }
 
     @Override
+    public Promotion create(Promotion promotion) {
+        return this.promotionRepository.save(promotion);
+    }
+
+    @Override
     public List<Promotion> getAll(){
         return promotionRepository.findAll();
     }
