@@ -5,6 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.application.models.Pays;
+import com.application.models.Sexe;
+import com.application.models.TypeEnseignant;
+
 import lombok.Data;
 
 @Data
@@ -16,11 +20,11 @@ public class EnseignantDTO {
     @NotBlank(message = "Le prenom enseignant est obligatoire")
 	private String prenom;
     @NotBlank(message = "Le sexe enseignant est obligatoire")
-	private String sexe;
+	private Sexe sexe;
     @NotBlank(message = "Le type enseignant est obligatoire")
-	private String type;
+	private TypeEnseignant type;
     @NotBlank(message = "Le pays enseignant est obligatoire")
-	private String pays;
+	private Pays pays;
     @NotBlank(message = "Le ville enseignant est obligatoire")
 	private String ville;
     @NotBlank(message = "L'adresse enseignant est obligatoire")
