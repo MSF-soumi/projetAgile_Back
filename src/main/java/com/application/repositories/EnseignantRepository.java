@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.application.models.Enseignant;
 
 @Repository
-
 public interface EnseignantRepository extends JpaRepository<Enseignant,Long> {
 
 
