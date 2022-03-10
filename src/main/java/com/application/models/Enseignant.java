@@ -23,8 +23,8 @@ public class Enseignant implements Serializable {
 	private Long no_Enseignant;
 	private String nom;
 	private String prenom;
-	private String sexe;
-	private String type;
+	private Sexe sexe;
+	private TypeEnseignant type;
 	private String pays;
 	private String ville;
 	private String adresse;	
