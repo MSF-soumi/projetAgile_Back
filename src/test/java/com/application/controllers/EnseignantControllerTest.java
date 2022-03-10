@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 public class EnseignantControllerTest {
@@ -32,7 +32,7 @@ public class EnseignantControllerTest {
 
     @Test
     public void getAllEnseignants() throws Exception{
-    mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/enseignants")
+    mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/enseignants")
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
