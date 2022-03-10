@@ -15,5 +15,7 @@ public interface EnseignantService {
 	public Enseignant update(Enseignant enseignant);
 	
 	public void delete(Long id);
+
+	Enseignant getByEmailUbo(String emailUbo);
 	
 }

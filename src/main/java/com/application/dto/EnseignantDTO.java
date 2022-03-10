@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class EnseignantDTO {
 	
-	private int no_Enseignant;
+	private Long no_Enseignant;
     @NotBlank(message = "Le nom enseignant est obligatoire")
 	private String nom;
     @NotBlank(message = "Le prenom enseignant est obligatoire")

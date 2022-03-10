@@ -65,5 +65,10 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		enseignantRepository.deleteById(id);
 	}
+	@Override
+	public Enseignant getByEmailUbo(String email_Ubo)
+	{
+		return enseignantRepository.findByEmail_Ubo(email_Ubo);
+	}
 
 }
