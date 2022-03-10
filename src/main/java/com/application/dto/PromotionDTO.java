@@ -1,6 +1,7 @@
 package com.application.dto;
 
 import com.application.models.Enseignant;
+import com.application.models.ProcessusStage;
 import com.application.models.PromotionPK;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,6 @@ public class PromotionDTO {
 
     private PromotionPK id;
 
-    @JsonIgnore
     private Enseignant Enseignant;
 
     @NotBlank(message = "Le sigle Promotion est obligatoire")
@@ -36,6 +36,6 @@ public class PromotionDTO {
 
     @NotBlank(message = "Le lieu de rentrée est obligatoire")
     private String lieu_Rentree;
-    private String processus_Stage;
+    private ProcessusStage processus_Stage;
     private String commentaire;
 }
