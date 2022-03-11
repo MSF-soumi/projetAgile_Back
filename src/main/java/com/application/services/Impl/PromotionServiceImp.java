@@ -34,13 +34,7 @@ public class PromotionServiceImp implements PromotionService {
     public List<Promotion> getAll(){
         return promotionRepository.findAll();
     } 
-	@Override
-	public Promotion getById(PromotionPK id)
-	{
-		Optional<Promotion> res=promotionRepository.findById(id);
-		return res.isPresent()?res.get():null;
-	}
-    }
+
 
     @Override
     public List<Promotion> updateWorkflow(List<Promotion> promotions){

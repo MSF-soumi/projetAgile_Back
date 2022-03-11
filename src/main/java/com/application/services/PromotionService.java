@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface PromotionService {
 	
-    //public Promotion create(Promotion promotion);
+    public Promotion create(Promotion promotion);
 
     public List<Promotion> getAll();
 
