@@ -99,8 +99,8 @@ public class EnseignantControllerTest {
     public void getAllEnseignantById_notFound() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/enseignants/10")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent())
-                .andExpect(status().reason(containsString("ID not found")));
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
+                //.andExpect(status().reason(containsString("ID not found")));
 
     }
     @Test
