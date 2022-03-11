@@ -63,9 +63,16 @@ public class EnseignantServiceImp implements EnseignantService {
 	}
 	
 	@Override
-	public void delete(Long id)
+	public boolean delete(Long id)
 	{
-		enseignantRepository.deleteById(id);
+		try{
+			enseignantRepository.deleteById(id);
+			return true;
+
+		}catch (Exception e){
+			System.out.println("Exception"+e.getMessage());
+			return false;
+		}
 	}
 	@Override
 	public Enseignant getByEmailUbo(String email_Ubo)
