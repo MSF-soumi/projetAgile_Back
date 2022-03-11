@@ -81,24 +81,10 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})	
 	@PostMapping
-	public EnseignantDTO createEnseignant(@Valid @RequestBody EnseignantDTO enseignantRequest) {
-		Enseignant enseignant = convertToEntity(enseignantRequest);
-		var newEnseignant = enseignantService.create(enseignant);
+	public EnseignantDTO createEnseignant(@RequestBody Enseignant enseignantRequest) {
+		var enseignant = enseignantService.create(enseignantRequest);
 		return this.convertToDto(enseignant);
 		
-	}
-	@ApiOperation(value="Modifier un enseignant")
-	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
-	})	
-	@PutMapping(path = "/{id}")
-	public EnseignantDTO updateEnseignant(@PathVariable Long id,@Valid @RequestBody EnseignantDTO enseignantRequest) {
-		Enseignant enseignant = convertToEntity(enseignantRequest);
-	        var newEnseignant = enseignantService.updateById(id,enseignant);
-//	            enseignantService.createEnseignant(enseignant);
-	        return convertToDto(newEnseignant);
 	}
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
@@ -115,7 +101,6 @@ public class EnseignantController {
         	System.out.println(e);
         }
     }
-	
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
 		return modelMapper.map(enseignant, EnseignantDTO.class);
 	}
