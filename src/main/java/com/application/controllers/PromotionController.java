@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/promotions/")
+@RequestMapping("/api/v1/promotions")
 public class PromotionController {
 
     private final ModelMapper modelMapper;
@@ -73,8 +77,31 @@ public class PromotionController {
 		return this.convertToDto(promotion);
 	}
 
+    @PutMapping
+    public List<PromotionDTO> updateWorkflow(@Valid @RequestBody List<PromotionDTO> promotionDTOList){
+        var promotionList = convertListToEntity(promotionDTOList);
+        var newPromotionList = promotionService.updateWorkflow(promotionList);
+        return convertListToDto(newPromotionList);
+    }
+
     private PromotionDTO convertToDto(Promotion promotion) {
         return modelMapper.map(promotion, PromotionDTO.class);
+    }
+
+    private List<PromotionDTO> convertListToDto(List<Promotion> promotions) {
+        List<PromotionDTO> promotionDTOList = new ArrayList<>();
+        for (Promotion promotion:promotions) {
+            promotionDTOList.add(modelMapper.map(promotions, PromotionDTO.class));
+        }
+        return promotionDTOList;
+    }
+
+    private List<Promotion> convertListToEntity(List<PromotionDTO> promotionsDTO) {
+        List<Promotion> promotionList = new ArrayList<>();
+        for (PromotionDTO promotionDTO:promotionsDTO) {
+            promotionList.add(modelMapper.map(promotionDTO, Promotion.class));
+        }
+        return promotionList;
     }
 
     private Promotion convertToEntity(PromotionDTO promotionDTO) {
