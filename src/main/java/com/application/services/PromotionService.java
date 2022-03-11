@@ -15,6 +15,7 @@ public interface PromotionService {
     public List<Promotion> updateWorkflow(List<Promotion> promotions);
 
 
+    public Promotion getById(PromotionPK id);
     //public Promotion getById(Long id);
 
     //public Promotion update(Promotion promotion);
