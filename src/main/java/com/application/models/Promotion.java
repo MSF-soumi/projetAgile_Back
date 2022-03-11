@@ -19,6 +19,8 @@ import java.time.LocalDate;
 @Table(name="Promotion")
 public class Promotion implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@EmbeddedId
 	private PromotionPK id;
 

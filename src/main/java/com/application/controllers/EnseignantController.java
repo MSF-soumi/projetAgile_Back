@@ -3,13 +3,16 @@ package com.application.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/enseignants")
 public class EnseignantController {
@@ -51,22 +55,12 @@ public class EnseignantController {
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requette réussie"),
 			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie"),
-			@ApiResponse(code=404,message="ID non trouvable")
+			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<EnseignantDTO> getById(@PathVariable Long id){
-		System.out.println("console");
-
+	public EnseignantDTO getById(@PathVariable Long id){
 		var enseignant = enseignantService.getById(id);
-		System.out.println("inside ish"+enseignant);
-
-		if(enseignant==null){
-			System.out.println("inside"+enseignant);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}else{
-			return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
-		}
+		return this.convertToDto(enseignant);
 	}
 	
 	@ApiOperation(value="Rechercher un enseignant par emailUbo")

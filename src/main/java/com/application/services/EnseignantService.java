@@ -17,5 +17,7 @@ public interface EnseignantService {
 	public void delete(Long id);
 
 	Enseignant getByEmailUbo(String emailUbo);
+
+	Enseignant updateById(Long id, Enseignant enseignantRequest);
 	
 }
