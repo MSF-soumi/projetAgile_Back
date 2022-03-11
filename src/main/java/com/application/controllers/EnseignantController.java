@@ -83,6 +83,7 @@ public class EnseignantController {
 		}
 		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
 	}
+	
 	@ApiOperation(value="Créer un enseignant")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requette réussie"),
