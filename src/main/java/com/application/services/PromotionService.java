@@ -1,6 +1,7 @@
 package com.application.services;
 
 import com.application.models.Promotion;
+import com.application.models.PromotionPK;
 
 import java.util.List;
 
@@ -8,6 +9,8 @@ public interface PromotionService {
     public Promotion create(Promotion promotion);
 
     public List<Promotion> getAll();
+
+	Promotion getById(PromotionPK id);
 
     //public Promotion getById(Long id);
 
