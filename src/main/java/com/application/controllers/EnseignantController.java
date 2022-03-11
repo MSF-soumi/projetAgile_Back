@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,9 +60,13 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "/{id}")
-	public EnseignantDTO getById(@PathVariable Long id){
+	public ResponseEntity<EnseignantDTO> getById(@PathVariable Long id){
 		var enseignant = enseignantService.getById(id);
-		return this.convertToDto(enseignant);
+		if (enseignant==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
+
 	}
 	
 	@ApiOperation(value="Rechercher un enseignant par emailUbo")
@@ -70,9 +76,12 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "emailUbo/{emailUbo}")
-	public EnseignantDTO getByEmailUbo(@PathVariable String emailUbo){
+	public ResponseEntity<EnseignantDTO> getByEmailUbo(@PathVariable String emailUbo){
 		var enseignant = enseignantService.getByEmailUbo(emailUbo);
-		return this.convertToDto(enseignant);
+		if (enseignant==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
 	}
 	@ApiOperation(value="Créer un enseignant")
 	@ApiResponses(value= {
@@ -81,24 +90,10 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})	
 	@PostMapping
-	public EnseignantDTO createEnseignant(@Valid @RequestBody EnseignantDTO enseignantRequest) {
-		Enseignant enseignant = convertToEntity(enseignantRequest);
-		var newEnseignant = enseignantService.create(enseignant);
+	public EnseignantDTO createEnseignant(@RequestBody Enseignant enseignantRequest) {
+		var enseignant = enseignantService.create(enseignantRequest);
 		return this.convertToDto(enseignant);
 		
-	}
-	@ApiOperation(value="Modifier un enseignant")
-	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
-	})	
-	@PutMapping(path = "/{id}")
-	public EnseignantDTO updateEnseignant(@PathVariable Long id,@Valid @RequestBody EnseignantDTO enseignantRequest) {
-		Enseignant enseignant = convertToEntity(enseignantRequest);
-	        var newEnseignant = enseignantService.updateById(id,enseignant);
-//	            enseignantService.createEnseignant(enseignant);
-	        return convertToDto(newEnseignant);
 	}
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
@@ -107,15 +102,14 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})	
 	@DeleteMapping(path="/{noEnseignant}")
-    public void deleteByNoEnseignant(@PathVariable("noEnseignant") Long noEnseignant){
-        try {
-        	enseignantService.delete(noEnseignant);
-        }
-        catch(Exception e) {
-        	System.out.println(e);
-        }
-    }
-	
+    public ResponseEntity<?> deleteByNoEnseignant(@PathVariable("noEnseignant") Long noEnseignant) {
+         Boolean val=enseignantService.delete(noEnseignant);
+		if (val) return ResponseEntity.ok("Entity deleted");
+
+		else return ResponseEntity.notFound().build();
+	}
+
+
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
 		return modelMapper.map(enseignant, EnseignantDTO.class);
 	}
