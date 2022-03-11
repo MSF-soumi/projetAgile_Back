@@ -1,6 +1,7 @@
 package com.application.services.Impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.application.services.EnseignantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,8 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant getById(Long id)
 	{
-		return enseignantRepository.getById(id);
+		Optional<Enseignant> res = enseignantRepository.findById(id);
+		return res.isPresent() ? res.get() : null;
 	}
 	
 	@Override

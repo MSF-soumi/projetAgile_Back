@@ -54,11 +54,13 @@ class ProjetAgileApplicationTests {
 	}
 	
 	
-//	@Test
-//	public void verfierEnseignantParId()
-//	{
-//		assertThat(enseignantService.getById(Long.valueOf(1)).getNom()).isNotEmpty();
-//	}
+	@Test
+	public void verfierEnseignantParId()
+	{
+		assertThat(enseignantService.getById(Long.valueOf(1)).getNom()).isNotEmpty();
+		assertThat(enseignantService.getById(Long.valueOf(99))).isEqualTo(null);
+		
+	}
 	
 	@Test
 	public void verfierEnseignantParEmail()
