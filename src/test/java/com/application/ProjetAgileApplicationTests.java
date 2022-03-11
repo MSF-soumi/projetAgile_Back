@@ -68,22 +68,40 @@ class ProjetAgileApplicationTests {
 		assertThat(enseignantService.getByEmailUbo("ps@univ-brest.fr").getNom()).isNotEmpty();
 	}
 	
+	@Test
+	public void verfierAjoutEnseignant()
+	{
+		Enseignant enseignant = new Enseignant();
+		
+		enseignant.setNom("DDtest");
+		enseignant.setPrenom("DDtest");
+		enseignant.setVille("BREST");
+		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
+		enseignant.setMobile("06.00.00.00.19");
+		enseignant.setCode_Postal("29200");
+		enseignant.setSexe("F");
+		enseignant.setType("MCF");
+		enseignant.setPays("FR");
+		enseignant.setTelephone("02.08.01.67.32");
+		
+		
+		enseignant = enseignantService.create(enseignant);
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+		
+		enseignantService.delete(enseignant.getNo_Enseignant());
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant())).isNull();		
+		
+	}
+	
 //	@Test
-//	public void verfierAjoutEnseignant()
+//	public void verfierSuppEnseignant()
 //	{
-//		Enseignant enseignant = new Enseignant();
+//		enseignantService.delete(Long.valueOf(1013));
 //		
-//		enseignant.setNom("DDtest");
-//		enseignant.setPrenom("DDtest");
-//		enseignant.setVille("BREST");
-//		enseignant.setAdresse("73 avenue champs elysees");
-//		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
-//		enseignant.setMobile("06.00.00.00.13");
-//		enseignant.setCode_Postal("29200");
-//		
-//		assertThat(enseignantService.create(enseignant).getNom()).isNotEmpty();
-//		
-//		//enseignantService.delete(enseignant.getNo_Enseignant());
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
 //	}
 	
 	//--------------- Promotion -------------------------
