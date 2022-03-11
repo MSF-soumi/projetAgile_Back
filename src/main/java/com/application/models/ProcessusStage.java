@@ -1,10 +1,6 @@
 package com.application.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,6 +11,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Builder
 @Getter
@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name="V_processus_stage")
-public class ProcessusStage {
+public class ProcessusStage implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,5 +31,4 @@ public class ProcessusStage {
 	private String code;
 	private String abreviation;
 	private String signification;
-	
 }
