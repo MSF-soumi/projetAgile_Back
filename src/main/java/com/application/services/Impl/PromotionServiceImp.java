@@ -1,6 +1,5 @@
 package com.application.services.Impl;
 
-import com.application.models.Enseignant;
 import com.application.models.Promotion;
 import com.application.models.PromotionPK;
 import com.application.repositories.PromotionRepository;
@@ -31,8 +30,7 @@ public class PromotionServiceImp implements PromotionService {
     @Override
     public List<Promotion> getAll(){
         return promotionRepository.findAll();
-    }
-    
+    } 
 	@Override
 	public Promotion getById(PromotionPK id)
 	{

@@ -10,8 +10,8 @@ public interface PromotionService {
 
     public List<Promotion> getAll();
 
-	Promotion getById(PromotionPK id);
 
+	Promotion getById(PromotionPK id);
     //public Promotion getById(Long id);
 
     //public Promotion update(Promotion promotion);

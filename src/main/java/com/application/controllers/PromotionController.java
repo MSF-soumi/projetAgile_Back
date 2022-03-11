@@ -1,6 +1,5 @@
 package com.application.controllers;
 
-import com.application.dto.EnseignantDTO;
 import com.application.dto.PromotionDTO;
 import com.application.models.Promotion;
 import com.application.models.PromotionPK;
@@ -9,7 +8,12 @@ import com.application.services.PromotionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
+import com.application.dto.PromotionDTO;
+import com.application.models.Promotion;
+import com.application.services.PromotionService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,19 +50,20 @@ public class PromotionController {
         var promotions = promotionService.getAll();
         return promotions.stream().map(this::convertToDto).collect(Collectors.toList());
     }
-	@ApiOperation(value="Créer une promotion")
-	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
-	})
+
+    @ApiOperation(value="Créer une promotion")
+    @ApiResponses(value= {
+            @ApiResponse(code=200,message="Requêtte réussie"),
+            @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+            @ApiResponse(code=400,message="Requêtte non réussie")
+    })
     @PostMapping()
     public PromotionDTO create(@Valid @RequestBody PromotionDTO promotionDTO){
         var promotion = convertToEntity(promotionDTO);
         var newPromotion = promotionService.create(promotion);
         return convertToDto(newPromotion);
     }
-    
+
 	@ApiOperation(value="Rechercher une promotion par ID")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requette réussie"),
@@ -71,6 +76,7 @@ public class PromotionController {
 		var promotion = promotionService.getById(id);
 		return this.convertToDto(promotion);
 	}
+
     private PromotionDTO convertToDto(Promotion promotion) {
         return modelMapper.map(promotion, PromotionDTO.class);
     }
