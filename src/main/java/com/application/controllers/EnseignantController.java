@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,12 +51,22 @@ public class EnseignantController {
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requette réussie"),
 			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
+			@ApiResponse(code=400,message="Requette non réussie"),
+			@ApiResponse(code=404,message="ID non trouvable")
 	})
 	@GetMapping(path = "/{id}")
-	public EnseignantDTO getById(@PathVariable Long id){
+	public ResponseEntity<EnseignantDTO> getById(@PathVariable Long id){
+		System.out.println("console");
+
 		var enseignant = enseignantService.getById(id);
-		return this.convertToDto(enseignant);
+		System.out.println("inside ish"+enseignant);
+
+		if(enseignant==null){
+			System.out.println("inside"+enseignant);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}else{
+			return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
+		}
 	}
 	
 	@ApiOperation(value="Rechercher un enseignant par emailUbo")
