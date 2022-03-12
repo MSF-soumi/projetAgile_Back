@@ -9,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
+
 import com.application.models.PromotionPK;
+
 import com.application.services.EnseignantService;
 import com.application.services.PromotionService;
 
@@ -66,7 +68,10 @@ class ProjetAgileApplicationTests {
 	@Test
 	public void verfierEnseignantParEmail()
 	{
+
 		assertThat(enseignantService.getByEmailUbo("ps@univ-brest.fr")).isNotNull();
+
+		assertThat(enseignantService.getByEmailUbo("ps@univ-brest.fr").getNom()).isNotEmpty();
 	}
 	
 	@Test
@@ -97,6 +102,7 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+
 	//--------------- Promotion -------------------------
 	
 	@Test
@@ -123,8 +129,14 @@ class ProjetAgileApplicationTests {
 		
 		assertThat(promotionService.getById(pkFalse)).isEqualTo(null);
 		
-	}
-	
-	
+
+//	@Test
+//	public void verfierSuppEnseignant()
+//	{
+//		enseignantService.delete(Long.valueOf(1013));
+//		
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
+//	}
+		
 
 }
