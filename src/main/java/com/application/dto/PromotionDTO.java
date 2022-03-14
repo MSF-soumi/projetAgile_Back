@@ -37,6 +37,6 @@ public class PromotionDTO {
 
     @NotBlank(message = "Le lieu de rentrée est obligatoire")
     private String lieu_Rentree;
-    private String processus_Stage;
+    private ProcessusStage processus_Stage;
     private String commentaire;
 }

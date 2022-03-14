@@ -118,6 +118,7 @@ public class EnseignantController {
 	public EnseignantDTO updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 	        var newEnseignant = enseignantService.updateById(id,enseignant);
+	        System.out.println(enseignant);
 //	            enseignantService.createEnseignant(enseignant);
 	        return convertToDto(newEnseignant);
 	}
