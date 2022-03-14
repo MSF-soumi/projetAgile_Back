@@ -158,12 +158,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	
 	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException, NumberParseException {
 		
-		if(!tel.startsWith("+"))
-			"+33".concat(tel);
-		
-		System.out.println("parse :" + phoneNumberUtil.parse(tel, 
-			      CountryCodeSource.UNSPECIFIED.name()));
-		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse(tel, 
+		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse((tel.startsWith("+") ? tel : "+33".concat(tel)), 
 			      CountryCodeSource.UNSPECIFIED.name())))
 			throw new PhoneNumberFormatException(Enseignant.class, tel);
 		else return true;
