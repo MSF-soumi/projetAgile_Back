@@ -41,12 +41,10 @@ public class PromotionControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
     }
 
-    //TODO
     @Test
-    public void getPromotionById() throws Exception{
+    public void getPromotionById() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
@@ -57,8 +55,6 @@ public class PromotionControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-
-
     }
 
     @Test
