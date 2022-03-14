@@ -1,7 +1,5 @@
 package com.application.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,10 +22,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name="V_sexe")
-public class Sexe {
-	
+@Table(name="v_salle")
+public class Salle {
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
 	private String code;
 	private String abreviation;
 	private String signification;

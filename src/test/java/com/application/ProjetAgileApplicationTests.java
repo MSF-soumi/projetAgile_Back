@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
+
 import com.application.models.ProcessusStage;
 import com.application.models.Promotion;
 
@@ -184,6 +185,7 @@ class ProjetAgileApplicationTests {
 //		    }
 //		  }
 	}
+	
 	
 	
 
