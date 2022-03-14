@@ -18,6 +18,7 @@ import java.util.Map;
 
 @Service
 public class PromotionServiceImp implements PromotionService {
+
     @Autowired
     public final PromotionRepository promotionRepository;
 
@@ -40,7 +41,6 @@ public class PromotionServiceImp implements PromotionService {
 		Optional<Promotion> res=promotionRepository.findById(id);
 		return res.isPresent()?res.get():null;
 	}
-    
 
     @Override
     public List<Promotion> updateWorkflow(List<Promotion> promotions){

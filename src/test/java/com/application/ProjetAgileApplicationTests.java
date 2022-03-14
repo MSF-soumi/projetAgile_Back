@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
+
+import com.application.models.PromotionPK;
 import com.application.services.EnseignantService;
 import com.application.services.PromotionService;
 
@@ -62,6 +64,16 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+	
+//	@Test
+//	public void verfierSuppEnseignant()
+//	{
+//		enseignantService.delete(Long.valueOf(1013));
+//		
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
+//	}
+
+	
 	@Test
 	public void verfierEnseignantParEmail()
 	{
@@ -96,21 +108,35 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
-//	@Test
-//	public void verfierSuppEnseignant()
-//	{
-//		enseignantService.delete(Long.valueOf(1013));
-//		
-//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
-//	}
 	
 	//--------------- Promotion -------------------------
+	
 	@Test
 	public void verfierDonneePromotions()
 	{
 		assertThat(promotionService.getAll()).isNotEmpty();
 	}
 	
+	@Test
+	public void verfierPromotionParId()
+	{
+		PromotionPK pk = new PromotionPK();
+		
+		pk.setCode_Formation("M2DOSI");
+		pk.setAnnee_Universitaire("2013-2014");
+		
+		
+		assertThat(promotionService.getById(pk).getSigle_Promotion()).isNotEmpty();
+		
+		PromotionPK pkFalse = new PromotionPK();
+		
+		pkFalse.setCode_Formation("M5DOSI");
+		pkFalse.setAnnee_Universitaire("2033-2034");
+		
+		assertThat(promotionService.getById(pkFalse)).isEqualTo(null);
+		
+	}
+
 	
 
 }
