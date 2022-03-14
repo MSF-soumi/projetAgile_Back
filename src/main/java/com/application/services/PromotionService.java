@@ -16,6 +16,7 @@ public interface PromotionService {
 
 
     public Promotion getById(PromotionPK id);
+
     //public Promotion getById(Long id);
 
     //public Promotion update(Promotion promotion);
