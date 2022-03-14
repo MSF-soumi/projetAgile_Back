@@ -116,6 +116,7 @@ public class EnseignantController {
 	})	
 	@PutMapping(path = "/{id}")
 	public EnseignantDTO updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
+		System.out.println("enseignant to update : " + enseignantRequest);
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 	        var newEnseignant = enseignantService.updateById(id,enseignant);
 //	            enseignantService.createEnseignant(enseignant);
