@@ -3,8 +3,6 @@ package com.application.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,9 +88,10 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requette non réussie")
 	})	
 	@PostMapping
-	public EnseignantDTO createEnseignant(@RequestBody Enseignant enseignantRequest) {
-		var enseignant = enseignantService.create(enseignantRequest);
-		return this.convertToDto(enseignant);
+	public EnseignantDTO createEnseignant(@RequestBody EnseignantDTO enseignantRequest) {
+		Enseignant enseignant = convertToEntity(enseignantRequest);
+		var newEnseignant = enseignantService.create(enseignant);
+		return this.convertToDto(newEnseignant);
 		
 	}
 	@ApiOperation(value="Supprimer un enseignant")
@@ -108,7 +107,20 @@ public class EnseignantController {
 
 		else return ResponseEntity.notFound().build();
 	}
-
+	
+	@ApiOperation(value="Modifier un enseignant")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requette réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
+			@ApiResponse(code=400,message="Requette non réussie")
+	})	
+	@PutMapping(path = "/{id}")
+	public EnseignantDTO updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
+		Enseignant enseignant = convertToEntity(enseignantRequest);
+	        var newEnseignant = enseignantService.updateById(id,enseignant);
+//	            enseignantService.createEnseignant(enseignant);
+	        return convertToDto(newEnseignant);
+	}
 
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
 		return modelMapper.map(enseignant, EnseignantDTO.class);
