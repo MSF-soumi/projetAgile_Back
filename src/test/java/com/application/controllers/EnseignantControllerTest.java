@@ -81,7 +81,7 @@ public class EnseignantControllerTest {
 
     @Test
     public void deleteEnseignant() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.delete("http://localhost:9191/api/v1/enseignants/1")
+        mvc.perform(MockMvcRequestBuilders.delete("http://localhost:9191/api/v1/enseignants/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 

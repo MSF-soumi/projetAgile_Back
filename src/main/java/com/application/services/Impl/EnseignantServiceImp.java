@@ -68,10 +68,10 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		try{
 			enseignantRepository.deleteById(id);
+			System.out.println("delete passed ");
 			return true;
-
 		}catch (Exception e){
-			System.out.println("Exception"+e.getMessage());
+			System.out.println("Exception "+e.getMessage());
 			return false;
 		}
 	}

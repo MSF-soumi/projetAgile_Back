@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 import java.util.Optional;
+
+import java.util.Map;
 
 @Service
 public class PromotionServiceImp implements PromotionService {
@@ -37,4 +40,15 @@ public class PromotionServiceImp implements PromotionService {
 		Optional<Promotion> res=promotionRepository.findById(id);
 		return res.isPresent()?res.get():null;
 	}
+    
+
+    @Override
+    public List<Promotion> updateWorkflow(List<Promotion> promotions){
+        for(Promotion promotion: promotions){
+            var oldPromotion = promotionRepository.getById(promotion.getId());
+            oldPromotion.setProcessus_Stage(promotion.getProcessus_Stage());
+            promotionRepository.save(promotion);
+        }
+        return promotionRepository.findAll();
+    }
 }

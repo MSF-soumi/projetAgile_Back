@@ -40,7 +40,7 @@ public class PromotionControllerTest {
     }
 
     @Test
-    public void createEnseignant() throws Exception{
+    public void createPromotion() throws Exception{
 
         Object randomObj = new Object() {
             public final String sigle_Promotion = "DOSITest";
