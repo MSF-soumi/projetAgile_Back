@@ -1,8 +1,6 @@
 package com.application.controllers;
 
-import com.application.dto.EnseignantDTO;
 import com.application.dto.FormationDTO;
-import com.application.models.Enseignant;
 import com.application.models.Formation;
 import com.application.services.Impl.FormationServiceImp;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +35,6 @@ public class FormationController {
             @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
             @ApiResponse(code=400,message="Requêtte non réussie")
     })
-
     @GetMapping
     public List<FormationDTO> getAll() {
         var formations = formationServiceImp.getAll();
