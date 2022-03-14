@@ -1,6 +1,7 @@
 package com.application.controllers;
 
 
+
 import com.application.models.Enseignant;
 import com.application.models.ProcessusStage;
 import com.application.models.Promotion;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -48,11 +50,18 @@ public class PromotionControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+    @Test
+    public void getAllPromotionById() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+
     }
 
     @Test
     public void createPromotion() throws Exception{
-
         String newPromotion = "{\"id\":" +
                 "{\"code_Formation\": \"M2DOSI\"," +
                 "\"annee_Universitaire\": \"2013-2014\"}," +
@@ -85,6 +94,25 @@ public class PromotionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(newPromotion)
                 .characterEncoding("utf-8")).andExpect(status().isOk());
+        Object randomObj = new Object() {
+            public final String sigle_Promotion = "DOSITest";
+            public final String nb_Max_Etudiant="50";
+            public final String date_Reponse_Lp="04-05-13";
+            public final String date_Reponse_Lalp="19-05-13";
+            public final String date_Rentree="07-09-13";
+            public final String lieu_Rentree="LC117B";
+            public final String processus_Stage="EC";
+            public final String commentaire="Commentaire Test";
+        };
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(randomObj);
+
+        mvc.perform(MockMvcRequestBuilders.post("http://localhost:9191/api/v1/promotions")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON).content(json)
+                .characterEncoding("utf-8")).andExpect(status().isOk());
+
     }
 
     @Test

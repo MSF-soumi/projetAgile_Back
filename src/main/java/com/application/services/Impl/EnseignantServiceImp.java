@@ -67,8 +67,10 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		try{
 			enseignantRepository.deleteById(id);
+			System.out.println("delete passed ");
 			return true;
 		}catch (Exception e){
+			System.out.println("Exception "+e.getMessage());
 			return false;
 		}
 	}
@@ -77,7 +79,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
-
+  
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
