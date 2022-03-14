@@ -129,14 +129,8 @@ class ProjetAgileApplicationTests {
 		
 		assertThat(promotionService.getById(pkFalse)).isEqualTo(null);
 		
+	}
 
-//	@Test
-//	public void verfierSuppEnseignant()
-//	{
-//		enseignantService.delete(Long.valueOf(1013));
-//		
-//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
-//	}
 		
 
 }
