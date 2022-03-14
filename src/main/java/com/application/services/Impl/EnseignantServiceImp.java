@@ -29,7 +29,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	private final EnseignantRepository enseignantRepository ;
 		
 	public EnseignantServiceImp(EnseignantRepository enseignantRepo) {
-		
 		enseignantRepository=enseignantRepo;
 	}
 	
@@ -130,6 +129,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+  
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{

@@ -67,6 +67,7 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+
 	@Test
 	public void verfierEnseignantParEmail()
 	{
@@ -101,9 +102,15 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+//	@Test
+//	public void verfierSuppEnseignant()
+//	{
+//		enseignantService.delete(Long.valueOf(1013));
+//		
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
+//	}
 	
 	//--------------- Promotion -------------------------
-	
 	@Test
 	public void verfierDonneePromotions()
 	{

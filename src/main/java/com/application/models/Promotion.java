@@ -39,10 +39,8 @@ public class Promotion implements Serializable {
 	private LocalDate date_Rentree;
 
 	private String lieu_Rentree;
-	
-	@ManyToOne
-	@JoinColumn(name="processus_Stage")
-	private ProcessusStage processus_Stage;
+
+	private String processus_Stage;
 
 	private String commentaire;
 }
