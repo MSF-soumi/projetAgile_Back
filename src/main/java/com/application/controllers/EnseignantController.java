@@ -46,9 +46,6 @@ public class EnseignantController {
 			@ApiResponse(code=200,message="Requêtte réussie"),
 			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
 			@ApiResponse(code=400,message="Requêtte non réussie")
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping
 	public List<EnseignantDTO> getAll(){
@@ -61,9 +58,6 @@ public class EnseignantController {
 			@ApiResponse(code=200,message="Requêtte réussie"),
 			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
 			@ApiResponse(code=400,message="Requêtte non réussie")
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<EnseignantDTO> getById(@PathVariable Long id){
@@ -80,9 +74,6 @@ public class EnseignantController {
 			@ApiResponse(code=200,message="Requêtte réussie"),
 			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
 			@ApiResponse(code=400,message="Requêtte non réussie")
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "emailUbo/{emailUbo}")
 	public ResponseEntity<EnseignantDTO> getByEmailUbo(@PathVariable String emailUbo){
@@ -103,6 +94,8 @@ public class EnseignantController {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 		var newEnseignant = enseignantService.create(enseignant);
 		return this.convertToDto(newEnseignant);
+	}
+
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requêtte réussie"),
@@ -129,11 +122,6 @@ public class EnseignantController {
 //	            enseignantService.createEnseignant(enseignant);
 	        return convertToDto(newEnseignant);
 	}
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
-	})	
-
 
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
 		return modelMapper.map(enseignant, EnseignantDTO.class);
