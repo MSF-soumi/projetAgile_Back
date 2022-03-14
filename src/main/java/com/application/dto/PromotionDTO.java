@@ -17,18 +17,18 @@ public class PromotionDTO {
 
     private Enseignant Enseignant;
 
-    @NotBlank(message = "Le sigle Promotion est obligatoire")
+    @NotBlank(message = "Le sigle de la promotion est obligatoire")
     private String sigle_Promotion;
 
-    @NotNull(message = "Le nombre max des etudiants est obligatoire")
+    @NotNull(message = "Le nombre max des étudiants est obligatoire")
     private int nb_Max_Etudiant;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de reponse de la liste principale est obligatoire")
+    @NotNull(message = "La date de réponse de la liste principale est obligatoire")
     private LocalDate date_Reponse_Lp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de reponse de la liste d'attente est obligatoire")
+    @NotNull(message = "La date de réponse de la liste d'attente est obligatoire")
     private LocalDate date_Reponse_Lalp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")

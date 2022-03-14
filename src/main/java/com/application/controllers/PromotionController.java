@@ -70,9 +70,9 @@ public class PromotionController {
 
 	@ApiOperation(value="Rechercher une promotion par ID")
 	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
+			@ApiResponse(code=200,message="Requêtte réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+			@ApiResponse(code=400,message="Requêtte non réussie")
 	})
 	@GetMapping(path = "/{code_Formation}/{annee_Universitaire}")
 	public PromotionDTO getById(@PathVariable String code_Formation,@PathVariable String annee_Universitaire){
