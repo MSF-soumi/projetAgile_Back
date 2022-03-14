@@ -20,7 +20,7 @@ public class Formation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String code_Formation;
     private String diplome;
-    private Long no_Annee;
+    private Long n0_Annee;
     private String nom_Formation;
     private String double_Diplome;
     private LocalDate debut_Accreditation;
