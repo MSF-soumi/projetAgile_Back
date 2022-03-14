@@ -85,6 +85,7 @@ class ProjetAgileApplicationTests {
 		enseignant.setPrenom("DDtest");
 		enseignant.setVille("BREST");
 		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
 		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
 		enseignant.setMobile("06.00.00.00.19");
 		enseignant.setCode_Postal("29200");
@@ -165,25 +166,34 @@ class ProjetAgileApplicationTests {
 		
 		promotion.setLieu_Rentree("LC117B");
 		
-		ProcessusStage ps = new ProcessusStage();
-//		    "processus_Stage": "ProcessusStage(code=RECH, abreviation=RECH, signification=Recherche en cours)",
-//		    "commentaire": null,
-//		    "enseignant": {
-//		      "no_Enseignant": 1,
-//		      "nom": "S",
-//		      "prenom": "P",
-//		      "sexe": "H",
-//		      "type": "MCF",
-//		      "pays": "FR",
-//		      "ville": "LE DRENNEC",
-//		      "adresse": "6 rue de l'eglise",
-//		      "email_Perso": "ps@gmail.com",
-//		      "email_Ubo": "ps@univ-brest.fr",
-//		      "mobile": "06.00.00.01.00",
-//		      "telephone": "02.98.01.69.74",
-//		      "code_Postal": "29860"
-//		    }
-//		  }
+		promotion.setProcessus_Stage("RECH");
+		
+		promotion.setCommentaire("commentaire");
+
+		Enseignant enseignant = new Enseignant();
+		
+		enseignant.setNom("DDtest");
+		enseignant.setPrenom("DDtest");
+		enseignant.setVille("BREST");
+		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
+		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
+		enseignant.setMobile("06.00.00.00.19");
+		enseignant.setCode_Postal("29200");
+		enseignant.setSexe("F");
+		enseignant.setType("MCF");
+		enseignant.setPays("FR");
+		enseignant.setTelephone("02.08.01.67.32");
+		
+		
+		enseignant = enseignantService.create(enseignant);
+		
+		promotion.setEnseignant(enseignant);
+		
+		promotion = promotionService.create(promotion);
+		
+		assertThat(promotionService.getById(promotion.getId()).getSigle_Promotion()).isNotNull();
+
 	}
 	
 	
