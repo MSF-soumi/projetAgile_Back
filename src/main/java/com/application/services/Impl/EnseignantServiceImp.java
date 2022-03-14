@@ -18,7 +18,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	private final EnseignantRepository enseignantRepository ;
 		
 	public EnseignantServiceImp(EnseignantRepository enseignantRepo) {
-		
 		enseignantRepository=enseignantRepo;
 	}
 	
@@ -47,6 +46,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
+		System.out.println("ID"+enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
 		Enseignant.setPrenom(enseignant.getPrenom());
 		Enseignant.setSexe(enseignant.getSexe());
@@ -79,6 +79,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+  
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{

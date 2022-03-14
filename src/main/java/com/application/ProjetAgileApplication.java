@@ -10,10 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.application.models.Enseignant;
 import com.application.models.Sexe;
-
+@CrossOrigin(origins = "*")
 @SpringBootApplication
 public class ProjetAgileApplication implements CommandLineRunner{
 	
