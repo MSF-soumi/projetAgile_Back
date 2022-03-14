@@ -4,9 +4,18 @@ import com.application.models.Promotion;
 import com.application.models.PromotionPK;
 import com.application.repositories.PromotionRepository;
 import com.application.services.PromotionService;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
+import java.util.Optional;
+
+import java.util.Map;
+
 @Service
 public class PromotionServiceImp implements PromotionService {
     @Autowired
@@ -17,9 +26,21 @@ public class PromotionServiceImp implements PromotionService {
     }
 
     @Override
+    public Promotion create(Promotion promotion) {
+        return this.promotionRepository.save(promotion);
+    }
+
+    @Override
     public List<Promotion> getAll(){
         return promotionRepository.findAll();
-    }
+    } 
+	@Override
+	public Promotion getById(PromotionPK id)
+	{
+		Optional<Promotion> res=promotionRepository.findById(id);
+		return res.isPresent()?res.get():null;
+	}
+    
 
     @Override
     public List<Promotion> updateWorkflow(List<Promotion> promotions){
