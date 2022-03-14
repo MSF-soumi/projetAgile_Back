@@ -42,12 +42,13 @@ public class PromotionController {
         this.modelMapper = modelMapper;
         this.promotionService = promotionService;
     }
-	@ApiOperation(value="Lister toutes les promotions")
-	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requette réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
-			@ApiResponse(code=400,message="Requette non réussie")
-	})
+
+    @ApiOperation(value="Lister toutes les promotions")
+    @ApiResponses(value= {
+            @ApiResponse(code=200,message="Requêtte réussie"),
+            @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+            @ApiResponse(code=400,message="Requêtte non réussie")
+    })
     @GetMapping
     public List<PromotionDTO> getAll(){
         var promotions = promotionService.getAll();

@@ -71,7 +71,7 @@ public class EnseignantControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(randomObj);
-
+        System.out.println(json);
         mvc.perform(MockMvcRequestBuilders.post("http://localhost:9191/api/v1/enseignants")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(json)

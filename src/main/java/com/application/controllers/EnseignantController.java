@@ -102,8 +102,7 @@ public class EnseignantController {
 	})	
 	@DeleteMapping(path="/{noEnseignant}")
     public ResponseEntity<?> deleteByNoEnseignant(@PathVariable("noEnseignant") Long noEnseignant) {
-         Boolean val=enseignantService.delete(noEnseignant);
-		System.out.println("delete succefully "+val);
+		Boolean val=enseignantService.delete(noEnseignant);
 		if (val) return ResponseEntity.ok("Entity deleted");
 		else return ResponseEntity.notFound().build();
 	}
