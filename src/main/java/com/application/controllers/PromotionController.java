@@ -2,7 +2,6 @@ package com.application.controllers;
 
 import com.application.dto.PromotionDTO;
 import com.application.models.Promotion;
-import com.application.models.PromotionPK;
 import com.application.services.PromotionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController

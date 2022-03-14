@@ -1,10 +1,8 @@
 package com.application.services;
 
 import com.application.models.Promotion;
-import com.application.models.PromotionPK;
 
 import java.util.List;
-import java.util.Map;
 
 public interface PromotionService {
     //public Promotion create(Promotion promotion);
