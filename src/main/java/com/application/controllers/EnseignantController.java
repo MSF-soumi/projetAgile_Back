@@ -91,7 +91,6 @@ public class EnseignantController {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 		var newEnseignant = enseignantService.create(enseignant);
 		return this.convertToDto(newEnseignant);
-		
 	}
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
@@ -128,3 +127,4 @@ public class EnseignantController {
 		return modelMapper.map(enseignantDTO, Enseignant.class);
 	}
 }
+
