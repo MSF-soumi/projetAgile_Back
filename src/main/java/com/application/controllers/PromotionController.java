@@ -88,7 +88,7 @@ public class PromotionController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})	
 	@DeleteMapping(path="/{code_Formation}/{annee_Universitaire}")
-    public ResponseEntity<?> deleteByNoEnseignant(@PathVariable String code_Formation,@PathVariable String annee_Universitaire) {
+    public ResponseEntity<?> deleteByPromotion(@PathVariable String code_Formation,@PathVariable String annee_Universitaire) {
 		PromotionPK id= new PromotionPK(code_Formation,annee_Universitaire);
 		Boolean val=promotionService.delete(id);
 		if (val) return ResponseEntity.ok("Entity deleted");
