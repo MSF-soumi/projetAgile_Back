@@ -14,8 +14,6 @@ import java.util.List;
 
 import java.util.Optional;
 
-import java.util.Map;
-
 @Service
 public class PromotionServiceImp implements PromotionService {
 
@@ -50,4 +48,17 @@ public class PromotionServiceImp implements PromotionService {
         }
         return promotionRepository.findAll();
     }
+
+	@Override
+	public boolean delete(PromotionPK id) {
+		try{
+			promotionRepository.deleteById(id);
+			System.out.println("delete passed ");
+			return true;
+		}catch (Exception e){
+			System.out.println("Exception "+e.getMessage());
+			return false;
+		}
+		
+	}
 }

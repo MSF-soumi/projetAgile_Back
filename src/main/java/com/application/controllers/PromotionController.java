@@ -11,15 +11,7 @@ import io.swagger.annotations.ApiResponses;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -87,6 +79,21 @@ public class PromotionController {
         var newPromotionList = promotionService.updateWorkflow(promotionList);
         return convertListToDto(newPromotionList);
     }
+    
+    
+	@ApiOperation(value="Supprimer un promotion")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requêtte réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+			@ApiResponse(code=400,message="Requêtte non réussie")
+	})	
+	@DeleteMapping(path="/{code_Formation}/{annee_Universitaire}")
+    public ResponseEntity<?> deleteByNoEnseignant(@PathVariable String code_Formation,@PathVariable String annee_Universitaire) {
+		PromotionPK id= new PromotionPK(code_Formation,annee_Universitaire);
+		Boolean val=promotionService.delete(id);
+		if (val) return ResponseEntity.ok("Entity deleted");
+		else return ResponseEntity.notFound().build();
+	}
 
     private PromotionDTO convertToDto(Promotion promotion) {
         return modelMapper.map(promotion, PromotionDTO.class);
