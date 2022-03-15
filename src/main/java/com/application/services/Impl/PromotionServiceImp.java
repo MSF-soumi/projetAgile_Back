@@ -1,5 +1,6 @@
 package com.application.services.Impl;
 
+import com.application.exceptions.promotions.DatesOrderException;
 import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import com.application.exceptions.promotions.EntityNotFoundException;
 import com.application.models.*;
@@ -9,6 +10,7 @@ import com.application.services.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import java.util.Optional;
@@ -46,6 +48,7 @@ public class PromotionServiceImp implements PromotionService {
         if (!salleExists(promotion.getLieu_Rentree())) throw new EntityNotFoundException(Salle.class, "Code", promotion.getLieu_Rentree());
         if (!processusStageExists(promotion.getProcessus_Stage())) throw new EntityNotFoundException(ProcessusStage.class, "Code", promotion.getProcessus_Stage());
 
+        if(!datesRespectOrder(promotion.getDate_Reponse_Lp(), promotion.getDate_Reponse_Lalp(), promotion.getDate_Rentree())) throw new DatesOrderException(Promotion.class);
         return this.promotionRepository.save(promotion);
     }
 
@@ -104,5 +107,9 @@ public class PromotionServiceImp implements PromotionService {
 
     public boolean promotionDoesNotExistID(PromotionPK id) throws EntityAlreadyExistsException{
         return promotionRepository.findById(id).isEmpty();
+    }
+
+    public boolean datesRespectOrder(LocalDate dateReponseLP, LocalDate dateReponseLALP, LocalDate dateRentree) throws EntityAlreadyExistsException{
+       return dateReponseLALP.isAfter(dateReponseLP) && dateRentree.isAfter(dateReponseLP);
     }
 }
