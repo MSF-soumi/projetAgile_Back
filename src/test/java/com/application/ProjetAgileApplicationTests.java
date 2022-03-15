@@ -105,6 +105,34 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+	@Test
+	public void verfierUpdateEnseignant()
+	{
+		Enseignant enseignant = new Enseignant();
+		
+		enseignant.setNom("DDtest");
+		enseignant.setPrenom("DDtest");
+		enseignant.setVille("BREST");
+		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
+		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
+		enseignant.setMobile("06.00.00.00.19");
+		enseignant.setCode_Postal("29200");
+		enseignant.setSexe("F");
+		enseignant.setType("MCF");
+		enseignant.setPays("FR");
+		enseignant.setTelephone("02.08.01.67.32");
+		
+		enseignant = enseignantService.create(enseignant);
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+		
+		enseignant = enseignantService.updateById(enseignant.getNo_Enseignant(),enseignant);
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+		
+	}
+	
 //	@Test
 //	public void verfierSuppEnseignant()
 //	{
@@ -143,33 +171,33 @@ class ProjetAgileApplicationTests {
 	@Test
 	public void verfierAjoutPromotion()
 	{
+		//creation d'une object promotion 
 		Promotion promotion = new Promotion();
 		
+		//creation de cle etranger 
 		PromotionPK pk = new PromotionPK();
 		
-		pk.setCode_Formation("M2DOSI");
-		pk.setAnnee_Universitaire("2015-2016");		
-		
-		promotion.setId(pk);
-		promotion.setSigle_Promotion("DOSI6");
-		
-		promotion.setNb_Max_Etudiant(24);
-		
+		//les locale dates de LP, LALP, Date rentree
 		LocalDate dateLp = LocalDate.of(2015, 5, 10);
-		promotion.setDate_Reponse_Lp(dateLp);
-		
 		LocalDate dateLalp = LocalDate.of(2015, 5, 19);
-		promotion.setDate_Reponse_Lalp(dateLalp);
-		
 		LocalDate dateRentree = LocalDate.of(2015, 9, 8);
+		
+		//initialisation de clé etranger
+		pk.setCode_Formation("M2DOSI");
+		pk.setAnnee_Universitaire("2016-2017");		
+		
+		//initialisation de Id
+		promotion.setId(pk);
+		
+		promotion.setSigle_Promotion("DOSI7");
+		promotion.setNb_Max_Etudiant(24);
+		promotion.setDate_Reponse_Lp(dateLp);
+		promotion.setDate_Reponse_Lalp(dateLalp);
 		promotion.setDate_Rentree(dateRentree);
-		
 		promotion.setLieu_Rentree("LC117B");
-		
 		promotion.setProcessus_Stage("RECH");
-		
 		promotion.setCommentaire("commentaire");
-
+		
 		Enseignant enseignant = new Enseignant();
 		
 		enseignant.setNom("DDtest");
@@ -190,6 +218,8 @@ class ProjetAgileApplicationTests {
 		
 		promotion.setEnseignant(enseignant);
 		
+
+		//creation de promotion
 		promotion = promotionService.create(promotion);
 		
 		assertThat(promotionService.getById(promotion.getId()).getSigle_Promotion()).isNotNull();
