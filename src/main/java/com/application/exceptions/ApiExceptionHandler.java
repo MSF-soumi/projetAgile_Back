@@ -236,7 +236,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(value = { Exception.class })
+    @ExceptionHandler(Exception.class )
     public ResponseEntity<Object> handleException(Exception ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage("Exception: " + ex.getMessage());
