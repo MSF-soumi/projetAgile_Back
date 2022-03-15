@@ -56,6 +56,7 @@ public class PromotionController {
     @PostMapping()
     public PromotionDTO create(@Valid @RequestBody PromotionDTO promotionDTO){
         var promotion = convertToEntity(promotionDTO);
+        promotion.setProcessus_Stage("RECH");
         var newPromotion = promotionService.create(promotion);
         return convertToDto(newPromotion);
     }

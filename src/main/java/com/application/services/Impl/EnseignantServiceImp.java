@@ -1,7 +1,10 @@
 package com.application.services.Impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.ConstraintViolationException;
 
 import com.application.services.EnseignantService;
 import com.google.i18n.phonenumbers.NumberParseException;
@@ -10,11 +13,14 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber.CountryCodeSource;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.application.exceptions.enseignant.EmailPersoFormatException;
 import com.application.exceptions.enseignant.EmailUboFormatException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
+import com.application.exceptions.enseignant.EnseignantNotFoundException;
+import com.application.exceptions.enseignant.EnseignantSQLException;
 import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
@@ -115,15 +121,40 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public boolean delete(Long id)
 	{
-		try{
+		try 
+		{
+			getById(id);
 			enseignantRepository.deleteById(id);
-			System.out.println("delete passed ");
 			return true;
-		}catch (Exception e){
-			System.out.println("Exception "+e.getMessage());
-			return false;
+
+		} 
+		catch (EnseignantNotFoundException e)
+		{
+			System.out.println("EnseignantNotFoundException: "+e.getMessage());
+			
+		}	
+		catch (DataIntegrityViolationException e)
+		{
+			System.out.println("SQLException: "+e.getMessage());
+			throw new EnseignantSQLException(getClass(), id);
+			
 		}
+		catch (Exception e)
+		{
+			System.out.println("Exception: "+e.toString());
+			
+		}
+		return false;
+		
 	}
+	
+	
+	/*public void deleteEnseignant(Long id) throws SQLException
+	{
+		enseignantRepository.deleteById(id);
+		
+	}*/
+	
 	@Override
 	public Enseignant getByEmailUbo(String email_Ubo)
 	{

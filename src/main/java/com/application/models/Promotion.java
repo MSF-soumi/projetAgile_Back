@@ -1,9 +1,6 @@
 package com.application.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.io.Serializable;
