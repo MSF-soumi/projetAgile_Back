@@ -7,5 +7,5 @@ import com.application.models.Salle;
 
 @Repository
 public interface SalleRepository extends JpaRepository<Salle, String>{
-
+    Salle findByCode(String code);
 }
