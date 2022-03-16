@@ -37,11 +37,12 @@ public class EnseignantDTO {
 	private String adresse;
     
     @Email(message="Format d'email not respectée, merci de suivre l'exemple abcd@gmail.com")
-	private String email_Perso;
+    private String email_Perso;
     
     @NotBlank(message = "L'email UBO enseignant est obligatoire")
     @Email(message="Format d'email not respectée, merci de suivre l'exemple nomprenom@univ-brest.fr")
-	private String email_Ubo;
+    @Pattern(regexp= "^[\\w!#$%&'+/=?^`{|}~-]+(?:\\.[\\w!#$%&'+/=?`{|}~-]+)@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-][a-zA-Z0-9])?\\.)+(?:\\.univ-brest\\.fr)$`\n")
+    private String email_Ubo;
     
     @NotBlank(message = "Le mobile enseignant est obligatoire")
 	@Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
@@ -53,7 +54,6 @@ public class EnseignantDTO {
 	@Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
 			+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
 			+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "mobile invalide")
-    
 	private String telephone;
 	
     @NotBlank(message = "Le code postal enseignant est obligatoire")
