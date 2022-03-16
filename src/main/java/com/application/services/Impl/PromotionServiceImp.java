@@ -34,6 +34,7 @@ public class PromotionServiceImp implements PromotionService {
     @Override
     public Promotion create(Promotion promotion) {
         //Processus Stage Par défaut : Recherche
+        System.out.println("this is salle==>"+promotion.getLieu_Rentree());
         if (promotion.getProcessus_Stage() == null)
             promotion.setProcessus_Stage("RECH");
 

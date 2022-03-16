@@ -55,6 +55,8 @@ public class PromotionController {
     })
     @PostMapping()
     public PromotionDTO create(@Valid @RequestBody PromotionDTO promotionDTO){
+        System.out.println("this is sallllle==>"+promotionDTO.getLieu_Rentree());
+
         var promotion = convertToEntity(promotionDTO);
         var newPromotion = promotionService.create(promotion);
         return convertToDto(newPromotion);

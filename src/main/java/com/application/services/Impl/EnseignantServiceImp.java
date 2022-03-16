@@ -46,6 +46,7 @@ public class EnseignantServiceImp implements EnseignantService {
 			throw new EmailUboIsTakenException(Enseignant.class, ens.getEmail_Ubo());
 		
 		try {
+			System.out.println("ens++>"+ens.getEmail_Ubo());
 				if(validateEmailUboFormat(ens.getEmail_Ubo()) &&
 					validateEmailPersoFormat(ens.getEmail_Perso()) &&
 						phoneNumberFormat(ens.getMobile()) &&
