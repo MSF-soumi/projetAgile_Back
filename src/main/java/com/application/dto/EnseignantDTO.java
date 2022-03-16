@@ -41,6 +41,7 @@ public class EnseignantDTO {
     
     @NotBlank(message = "L'email UBO enseignant est obligatoire")
     @Email(message="Format d'email not respectée, merci de suivre l'exemple nomprenom@univ-brest.fr")
+	@Pattern(regexp= "^[\\w!#$%&'*+/=?^`{|}~-]+(?:\\.[\\w!#$%&'*+/=?`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+(?:\\.univ-brest\\.fr)$`\n")
 	private String email_Ubo;
     
     @NotBlank(message = "Le mobile enseignant est obligatoire")
