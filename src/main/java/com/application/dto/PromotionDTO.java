@@ -6,8 +6,8 @@ import com.application.models.PromotionPK;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -18,9 +18,12 @@ public class PromotionDTO {
     private Enseignant Enseignant;
 
     @NotBlank(message = "Le sigle de la promotion est obligatoire")
+    @Size(min = 1, max = 16, message = "Le Sigle Promotion ne doit pas dépasser 16 caractères")
     private String sigle_Promotion;
 
     @NotNull(message = "Le nombre max des étudiants est obligatoire")
+    @Min(value = 1, message = "Le nombre max des étudiants ne peut pas être inférieur à 1")
+    @Max(value = 999, message = "Le nombre max des étudiants ne peut pas être supérieur à 999")
     private int nb_Max_Etudiant;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
