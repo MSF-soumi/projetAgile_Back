@@ -230,12 +230,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(PhoneNumberFormatException.class)
+    /*@ExceptionHandler(PhoneNumberFormatException.class)
     public ResponseEntity<Object> handleUsernameNotFound(PhoneNumberFormatException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
-    }
+    }*/
 
 
     @ExceptionHandler(Exception.class )
