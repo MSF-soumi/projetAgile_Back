@@ -17,12 +17,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.application.exceptions.enseignant.DifferentIdRequestException;
-import com.application.exceptions.enseignant.EmailPersoFormatException;
-import com.application.exceptions.enseignant.EmailUboFormatException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
@@ -66,18 +63,6 @@ public class EnseignantServiceImp implements EnseignantService {
 		
 	}
 	
-	
-	
-	
-//	@Override
-//	public Enseignant create(Enseignant ens)
-//	{
-//		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-//				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
-//				ens.getCode_Postal());
-//		enseignantRepository.save(newEns);
-//		return newEns;
-//	}
 	@Override
 	public List<Enseignant> getAll()
 	{
@@ -140,79 +125,49 @@ public class EnseignantServiceImp implements EnseignantService {
 		
 	}
 	
-	
-	/*public void deleteEnseignant(Long id) throws SQLException
-	{
-		enseignantRepository.deleteById(id);
-		
-	}*/
-	
 	@Override
 	public Enseignant getByEmailUbo(String email_Ubo)
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
-  
-//	@Override
-//	public Enseignant updateById(Long id, Enseignant enseignantRequest)
-//	{
-//		if(this.getById(id) !=null && id.equals(enseignantRequest.getNo_Enseignant())) {
-//			System.out.println("ana hnaya");
-//			return this.update(enseignantRequest);
-//		}
-//		return null;
-//		
-//	}
-	
+  	
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		if(enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo())!=null)
-			throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
-		
 		try 
 		{
 			if (differentId(id,enseignantRequest))
-				{
-					if(this.getById(id) !=null && id == enseignantRequest.getNo_Enseignant()) 
-						{
-							return this.update(enseignantRequest);
-						}
+				{		
+					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
+			
+					if(enseignantTrouve != null && 
+							enseignantTrouve.getEmail_Ubo()!=null && 
+							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
+						
+							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
+						
+							return this.update(enseignantRequest);	
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();
 			}
+	
 		return null;
 		
 	}
-
-//	public boolean validateEmailUboFormat(String email) throws EmailUboFormatException {
-//		if( !email.endsWith("@univ-brest.fr"))
-//			throw new EmailPersoFormatException(Enseignant.class, email);
-//		else return true;
-//	}
 	
-//	public boolean validateEmailPersoFormat(String email) throws EmailPersoFormatException {
-//		EmailValidator validator = EmailValidator.getInstance();
-//		System.out.println("validator : "+!validator.isValid(email));
-//		if(!validator.isValid(email))
-//			throw new EmailPersoFormatException(Enseignant.class, email);
-//		else return true;
-//		
-//	}
-	
-//	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException, NumberParseException {
-//		
-//		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse((tel.startsWith("+") ? tel : "+33".concat(tel)), 
-//			      CountryCodeSource.UNSPECIFIED.name())))
-//			throw new PhoneNumberFormatException(Enseignant.class, tel);
-//		else return true;
-//			
-//	}
-	
-	public boolean differentId(Long id,Enseignant enseignantRequest) throws DifferentIdRequestException {
-		if(this.getById(id) == null || id != enseignantRequest.getNo_Enseignant())
-			throw new DifferentIdRequestException(Enseignant.class, id);
-		else return true;
+	public boolean differentId(Long id,Enseignant enseignantRequest){
+		
+		if(this.getById(id) == null){
+			
+			throw new EnseignantNotFoundException(Enseignant.class, id);
+		}
+		else {
+			
+			if(!id.equals(enseignantRequest.getNo_Enseignant()))
+				throw new DifferentIdRequestException(Enseignant.class, id);
+			else return true;
+		}
+		
 	}
 }

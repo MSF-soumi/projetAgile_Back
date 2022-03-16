@@ -110,13 +110,16 @@ class ProjetAgileApplicationTests {
 	{
 		Enseignant oldenseignant = new Enseignant();
 		
+		Enseignant newenseignant = new Enseignant();
+		
+		
 		oldenseignant = enseignantService.getById(Long.valueOf(1030)); 
 		
 		oldenseignant.setNom("DDTestUp");
 		
-		oldenseignant = enseignantService.updateById(oldenseignant.getNo_Enseignant(),oldenseignant);
+		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
 		
-		assertThat(oldenseignant.getNom().equals("DDTestUp"));
+		assertThat(newenseignant.getNom().equals("DDTestUp"));
 		
 	}
 	
