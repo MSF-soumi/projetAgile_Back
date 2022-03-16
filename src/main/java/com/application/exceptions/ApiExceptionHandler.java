@@ -216,14 +216,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DatesOrderException.class)
-    public ResponseEntity<Object> handleEmailIsTaken(DatesOrderException ex) {
+    public ResponseEntity<Object> handleDatesOrder(DatesOrderException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
-    public ResponseEntity<Object> handleEmailIsTaken(EntityAlreadyExistsException ex) {
+    public ResponseEntity<Object> handleEntityAlreadyExists(EntityAlreadyExistsException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
