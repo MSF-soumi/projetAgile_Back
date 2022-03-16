@@ -12,7 +12,12 @@ import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -22,7 +27,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/promotions")
-@CrossOrigin(origins = "*")
 public class PromotionController {
 
     private final ModelMapper modelMapper;
@@ -34,13 +38,12 @@ public class PromotionController {
         this.modelMapper = modelMapper;
         this.promotionService = promotionService;
     }
-
-    @ApiOperation(value="Lister toutes les promotions")
-    @ApiResponses(value= {
-            @ApiResponse(code=200,message="Requêtte réussie"),
-            @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
-            @ApiResponse(code=400,message="Requêtte non réussie")
-    })
+	@ApiOperation(value="Lister toutes les promotions")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requette réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
+			@ApiResponse(code=400,message="Requette non réussie")
+	})
     @GetMapping
     public List<PromotionDTO> getAll(){
         var promotions = promotionService.getAll();
@@ -62,9 +65,9 @@ public class PromotionController {
 
 	@ApiOperation(value="Rechercher une promotion par ID")
 	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requêtte réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
-			@ApiResponse(code=400,message="Requêtte non réussie")
+			@ApiResponse(code=200,message="Requette réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
+			@ApiResponse(code=400,message="Requette non réussie")
 	})
 	@GetMapping(path = "/{code_Formation}/{annee_Universitaire}")
 	public PromotionDTO getById(@PathVariable String code_Formation,@PathVariable String annee_Universitaire){
