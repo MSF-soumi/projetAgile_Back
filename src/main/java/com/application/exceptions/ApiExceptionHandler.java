@@ -1,7 +1,11 @@
 package com.application.exceptions;
 
 import com.application.exceptions.apierror.ApiError;
+import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
+import com.application.exceptions.enseignant.EnseignantNotFoundException;
+import com.application.exceptions.enseignant.EnseignantSQLException;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -204,6 +208,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(DifferentIdRequestException.class)
+    public ResponseEntity<Object> handleDifferentIdRequestException(DifferentIdRequestException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    @ExceptionHandler(EnseignantNotFoundException.class)
+    public ResponseEntity<Object> handleEnseignantNotFoundException(EnseignantNotFoundException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    @ExceptionHandler(EnseignantSQLException.class)
+    public ResponseEntity<Object> handleEnseignantSQLException(EnseignantSQLException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    
 
     @ExceptionHandler(EmailUboIsTakenException.class)
     public ResponseEntity<Object> handleEmailIsTaken(EmailUboIsTakenException ex) {
