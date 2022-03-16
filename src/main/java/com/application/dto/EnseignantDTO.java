@@ -16,24 +16,31 @@ public class EnseignantDTO {
 	
 	private Long no_Enseignant;
     @NotBlank(message = "Le nom enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Le nom doit etre une chaine de caractère")
 	private String nom;
     
     @NotBlank(message = "Le prenom enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Le prénom doit etre une chaine de caractère")
 	private String prenom;
     
     @NotBlank(message = "Le sexe enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]", message = "Le sexe doit etre une chaine de caractère")
 	private String sexe;
     
     @NotBlank(message = "Le type enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Le Type doit etre une chaine de caractère")
 	private String type;
     
     @NotBlank(message = "Le pays enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Le pays doit etre une chaine de caractère")
 	private String pays;
     
     @NotBlank(message = "Le ville enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "La ville doit etre une chaine de caractère")
 	private String ville;
     
     @NotBlank(message = "L'adresse enseignant est obligatoire")
+    @Pattern(regexp = "[a-zA-Z]*", message = "L'adresse doit etre une chaine de caractère")
 	private String adresse;
     
     @Email(message="Format d'email not respectée, merci de suivre l'exemple abcd@gmail.com")

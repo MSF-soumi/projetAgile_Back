@@ -108,18 +108,18 @@ class ProjetAgileApplicationTests {
 	@Test
 	public void verfierUpdateEnseignant()
 	{
-		Enseignant oldenseignant = new Enseignant();
+		Enseignant oldenseignant;
 		
-		Enseignant newenseignant = new Enseignant();
+		Enseignant newenseignant;
 		
 		
-		oldenseignant = enseignantService.getById(Long.valueOf(1030)); 
+		oldenseignant = enseignantService.getById(Long.valueOf(1)); 
 		
-		oldenseignant.setNom("DDTestUp");
+		oldenseignant.setNom("SUp");
 		
-		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
+		newenseignant = enseignantService.updateById(Long.valueOf(1),oldenseignant);
 		
-		assertThat(newenseignant.getNom().equals("DDTestUp"));
+		assertThat(newenseignant.getNom().equals("SUp"));
 		
 	}
 	
