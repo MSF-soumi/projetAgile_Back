@@ -1,14 +1,12 @@
 package com.application.exceptions;
 
 import com.application.exceptions.apierror.ApiError;
-
-import com.application.exceptions.enseignant.EmailUboIsTakenException;
-import com.application.exceptions.promotions.DatesOrderException;
-import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
+import com.application.exceptions.promotions.DatesOrderException;
+import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -210,9 +208,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setDebugMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-
     @ExceptionHandler(DifferentIdRequestException.class)
     public ResponseEntity<Object> handleDifferentIdRequestException(DifferentIdRequestException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+
+    @ExceptionHandler(EmailUboIsTakenException.class)
+    public ResponseEntity<Object> handleEmailIsTaken(EmailUboIsTakenException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
@@ -231,16 +236,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-    
 
-    @ExceptionHandler(EmailUboIsTakenException.class)
-    public ResponseEntity<Object> handleEmailIsTaken(EmailUboIsTakenException ex) {
+    @ExceptionHandler(DatesOrderException.class)
+    public ResponseEntity<Object> handleDatesOrderException(DatesOrderException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
-
+    @ExceptionHandler(EntityAlreadyExistsException.class)
+    public ResponseEntity<Object> handleEntityAlreadyExists(EntityAlreadyExistsException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
 
     @ExceptionHandler(Exception.class )
     public ResponseEntity<Object> handleException(Exception ex) {
