@@ -56,7 +56,11 @@ public class EnseignantDTO {
 			+ "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "Téléphone invalide")
 	private String telephone;
 	
+<<<<<<< HEAD
     @NotBlank(message = "Le code postal de l'enseignant est obligatoire")
+=======
+    @NotBlank(message = "Le code postal enseignant est obligatoire")
+>>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	@Size(min = 5, max = 5)
 	@Pattern(regexp = "[0-9]+")
 	private String code_Postal;

@@ -10,10 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 public class EnseignantControllerTest {
@@ -35,7 +33,7 @@ public class EnseignantControllerTest {
 
     }
     @Test
-    public void getAllEnseignantById() throws Exception{
+    public void getEnseignantById() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/enseignants/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
@@ -85,6 +83,34 @@ public class EnseignantControllerTest {
         mvc.perform(MockMvcRequestBuilders.delete("http://localhost:9191/api/v1/enseignants/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void updateEnseignant() throws Exception{
+        Object randomObj = new Object() {
+            public final String no_Enseignant = "1023";
+            public final String nom = "saliouTest updated";
+            public final String prenom="philipeTest";
+            public final String sexe="H";
+            public final String type="DF";
+            public final String pays="F";
+            public final String ville="Brest";
+            public final String adresse="6 rue de l'eglise";
+            public final String email_Perso="philipeTestPerso@gmail.com";
+            public final String email_Ubo="philipeTestUbo@univ-brest.fr";
+            public final String mobile="06.00.00.01.00";
+            public final String telephone="02.98.01.69.74";
+            public final String code_Postal="29860";
+        };
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(randomObj);
+        System.out.println(json);
+        mvc.perform(MockMvcRequestBuilders.put("http://localhost:9191/api/v1/enseignants/1023")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON).content(json)
+                .characterEncoding("utf-8")).andExpect(status().isOk());
 
     }
 

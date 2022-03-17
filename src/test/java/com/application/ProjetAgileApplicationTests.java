@@ -2,6 +2,8 @@ package com.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +12,12 @@ import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
 
+<<<<<<< HEAD
+=======
+import com.application.models.ProcessusStage;
+import com.application.models.Promotion;
+
+>>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 import com.application.models.PromotionPK;
 import com.application.services.EnseignantService;
 import com.application.services.PromotionService;
@@ -89,6 +97,7 @@ class ProjetAgileApplicationTests {
 		enseignant.setPrenom("DDtest");
 		enseignant.setVille("BREST");
 		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
 		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
 		enseignant.setMobile("06.00.00.00.19");
 		enseignant.setCode_Postal("29200");
@@ -108,6 +117,44 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+	@Test
+	public void verfierUpdateEnseignant()
+	{
+		Enseignant enseignant = new Enseignant();
+		
+		enseignant.setNom("DDtest");
+		enseignant.setPrenom("DDtest");
+		enseignant.setVille("BREST");
+		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
+		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
+		enseignant.setMobile("06.00.00.00.19");
+		enseignant.setCode_Postal("29200");
+		enseignant.setSexe("F");
+		enseignant.setType("MCF");
+		enseignant.setPays("FR");
+		enseignant.setTelephone("02.08.01.67.32");
+		
+		enseignant = enseignantService.create(enseignant);
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+		
+		enseignant = enseignantService.updateById(enseignant.getNo_Enseignant(),enseignant);
+		
+		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+		
+	}
+	
+//	@Test
+//	public void verfierSuppEnseignant()
+//	{
+//		enseignantService.delete(Long.valueOf(1013));
+//		
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
+//	}
+>>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	
 	//--------------- Promotion -------------------------
 	
@@ -137,6 +184,68 @@ class ProjetAgileApplicationTests {
 		
 	}
 
+<<<<<<< HEAD
+=======
+	@Test
+	public void verfierAjoutPromotion()
+	{
+		//creation d'une object promotion 
+		Promotion promotion = new Promotion();
+		
+		//creation de cle etranger 
+		PromotionPK pk = new PromotionPK();
+		
+		//les locale dates de LP, LALP, Date rentree
+		LocalDate dateLp = LocalDate.of(2015, 5, 10);
+		LocalDate dateLalp = LocalDate.of(2015, 5, 19);
+		LocalDate dateRentree = LocalDate.of(2015, 9, 8);
+		
+		//initialisation de clé etranger
+		pk.setCode_Formation("M2DOSI");
+		pk.setAnnee_Universitaire("2016-2017");		
+		
+		//initialisation de Id
+		promotion.setId(pk);
+		
+		promotion.setSigle_Promotion("DOSI7");
+		promotion.setNb_Max_Etudiant(24);
+		promotion.setDate_Reponse_Lp(dateLp);
+		promotion.setDate_Reponse_Lalp(dateLalp);
+		promotion.setDate_Rentree(dateRentree);
+		promotion.setLieu_Rentree("LC117B");
+		promotion.setProcessus_Stage("RECH");
+		promotion.setCommentaire("commentaire");
+		
+		Enseignant enseignant = new Enseignant();
+		
+		enseignant.setNom("DDtest");
+		enseignant.setPrenom("DDtest");
+		enseignant.setVille("BREST");
+		enseignant.setAdresse("73 avenue champs elysees test");
+		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
+		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
+		enseignant.setMobile("06.00.00.00.19");
+		enseignant.setCode_Postal("29200");
+		enseignant.setSexe("F");
+		enseignant.setType("MCF");
+		enseignant.setPays("FR");
+		enseignant.setTelephone("02.08.01.67.32");
+		
+		
+		enseignant = enseignantService.create(enseignant);
+		
+		promotion.setEnseignant(enseignant);
+		
+
+		//creation de promotion
+		promotion = promotionService.create(promotion);
+		
+		assertThat(promotionService.getById(promotion.getId()).getSigle_Promotion()).isNotNull();
+
+	}
+	
+	
+>>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	
 
 }

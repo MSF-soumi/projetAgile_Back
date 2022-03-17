@@ -91,8 +91,13 @@ public class EnseignantController {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 		var newEnseignant = enseignantService.create(enseignant);
 		return this.convertToDto(newEnseignant);
+<<<<<<< HEAD
 		
 	}
+=======
+	}
+
+>>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requêtte réussie"),
@@ -105,19 +110,17 @@ public class EnseignantController {
 		if (val) return ResponseEntity.ok("Entity deleted");
 		else return ResponseEntity.notFound().build();
 	}
-	
-	@ApiOperation(value="Modifier un enseignant")
-	@ApiResponses(value= {
-			@ApiResponse(code=200,message="Requêtte réussie"),
-			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
-			@ApiResponse(code=400,message="Requêtte non réussie")
-	})	
+
 	@PutMapping(path = "/{id}")
-	public EnseignantDTO updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
+	public ResponseEntity<EnseignantDTO> updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
-	        var newEnseignant = enseignantService.updateById(id,enseignant);
+		var newEnseignant = enseignantService.updateById(id,enseignant);
+		if (newEnseignant==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 //	            enseignantService.createEnseignant(enseignant);
-	        return convertToDto(newEnseignant);
+		return new ResponseEntity<>(convertToDto(newEnseignant), HttpStatus.OK);
+		//  return convertToDto(newEnseignant);
 	}
 
 	private EnseignantDTO convertToDto(Enseignant enseignant) {
