@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.application.services.EnseignantService;
+import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber.CountryCodeSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,6 +16,7 @@ import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
+import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
