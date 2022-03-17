@@ -4,33 +4,59 @@ import java.util.List;
 import java.util.Optional;
 
 import com.application.services.EnseignantService;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.application.exceptions.enseignant.DifferentIdRequestException;
+import com.application.exceptions.enseignant.EmailUboIsTakenException;
+import com.application.exceptions.enseignant.EnseignantNotFoundException;
+import com.application.exceptions.enseignant.EnseignantSQLException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
 
 @Service
 public class EnseignantServiceImp implements EnseignantService {
+
+	PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 	
 	@Autowired
 	private final EnseignantRepository enseignantRepository ;
 		
 	public EnseignantServiceImp(EnseignantRepository enseignantRepo) {
-		
 		enseignantRepository=enseignantRepo;
 	}
 	
 	@Override
-	public Enseignant create(Enseignant ens)
+	public Enseignant create(Enseignant ens) throws EmailUboIsTakenException
 	{
-		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
-				ens.getCode_Postal());
+		
+		if(enseignantRepository.findByEmail_Ubo(ens.getEmail_Ubo())!=null)
+			throw new EmailUboIsTakenException(Enseignant.class, ens.getEmail_Ubo());
+		
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
+										 ens.getNom(),
+										 ens.getPrenom(), 
+										 ens.getSexe(), 
+										 ens.getType(), 
+										 ens.getPays(),
+										 ens.getVille(), 
+										 ens.getAdresse(), 
+										 ens.getEmail_Perso(), 
+										 ens.getEmail_Ubo(), 
+										 ens.getMobile(), 
+										 ens.getTelephone(),
+										 ens.getCode_Postal());
 		enseignantRepository.save(newEns);
+		
 		return newEns;
+		
+		
 	}
+	
 	@Override
 	public List<Enseignant> getAll()
 	{
@@ -65,28 +91,117 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public boolean delete(Long id)
 	{
-		try{
+		try 
+		{
+			getById(id);
 			enseignantRepository.deleteById(id);
-			System.out.println("delete passed ");
 			return true;
-		}catch (Exception e){
-			System.out.println("Exception "+e.getMessage());
-			return false;
+
+		} 
+		catch (EnseignantNotFoundException e)
+		{
+			System.out.println("EnseignantNotFoundException: "+e.getMessage());
+			
+		}	
+		catch (DataIntegrityViolationException e)
+		{
+			System.out.println("SQLException: "+e.getMessage());
+			throw new EnseignantSQLException(getClass(), id);
+			
 		}
+		catch (Exception e)
+		{
+			System.out.println("Exception: "+e.toString());
+			
+		}
+		return false;
+		
 	}
+	
+	
+	/*public void deleteEnseignant(Long id) throws SQLException
+	{
+		enseignantRepository.deleteById(id);
+		
+	}*/
+	
 	@Override
 	public Enseignant getByEmailUbo(String email_Ubo)
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+
+  
+//	@Override
+//	public Enseignant updateById(Long id, Enseignant enseignantRequest)
+//	{
+//		if(this.getById(id) !=null && id.equals(enseignantRequest.getNo_Enseignant())) {
+//			System.out.println("ana hnaya");
+//			return this.update(enseignantRequest);
+//		}
+//		return null;
+//		
+//	}
+	
+
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		if(this.getById(id) !=null && id == enseignantRequest.getNo_Enseignant()) {
-			return this.update(enseignantRequest);
-		}
+		try 
+		{
+			if (differentId(id,enseignantRequest))
+				{		
+					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
+			
+					if(enseignantTrouve != null && 
+							enseignantTrouve.getEmail_Ubo()!=null && 
+							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
+							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
+							return this.update(enseignantRequest);
+				}
+			} catch (DifferentIdRequestException e) {
+					e.printStackTrace();
+			}
 		return null;
 		
 	}
 
+//	public boolean validateEmailUboFormat(String email) throws EmailUboFormatException {
+//		if( !email.endsWith("@univ-brest.fr"))
+//			throw new EmailPersoFormatException(Enseignant.class, email);
+//		else return true;
+//	}
+	
+//	public boolean validateEmailPersoFormat(String email) throws EmailPersoFormatException {
+//		EmailValidator validator = EmailValidator.getInstance();
+//		System.out.println("validator : "+!validator.isValid(email));
+//		if(!validator.isValid(email))
+//			throw new EmailPersoFormatException(Enseignant.class, email);
+//		else return true;
+//		
+//	}
+	
+//	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException, NumberParseException {
+//		
+//		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse((tel.startsWith("+") ? tel : "+33".concat(tel)), 
+//			      CountryCodeSource.UNSPECIFIED.name())))
+//			throw new PhoneNumberFormatException(Enseignant.class, tel);
+//		else return true;
+//			
+//	}
+	
+	public boolean differentId(Long id,Enseignant enseignantRequest){
+		
+		if(this.getById(id) == null){
+			
+			throw new EnseignantNotFoundException(Enseignant.class, id);
+		}
+		else {
+			
+			if(!id.equals(enseignantRequest.getNo_Enseignant()))
+				throw new DifferentIdRequestException(Enseignant.class, id);
+			else return true;
+		}
+		
+	}
 }

@@ -1,0 +1,197 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EnseignantServiceImp</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.application.services.Impl</a>
+</div>
+
+<h1>Coverage Summary for Class: EnseignantServiceImp (com.application.services.Impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EnseignantServiceImp</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42,4%
+  </span>
+  <span class="absValue">
+    (14/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.application.services.Impl;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.List;
+<i class="no-highlight">4</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import com.application.services.EnseignantService;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;import com.application.models.Enseignant;
+<i class="no-highlight">11</i>&nbsp;import com.application.repositories.EnseignantRepository;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;@Service
+<i class="no-highlight">15</i>&nbsp;public class EnseignantServiceImp implements EnseignantService {
+<i class="no-highlight">16</i>&nbsp;	
+<i class="no-highlight">17</i>&nbsp;	@Autowired
+<i class="no-highlight">18</i>&nbsp;	private final EnseignantRepository enseignantRepository ;
+<i class="no-highlight">19</i>&nbsp;		
+<b class="fc"><i class="no-highlight">20</i>&nbsp;	public EnseignantServiceImp(EnseignantRepository enseignantRepo) {</b>
+<i class="no-highlight">21</i>&nbsp;		
+<b class="fc"><i class="no-highlight">22</i>&nbsp;		enseignantRepository=enseignantRepo;</b>
+<i class="no-highlight">23</i>&nbsp;	}
+<i class="no-highlight">24</i>&nbsp;	
+<i class="no-highlight">25</i>&nbsp;	@Override
+<i class="no-highlight">26</i>&nbsp;	public Enseignant create(Enseignant ens)
+<i class="no-highlight">27</i>&nbsp;	{
+<b class="fc"><i class="no-highlight">28</i>&nbsp;		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;				ens.getCode_Postal());</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;		enseignantRepository.save(newEns);</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;		return newEns;</b>
+<i class="no-highlight">33</i>&nbsp;	}
+<i class="no-highlight">34</i>&nbsp;	@Override
+<i class="no-highlight">35</i>&nbsp;	public List&lt;Enseignant&gt; getAll()
+<i class="no-highlight">36</i>&nbsp;	{
+<b class="fc"><i class="no-highlight">37</i>&nbsp;		return enseignantRepository.findAll();</b>
+<i class="no-highlight">38</i>&nbsp;	}
+<i class="no-highlight">39</i>&nbsp;	
+<i class="no-highlight">40</i>&nbsp;	@Override
+<i class="no-highlight">41</i>&nbsp;	public Enseignant getById(Long id)
+<i class="no-highlight">42</i>&nbsp;	{
+<b class="fc"><i class="no-highlight">43</i>&nbsp;		Optional&lt;Enseignant&gt; res = enseignantRepository.findById(id);</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;		return res.isPresent() ? res.get() : null;</b>
+<i class="no-highlight">45</i>&nbsp;	}
+<i class="no-highlight">46</i>&nbsp;	
+<i class="no-highlight">47</i>&nbsp;	@Override
+<i class="no-highlight">48</i>&nbsp;	public Enseignant update(Enseignant enseignant) {
+<b class="nc"><i class="no-highlight">49</i>&nbsp;		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;		Enseignant.setNom(enseignant.getNom());</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;		Enseignant.setPrenom(enseignant.getPrenom());</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;		Enseignant.setSexe(enseignant.getSexe());</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;		Enseignant.setType(enseignant.getType());</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;		Enseignant.setPays(enseignant.getPays());</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;		Enseignant.setVille(enseignant.getVille());</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;		Enseignant.setAdresse(enseignant.getAdresse());</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;		Enseignant.setEmail_Perso(enseignant.getEmail_Perso());</b>
+<i class="no-highlight">58</i>&nbsp;	//	Enseignant.setEmailUbo(enseignant.getEmailUbo()); *non modifiable
+<b class="nc"><i class="no-highlight">59</i>&nbsp;		Enseignant.setMobile(enseignant.getMobile());</b>
+<b class="nc"><i class="no-highlight">60</i>&nbsp;		Enseignant.setTelephone(enseignant.getTelephone());</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;		Enseignant.setCode_Postal(enseignant.getCode_Postal());</b>
+<b class="nc"><i class="no-highlight">62</i>&nbsp;		return enseignantRepository.save(Enseignant);</b>
+<i class="no-highlight">63</i>&nbsp;	}
+<i class="no-highlight">64</i>&nbsp;	
+<i class="no-highlight">65</i>&nbsp;	@Override
+<i class="no-highlight">66</i>&nbsp;	public boolean delete(Long id)
+<i class="no-highlight">67</i>&nbsp;	{
+<i class="no-highlight">68</i>&nbsp;		try{
+<b class="fc"><i class="no-highlight">69</i>&nbsp;			enseignantRepository.deleteById(id);</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;			System.out.println(&quot;delete passed &quot;);</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;			return true;</b>
+<b class="nc"><i class="no-highlight">72</i>&nbsp;		}catch (Exception e){</b>
+<b class="nc"><i class="no-highlight">73</i>&nbsp;			System.out.println(&quot;Exception &quot;+e.getMessage());</b>
+<b class="nc"><i class="no-highlight">74</i>&nbsp;			return false;</b>
+<i class="no-highlight">75</i>&nbsp;		}
+<i class="no-highlight">76</i>&nbsp;	}
+<i class="no-highlight">77</i>&nbsp;	@Override
+<i class="no-highlight">78</i>&nbsp;	public Enseignant getByEmailUbo(String email_Ubo)
+<i class="no-highlight">79</i>&nbsp;	{
+<b class="fc"><i class="no-highlight">80</i>&nbsp;		return enseignantRepository.findByEmail_Ubo(email_Ubo);</b>
+<i class="no-highlight">81</i>&nbsp;	}
+<i class="no-highlight">82</i>&nbsp;	@Override
+<i class="no-highlight">83</i>&nbsp;	public Enseignant updateById(Long id, Enseignant enseignantRequest)
+<i class="no-highlight">84</i>&nbsp;	{
+<b class="nc"><i class="no-highlight">85</i>&nbsp;		if(this.getById(id) !=null &amp;&amp; id == enseignantRequest.getNo_Enseignant()) {</b>
+<b class="nc"><i class="no-highlight">86</i>&nbsp;			return this.update(enseignantRequest);</b>
+<i class="no-highlight">87</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">88</i>&nbsp;		return null;</b>
+<i class="no-highlight">89</i>&nbsp;		
+<i class="no-highlight">90</i>&nbsp;	}
+<i class="no-highlight">91</i>&nbsp;
+<i class="no-highlight">92</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-03-11 14:21</div>
+</div>
+</body>
+</html>

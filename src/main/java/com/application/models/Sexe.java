@@ -1,5 +1,7 @@
 package com.application.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +28,6 @@ import lombok.ToString;
 public class Sexe {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
 	private String code;
 	private String abreviation;
 	private String signification;

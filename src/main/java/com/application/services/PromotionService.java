@@ -20,5 +20,5 @@ public interface PromotionService {
 
     //public Promotion update(Promotion promotion);
 
-    //public void delete(Long id);
+    public boolean delete(PromotionPK id);
 }
