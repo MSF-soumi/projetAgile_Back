@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.*;
 
@@ -19,7 +20,8 @@ import java.io.Serializable;
 @Table(name="Enseignant")
 public class Enseignant implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "gen", sequenceName = "ENS_SEQ",schema="DOSI", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
 	private Long no_Enseignant;
 	private String nom;
 	private String prenom;

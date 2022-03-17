@@ -1,9 +1,6 @@
 package com.application.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.io.Serializable;
@@ -18,6 +15,8 @@ import java.time.LocalDate;
 @ToString
 @Table(name="Promotion")
 public class Promotion implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private PromotionPK id;
