@@ -20,6 +20,7 @@ import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
+import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
@@ -37,28 +38,35 @@ public class EnseignantServiceImp implements EnseignantService {
 	}
 	
 	@Override
-	public Enseignant create(Enseignant ens) throws EmailUboIsTakenException
+	public Enseignant create(Enseignant ens) 
 	{
 		
 		if(enseignantRepository.findByEmail_Ubo(ens.getEmail_Ubo())!=null)
 			throw new EmailUboIsTakenException(Enseignant.class, ens.getEmail_Ubo());
 		
+		if(phoneNumberFormat(ens.getMobile()) )
+			throw new PhoneNumberFormatException(Enseignant.class, ens.getMobile());
+		
+		if( phoneNumberFormat(ens.getTelephone()))
+			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
+		
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
-										 ens.getNom(),
-										 ens.getPrenom(), 
-										 ens.getSexe(), 
-										 ens.getType(), 
-										 ens.getPays(),
-										 ens.getVille(), 
-										 ens.getAdresse(), 
-										 ens.getEmail_Perso(), 
-										 ens.getEmail_Ubo(), 
-										 ens.getMobile(), 
-										 ens.getTelephone(),
-										 ens.getCode_Postal());
+				 ens.getNom(),
+				 ens.getPrenom(), 
+				 ens.getSexe(), 
+				 ens.getType(), 
+				 ens.getPays(),
+				 ens.getVille(), 
+				 ens.getAdresse(), 
+				 ens.getEmail_Perso(), 
+				 ens.getEmail_Ubo(), 
+				 ens.getMobile(), 
+				 ens.getTelephone(),
+				 ens.getCode_Postal());
 		enseignantRepository.save(newEns);
 		
 		return newEns;
+			
 		
 		
 	}
@@ -169,5 +177,17 @@ public class EnseignantServiceImp implements EnseignantService {
 			else return true;
 		}
 		
+	}
+	
+	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException {
+		try {
+			if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse(tel, 
+				      CountryCodeSource.UNSPECIFIED.name())))
+			return true;
+		} catch (NumberParseException e) {
+			throw new PhoneNumberFormatException(Enseignant.class, tel);
+		}
+		return false;
+			
 	}
 }
