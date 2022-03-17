@@ -11,11 +11,9 @@ import io.swagger.annotations.ApiResponses;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.CrossOrigin;
-=======
 import org.springframework.http.ResponseEntity;
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,13 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/promotions")
-<<<<<<< HEAD
-@CrossOrigin(origins = "*")
-
-=======
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 public class PromotionController {
 
     private final ModelMapper modelMapper;

@@ -36,28 +36,6 @@ public class PromotionControllerTest {
     public void getPromotionById() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/M2DOSI/2013-2014")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-    }
-
-    @Test
-    public void createPromotion() throws Exception{
-
-        Object randomObj = new Object() {
-            public final String sigle_Promotion = "DOSITest";
-            public final String nb_Max_Etudiant="50";
-            public final String date_Reponse_Lp="04-05-13";
-            public final String date_Reponse_Lalp="19-05-13";
-            public final String date_Rentree="07-09-13";
-            public final String lieu_Rentree="LC117B";
-            public final String processus_Stage="EC";
-            public final String commentaire="Commentaire Test";
-        };
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(randomObj);
-
-        mvc.perform(MockMvcRequestBuilders.post("http://localhost:9191/api/v1/promotions")
-                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(json)
                 .characterEncoding("utf-8")).andExpect(status().isOk());
 

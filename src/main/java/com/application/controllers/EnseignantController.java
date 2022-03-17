@@ -3,6 +3,8 @@ package com.application.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import com.application.services.Impl.EnseignantServiceImp;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import javax.validation.Valid;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -57,7 +61,7 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<EnseignantDTO> getById(@PathVariable Long id){
+	public ResponseEntity<EnseignantDTO> getById(@Valid@PathVariable Long id){
 		var enseignant = enseignantService.getById(id);
 		if (enseignant==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,7 +77,7 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})
 	@GetMapping(path = "emailUbo/{emailUbo}")
-	public ResponseEntity<EnseignantDTO> getByEmailUbo(@PathVariable String emailUbo){
+	public ResponseEntity<EnseignantDTO> getByEmailUbo(@Valid@PathVariable String emailUbo){
 		var enseignant = enseignantService.getByEmailUbo(emailUbo);
 		if (enseignant==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -87,17 +91,12 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})	
 	@PostMapping
-	public EnseignantDTO createEnseignant(@RequestBody EnseignantDTO enseignantRequest) {
+	public EnseignantDTO createEnseignant(@Valid@RequestBody EnseignantDTO enseignantRequest) {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 		var newEnseignant = enseignantService.create(enseignant);
 		return this.convertToDto(newEnseignant);
-<<<<<<< HEAD
-		
-	}
-=======
 	}
 
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	@ApiOperation(value="Supprimer un enseignant")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requêtte réussie"),
@@ -105,14 +104,14 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})	
 	@DeleteMapping(path="/{noEnseignant}")
-    public ResponseEntity<?> deleteByNoEnseignant(@PathVariable("noEnseignant") Long noEnseignant) {
+    public ResponseEntity<?> deleteByNoEnseignant(@Valid@PathVariable("noEnseignant") Long noEnseignant) {
 		Boolean val=enseignantService.delete(noEnseignant);
 		if (val) return ResponseEntity.ok("Entity deleted");
 		else return ResponseEntity.notFound().build();
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<EnseignantDTO> updateEnseignant(@PathVariable Long id,@RequestBody EnseignantDTO enseignantRequest) {
+	public ResponseEntity<EnseignantDTO> updateEnseignant(@Valid@PathVariable Long id,@Valid@RequestBody EnseignantDTO enseignantRequest) {
 		Enseignant enseignant = convertToEntity(enseignantRequest);
 		var newEnseignant = enseignantService.updateById(id,enseignant);
 		if (newEnseignant==null) {

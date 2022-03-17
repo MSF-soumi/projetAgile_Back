@@ -12,12 +12,9 @@ import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
 
-<<<<<<< HEAD
-=======
 import com.application.models.ProcessusStage;
 import com.application.models.Promotion;
 
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 import com.application.models.PromotionPK;
 import com.application.services.EnseignantService;
 import com.application.services.PromotionService;
@@ -106,7 +103,6 @@ class ProjetAgileApplicationTests {
 		enseignant.setPays("FR");
 		enseignant.setTelephone("02.08.01.67.32");
 		
-		
 		enseignant = enseignantService.create(enseignant);
 		
 		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
@@ -117,35 +113,18 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
-<<<<<<< HEAD
-=======
 	@Test
 	public void verfierUpdateEnseignant()
 	{
-		Enseignant enseignant = new Enseignant();
-		
-		enseignant.setNom("DDtest");
-		enseignant.setPrenom("DDtest");
-		enseignant.setVille("BREST");
-		enseignant.setAdresse("73 avenue champs elysees test");
-		enseignant.setEmail_Perso("ddTestPerso@gmail.com");
-		enseignant.setEmail_Ubo("ddTest@univ-brest.fr");
-		enseignant.setMobile("06.00.00.00.19");
-		enseignant.setCode_Postal("29200");
-		enseignant.setSexe("F");
-		enseignant.setType("MCF");
-		enseignant.setPays("FR");
-		enseignant.setTelephone("02.08.01.67.32");
-		
-		enseignant = enseignantService.create(enseignant);
-		
-		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
-		
-		enseignant = enseignantService.updateById(enseignant.getNo_Enseignant(),enseignant);
-		
-		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
-		
-	}
+		Enseignant oldenseignant;		
+		Enseignant newenseignant;
+		oldenseignant = enseignantService.getById(Long.valueOf(1030));
+		System.out.println(oldenseignant);
+		oldenseignant.setNom("SUp");
+		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
+		assertThat(newenseignant.getNom().equals("SUp"));
+
+
 	
 //	@Test
 //	public void verfierSuppEnseignant()
@@ -154,7 +133,6 @@ class ProjetAgileApplicationTests {
 //		
 //		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
 //	}
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	
 	//--------------- Promotion -------------------------
 	
@@ -184,8 +162,6 @@ class ProjetAgileApplicationTests {
 		
 	}
 
-<<<<<<< HEAD
-=======
 	@Test
 	public void verfierAjoutPromotion()
 	{
@@ -236,7 +212,6 @@ class ProjetAgileApplicationTests {
 		
 		promotion.setEnseignant(enseignant);
 		
-
 		//creation de promotion
 		promotion = promotionService.create(promotion);
 		
@@ -245,7 +220,6 @@ class ProjetAgileApplicationTests {
 	}
 	
 	
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 	
 
 }

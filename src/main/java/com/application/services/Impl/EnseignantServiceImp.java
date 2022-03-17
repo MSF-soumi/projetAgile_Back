@@ -16,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.application.exceptions.enseignant.EmailPersoFormatException;
-import com.application.exceptions.enseignant.EmailUboFormatException;
+import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
@@ -45,47 +44,26 @@ public class EnseignantServiceImp implements EnseignantService {
 		if(enseignantRepository.findByEmail_Ubo(ens.getEmail_Ubo())!=null)
 			throw new EmailUboIsTakenException(Enseignant.class, ens.getEmail_Ubo());
 		
-		try {
-				if(validateEmailUboFormat(ens.getEmail_Ubo()) &&
-					validateEmailPersoFormat(ens.getEmail_Perso()) &&
-						phoneNumberFormat(ens.getMobile()) &&
-							phoneNumberFormat(ens.getTelephone()))
-				{
-					Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-							ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
-							ens.getCode_Postal());
-					enseignantRepository.save(newEns);
-					return newEns;
-				}
-			} catch (EmailUboFormatException e) {
-				e.printStackTrace();
-				System.out.println(e);
-			} catch (EmailPersoFormatException e) {
-				e.printStackTrace();
-				System.out.println(e);
-			} catch (PhoneNumberFormatException e) {
-				e.printStackTrace();
-				System.out.println(e);
-			} catch (NumberParseException e) {
-				e.printStackTrace();
-				System.out.println(e);
-			}
-		return null;
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
+										 ens.getNom(),
+										 ens.getPrenom(), 
+										 ens.getSexe(), 
+										 ens.getType(), 
+										 ens.getPays(),
+										 ens.getVille(), 
+										 ens.getAdresse(), 
+										 ens.getEmail_Perso(), 
+										 ens.getEmail_Ubo(), 
+										 ens.getMobile(), 
+										 ens.getTelephone(),
+										 ens.getCode_Postal());
+		enseignantRepository.save(newEns);
+		
+		return newEns;
+		
 		
 	}
 	
-	
-	
-	
-//	@Override
-//	public Enseignant create(Enseignant ens)
-//	{
-//		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-//				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
-//				ens.getCode_Postal());
-//		enseignantRepository.save(newEns);
-//		return newEns;
-//	}
 	@Override
 	public List<Enseignant> getAll()
 	{
@@ -160,39 +138,43 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
-
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		if(this.getById(id) !=null && id.equals(enseignantRequest.getNo_Enseignant())) {
-			System.out.println("ana hnaya");
-			return this.update(enseignantRequest);
-		}
+		try 
+		{
+			if (differentId(id,enseignantRequest))
+				{		
+					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
+			
+					if(enseignantTrouve != null && 
+							enseignantTrouve.getEmail_Ubo()!=null && 
+							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
+						
+							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
+						
+							return this.update(enseignantRequest);	
+				}
+			} catch (DifferentIdRequestException e) {
+					e.printStackTrace();
+			}
+	
 		return null;
 		
 	}
-
-	public boolean validateEmailUboFormat(String email) throws EmailUboFormatException {
-		if( !email.endsWith("@univ-brest.fr"))
-			throw new EmailPersoFormatException(Enseignant.class, email);
-		else return true;
-	}
 	
-	public boolean validateEmailPersoFormat(String email) throws EmailPersoFormatException {
-		EmailValidator validator = EmailValidator.getInstance();
-		System.out.println("validator : "+!validator.isValid(email));
-		if(!validator.isValid(email))
-			throw new EmailPersoFormatException(Enseignant.class, email);
-		else return true;
+	public boolean differentId(Long id,Enseignant enseignantRequest){
 		
-	}
-	
-	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException, NumberParseException {
-		
-		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse((tel.startsWith("+") ? tel : "+33".concat(tel)), 
-			      CountryCodeSource.UNSPECIFIED.name())))
-			throw new PhoneNumberFormatException(Enseignant.class, tel);
-		else return true;
+		if(this.getById(id) == null){
 			
+			throw new EnseignantNotFoundException(Enseignant.class, id);
+		}
+		else {
+			
+			if(!id.equals(enseignantRequest.getNo_Enseignant()))
+				throw new DifferentIdRequestException(Enseignant.class, id);
+			else return true;
+		}
+		
 	}
 }
