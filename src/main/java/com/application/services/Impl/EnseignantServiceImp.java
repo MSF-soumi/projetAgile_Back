@@ -1,17 +1,11 @@
 package com.application.services.Impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.ConstraintViolationException;
-
 import com.application.services.EnseignantService;
-import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber.CountryCodeSource;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,7 +14,6 @@ import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
@@ -66,8 +59,6 @@ public class EnseignantServiceImp implements EnseignantService {
 		enseignantRepository.save(newEns);
 		
 		return newEns;
-			
-		
 		
 	}
 	
@@ -87,7 +78,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		System.out.println("ID"+enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
 		Enseignant.setPrenom(enseignant.getPrenom());
 		Enseignant.setSexe(enseignant.getSexe());
@@ -145,6 +135,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
@@ -157,10 +148,10 @@ public class EnseignantServiceImp implements EnseignantService {
 					if(enseignantTrouve != null && 
 							enseignantTrouve.getEmail_Ubo()!=null && 
 							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
-						
+
 							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
-						
-							return this.update(enseignantRequest);	
+							return this.update(enseignantRequest);
+							
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();
@@ -194,6 +185,8 @@ public class EnseignantServiceImp implements EnseignantService {
 			throw new PhoneNumberFormatException(Enseignant.class, tel);
 		}
 		return false;
-			
+		
 	}
+
+
 }

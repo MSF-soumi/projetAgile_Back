@@ -18,7 +18,7 @@ public class PromotionDTO {
     private Enseignant Enseignant;
 
     @NotBlank(message = "Le sigle de la promotion doit être renseigné.")
-    @Size(min = 1, max = 16, message = "Le Sigle Promotion ne doit pas dépasser 16 caractères.")
+    @Size(min = 1, max = 16, message = "Le sigle Promotion ne doit pas dépasser 16 caractères.")
     private String sigle_Promotion;
 
     @NotNull(message = "Le nombre maximum des étudiants doit être renseigné.")

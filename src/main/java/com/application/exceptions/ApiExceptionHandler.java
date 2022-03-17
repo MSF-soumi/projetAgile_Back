@@ -1,13 +1,15 @@
 package com.application.exceptions;
 
 import com.application.exceptions.apierror.ApiError;
+import com.application.exceptions.enseignant.PhoneNumberFormatException;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.application.exceptions.enseignant.EmailUboIsTakenException;
+import com.application.exceptions.promotions.DatesOrderException;
+import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
-import com.google.i18n.phonenumbers.NumberParseException;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -216,21 +218,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-    
+
     @ExceptionHandler(EnseignantNotFoundException.class)
     public ResponseEntity<Object> handleEnseignantNotFoundException(EnseignantNotFoundException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-    
+
     @ExceptionHandler(EnseignantSQLException.class)
     public ResponseEntity<Object> handleEnseignantSQLException(EnseignantSQLException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-    
     
 
     @ExceptionHandler(EmailUboIsTakenException.class)
@@ -239,7 +240,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
-    
     
     @ExceptionHandler(PhoneNumberFormatException.class)
     public ResponseEntity<Object> handlePhoneNumberFormat(PhoneNumberFormatException ex) {

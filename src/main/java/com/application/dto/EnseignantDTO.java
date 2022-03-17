@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 public class EnseignantDTO {
-	
+
 	private Long no_Enseignant;
     @NotBlank(message = "Le nom de l'enseignant doit être renseigné.")
     @Pattern(regexp = "[a-zA-Z]*", message = "Le nom doit être une chaine de caractères.")
@@ -57,7 +57,7 @@ public class EnseignantDTO {
 	@NotBlank(message = "Le telephone enseignant est obligatoire")
 	private String telephone;
 	
-    @NotBlank(message = "Le code postal de l'enseignant est obligatoire")
+    @NotBlank(message = "Le code postal de l'enseignant doit être renseigné.")
 	@Size(min = 5, max = 5)
 	@Pattern(regexp = "[0-9]+")
 	private String code_Postal;
