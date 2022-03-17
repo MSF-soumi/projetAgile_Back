@@ -57,18 +57,6 @@ public class EnseignantServiceImp implements EnseignantService {
 		
 	}
 	
-	
-	
-	
-//	@Override
-//	public Enseignant create(Enseignant ens)
-//	{
-//		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() , ens.getNom(), ens.getPrenom(), ens.getSexe(), ens.getType(), ens.getPays(),
-//				ens.getVille(), ens.getAdresse(), ens.getEmail_Perso(), ens.getEmail_Ubo(), ens.getMobile(), ens.getTelephone(),
-//				ens.getCode_Postal());
-//		enseignantRepository.save(newEns);
-//		return newEns;
-//	}
 	@Override
 	public List<Enseignant> getAll()
 	{
@@ -85,7 +73,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		System.out.println("ID"+enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
 		Enseignant.setPrenom(enseignant.getPrenom());
 		Enseignant.setSexe(enseignant.getSexe());
@@ -143,6 +130,7 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+
   
 //	@Override
 //	public Enseignant updateById(Long id, Enseignant enseignantRequest)
@@ -155,20 +143,21 @@ public class EnseignantServiceImp implements EnseignantService {
 //		
 //	}
 	
+
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		if(enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo())!=null)
-			throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
-		
 		try 
 		{
 			if (differentId(id,enseignantRequest))
-				{
-					if(this.getById(id) !=null && id == enseignantRequest.getNo_Enseignant()) 
-						{
+				{		
+					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
+			
+					if(enseignantTrouve != null && 
+							enseignantTrouve.getEmail_Ubo()!=null && 
+							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
+							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
 							return this.update(enseignantRequest);
-						}
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();
@@ -201,9 +190,18 @@ public class EnseignantServiceImp implements EnseignantService {
 //			
 //	}
 	
-	public boolean differentId(Long id,Enseignant enseignantRequest) throws DifferentIdRequestException {
-		if(this.getById(id) == null || id != enseignantRequest.getNo_Enseignant())
-			throw new DifferentIdRequestException(Enseignant.class, id);
-		else return true;
+	public boolean differentId(Long id,Enseignant enseignantRequest){
+		
+		if(this.getById(id) == null){
+			
+			throw new EnseignantNotFoundException(Enseignant.class, id);
+		}
+		else {
+			
+			if(!id.equals(enseignantRequest.getNo_Enseignant()))
+				throw new DifferentIdRequestException(Enseignant.class, id);
+			else return true;
+		}
+		
 	}
 }
