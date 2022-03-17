@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.dto.EnseignantDTO;
 import com.application.models.Enseignant;
 import com.application.services.Impl.EnseignantServiceImp;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -106,7 +108,9 @@ public class EnseignantController {
 	@DeleteMapping(path="/{noEnseignant}")
     public ResponseEntity<?> deleteByNoEnseignant(@Valid@PathVariable("noEnseignant") Long noEnseignant) {
 		Boolean val=enseignantService.delete(noEnseignant);
-		if (val) return ResponseEntity.ok("Entity deleted");
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("message", "Entity deleted");
+		if (val) return ResponseEntity.ok(map);
 		else return ResponseEntity.notFound().build();
 	}
 

@@ -125,7 +125,7 @@ class ProjetAgileApplicationTests {
 		assertThat(newenseignant.getNom().equals("SUp"));
 
 
-	
+	}
 //	@Test
 //	public void verfierSuppEnseignant()
 //	{
