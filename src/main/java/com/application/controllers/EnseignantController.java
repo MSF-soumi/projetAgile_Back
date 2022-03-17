@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,7 +107,9 @@ public class EnseignantController {
 	@DeleteMapping(path="/{noEnseignant}")
     public ResponseEntity<?> deleteByNoEnseignant(@Valid@PathVariable("noEnseignant") Long noEnseignant) {
 		Boolean val=enseignantService.delete(noEnseignant);
-		if (val) return ResponseEntity.ok("Entity deleted");
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("message", "Entity deleted");
+		if (val) return ResponseEntity.ok(map);
 		else return ResponseEntity.notFound().build();
 	}
 
