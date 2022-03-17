@@ -4,7 +4,7 @@ import org.springframework.util.StringUtils;
 
 public class DifferentIdRequestException extends RuntimeException{
 	private static String generateMessage(String entity, Long id) {
-		return "Veuillez entrer la meme Id entre pathVariable et l'entité " + StringUtils.capitalize(entity);
+		return "Veuillez saisir la meme Identifiant entre pathVariable et l'entité " + StringUtils.capitalize(entity);
 		
 	}
 	
