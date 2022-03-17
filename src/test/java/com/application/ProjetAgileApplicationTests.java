@@ -160,6 +160,7 @@ class ProjetAgileApplicationTests {
 		oldenseignant.setNom("SUp");
 		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
 		assertThat(newenseignant.getNom().equals("SUp"));
+
   }
 	
 //	@Test

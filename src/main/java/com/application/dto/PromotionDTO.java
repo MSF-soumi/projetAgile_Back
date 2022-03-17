@@ -35,7 +35,7 @@ public class PromotionDTO {
     private LocalDate date_Reponse_Lalp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de rentrée doit être renseignée.")
+    @NotNull(message = "La date de rentrée doit être rensiegnée.")
     private LocalDate date_Rentree;
 
     @NotBlank(message = "Le lieu de rentrée doit être renseigné.")
