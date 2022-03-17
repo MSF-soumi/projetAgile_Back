@@ -42,9 +42,9 @@ public class SalleController {
 	
 	@ApiOperation(value="Lister toutes les salles")
 	@ApiResponses(value = {
-			@ApiResponse(code=200, message = "Requete réussie"),
+			@ApiResponse(code=200, message = "Requêtte réussie"),
 			@ApiResponse(code=500, message = "Erreur Serveur, Réessayez"),
-			@ApiResponse(code=400, message = "Requete non réussie"),
+			@ApiResponse(code=400, message = "Requêtte non réussie"),
 	})
 	@GetMapping
 	public List<SalleDTO> getAll(){
