@@ -156,6 +156,14 @@ public class EnseignantServiceImp implements EnseignantService {
 							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
 
 							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
+							
+							if(phoneNumberFormat(enseignantRequest.getMobile()) )
+							throw new PhoneNumberFormatException(Enseignant.class, enseignantRequest.getMobile());
+					
+							if( phoneNumberFormat(enseignantRequest.getTelephone()))
+							throw new PhoneNumberFormatException(Enseignant.class, enseignantRequest.getTelephone());
+					
+					
 							return this.update(enseignantRequest);
 
 				}
