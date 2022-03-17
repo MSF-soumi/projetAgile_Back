@@ -43,8 +43,10 @@ public class EnseignantDTO {
     @Pattern(regexp = "[a-zA-Z]*", message = "L'adresse doit être une chaine de caractères alphanumériques et ne peut pas contenir des caractères spéciaux.")
 	private String adresse;
     
-    @Email(message="Le format de l'email ne correspond pas au bon format, veuillez suivre le format \"abcd@gmail.com\".")
+
+    @Email(message="Format d'email not respectée, merci de suivre l'exemple abcd@gmail.com")
     private String email_Perso;
+   
     
     @NotBlank(message = "L'email UBO de l'enseignant doit être renseigné.")
     @Email(message="Le format de l'email ne correspond pas au bon format, merci de suivre le format \"nomprenom@univ-brest.fr\".")
@@ -57,6 +59,7 @@ public class EnseignantDTO {
     
 	@NotBlank(message = "Le numéro de téléphone de l'enseignant doit être renseigné.")
 	@Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$", message = "Le format du numéro de téléphone ne correspond pas au bon format, veuillez suivre le format : \"+33685749132\".")
+
 	private String telephone;
 	
     @NotBlank(message = "Le code postal de l'enseignant doit être renseigné.")

@@ -1,8 +1,8 @@
 package com.application.services.Impl;
 
+import com.application.exceptions.EntityNotFoundException;
 import com.application.exceptions.promotions.DatesOrderException;
 import com.application.exceptions.promotions.EntityAlreadyExistsException;
-import com.application.exceptions.promotions.EntityNotFoundException;
 import com.application.models.*;
 import com.application.repositories.*;
 import com.application.services.PromotionService;
@@ -37,7 +37,6 @@ public class PromotionServiceImp implements PromotionService {
         //Processus Stage Par défaut : Recherche
         if (promotion.getProcessus_Stage() == null)
             promotion.setProcessus_Stage("RECH");
-
         if (!promotionDoesNotExistSigle(promotion.getSigle_Promotion())) throw new EntityAlreadyExistsException(Promotion.class, "Sigle promotion", promotion.getSigle_Promotion());
         if (!promotionDoesNotExistID(promotion.getId())) throw new EntityAlreadyExistsException(Promotion.class, "ID", promotion.getId().getCode_Formation() + " " + promotion.getId().getAnnee_Universitaire());
 

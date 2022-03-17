@@ -1,17 +1,11 @@
 package com.application.services.Impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.ConstraintViolationException;
-
 import com.application.services.EnseignantService;
-import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber.CountryCodeSource;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -20,7 +14,6 @@ import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
@@ -138,6 +131,20 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
+
+  
+//	@Override
+//	public Enseignant updateById(Long id, Enseignant enseignantRequest)
+//	{
+//		if(this.getById(id) !=null && id.equals(enseignantRequest.getNo_Enseignant())) {
+//			System.out.println("ana hnaya");
+//			return this.update(enseignantRequest);
+//		}
+//		return null;
+//		
+//	}
+	
+
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
@@ -154,10 +161,43 @@ public class EnseignantServiceImp implements EnseignantService {
 							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
 						
 							return this.update(enseignantRequest);	
+
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();
 			}
+		return null;
+		
+	}
+
+//	public boolean validateEmailUboFormat(String email) throws EmailUboFormatException {
+//		if( !email.endsWith("@univ-brest.fr"))
+//			throw new EmailPersoFormatException(Enseignant.class, email);
+//		else return true;
+//	}
+	
+//	public boolean validateEmailPersoFormat(String email) throws EmailPersoFormatException {
+//		EmailValidator validator = EmailValidator.getInstance();
+//		System.out.println("validator : "+!validator.isValid(email));
+//		if(!validator.isValid(email))
+//			throw new EmailPersoFormatException(Enseignant.class, email);
+//		else return true;
+//		
+//	}
+	
+//	public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException, NumberParseException {
+//		
+//		if(!phoneNumberUtil.isValidNumber(phoneNumberUtil.parse((tel.startsWith("+") ? tel : "+33".concat(tel)), 
+//			      CountryCodeSource.UNSPECIFIED.name())))
+//			throw new PhoneNumberFormatException(Enseignant.class, tel);
+//		else return true;
+//			
+//	}
+	
+	public boolean differentId(Long id,Enseignant enseignantRequest) throws DifferentIdRequestException {
+		if(this.getById(id) == null || id != enseignantRequest.getNo_Enseignant())
+			throw new DifferentIdRequestException(Enseignant.class, id);
+		else return true;
 	
 		return null;
 		
