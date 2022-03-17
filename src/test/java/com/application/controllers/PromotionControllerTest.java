@@ -1,14 +1,7 @@
 package com.application.controllers;
 
 
-
-import com.application.models.Enseignant;
-import com.application.models.ProcessusStage;
-import com.application.models.Promotion;
-import com.application.models.PromotionPK;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,11 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,21 +25,20 @@ public class PromotionControllerTest {
     }
 
     @Test
-    public void getAllPromotions() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions")
+    public void getAllPromotionById() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
+
 
     @Test
     public void getPromotionById() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/M2DOSI/2013-2014")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-    }
+                .accept(MediaType.APPLICATION_JSON).content(json)
+                .characterEncoding("utf-8")).andExpect(status().isOk());
 
-    @Test
-    public void createPromotion() throws Exception{
         String newPromotion = "{\"id\":" +
                 "{\"code_Formation\": \"M2DOSI\"," +
                 "\"annee_Universitaire\": \"2014-2015\"}," +
@@ -105,7 +92,6 @@ public class PromotionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(newPromotion)
                 .characterEncoding("utf-8")).andExpect(status().isOk());
-
     }
 
     @Test

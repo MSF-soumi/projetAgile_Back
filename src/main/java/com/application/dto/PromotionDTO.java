@@ -17,28 +17,28 @@ public class PromotionDTO {
 
     private Enseignant Enseignant;
 
-    @NotBlank(message = "Le sigle de la promotion est obligatoire")
-    @Size(min = 1, max = 16, message = "Le Sigle Promotion ne doit pas dépasser 16 caractères")
+    @NotBlank(message = "Le sigle de la promotion doit être renseigné.")
+    @Size(min = 1, max = 16, message = "Le Sigle Promotion ne doit pas dépasser 16 caractères.")
     private String sigle_Promotion;
 
-    @NotNull(message = "Le nombre max des étudiants est obligatoire")
-    @Min(value = 1, message = "Le nombre max des étudiants ne peut pas être inférieur à 1")
-    @Max(value = 999, message = "Le nombre max des étudiants ne peut pas être supérieur à 999")
+    @NotNull(message = "Le nombre maximum des étudiants doit être renseigné.")
+    @Min(value = 1, message = "Le nombre maximum des étudiants ne peut pas être inférieur à 1.")
+    @Max(value = 999, message = "Le nombre maximum des étudiants ne peut pas être supérieur à 999.")
     private int nb_Max_Etudiant;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de réponse de la liste principale est obligatoire")
+    @NotNull(message = "La date de réponse à la liste principale doit être renseignée.")
     private LocalDate date_Reponse_Lp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de réponse de la liste d'attente est obligatoire")
+    @NotNull(message = "La date de réponse à la liste d'attente doit être renseignée.")
     private LocalDate date_Reponse_Lalp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de rentrée est obligatoire")
+    @NotNull(message = "La date de rentrée doit être rensiegnée.")
     private LocalDate date_Rentree;
 
-    @NotBlank(message = "Le lieu de rentrée est obligatoire")
+    @NotBlank(message = "Le lieu de rentrée doit être renseigné.")
     private String lieu_Rentree;
     private String processus_Stage;
     private String commentaire;

@@ -133,12 +133,18 @@ public class EnseignantServiceImp implements EnseignantService {
 		
 	}
 	
+	
+	/*public void deleteEnseignant(Long id) throws SQLException
+	{
+		enseignantRepository.deleteById(id);
+		
+	}*/
+	
 	@Override
 	public Enseignant getByEmailUbo(String email_Ubo)
 	{
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
-  	
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
