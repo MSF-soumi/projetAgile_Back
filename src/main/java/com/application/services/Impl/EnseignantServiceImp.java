@@ -73,7 +73,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		System.out.println("ID"+enseignant.getNo_Enseignant());
 		Enseignant.setNom(enseignant.getNom());
 		Enseignant.setPrenom(enseignant.getPrenom());
 		Enseignant.setSexe(enseignant.getSexe());
@@ -157,11 +156,8 @@ public class EnseignantServiceImp implements EnseignantService {
 					if(enseignantTrouve != null && 
 							enseignantTrouve.getEmail_Ubo()!=null && 
 							!enseignantTrouve.getNo_Enseignant().equals(enseignantRequest.getNo_Enseignant()))
-						
 							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
-						
-							return this.update(enseignantRequest);	
-
+							return this.update(enseignantRequest);
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();
@@ -193,15 +189,6 @@ public class EnseignantServiceImp implements EnseignantService {
 //		else return true;
 //			
 //	}
-	
-	public boolean differentId(Long id,Enseignant enseignantRequest) throws DifferentIdRequestException {
-		if(this.getById(id) == null || id != enseignantRequest.getNo_Enseignant())
-			throw new DifferentIdRequestException(Enseignant.class, id);
-		else return true;
-	
-		return null;
-		
-	}
 	
 	public boolean differentId(Long id,Enseignant enseignantRequest){
 		

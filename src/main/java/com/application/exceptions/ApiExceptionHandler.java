@@ -3,7 +3,6 @@ package com.application.exceptions;
 import com.application.exceptions.apierror.ApiError;
 
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.exceptions.promotions.DatesOrderException;
 import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import com.application.exceptions.enseignant.DifferentIdRequestException;
@@ -239,7 +238,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
-    }*/
+    }
 
 
 

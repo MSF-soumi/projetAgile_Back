@@ -18,8 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PromotionControllerTest {
     @Autowired
     private MockMvc mvc;
-
-
+    
     @Test
     void contextLoads() {
     }
