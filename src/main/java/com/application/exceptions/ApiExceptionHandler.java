@@ -2,12 +2,10 @@ package com.application.exceptions;
 
 import com.application.exceptions.apierror.ApiError;
 import com.application.exceptions.enseignant.DifferentIdRequestException;
-import com.application.exceptions.enseignant.EmailPersoFormatException;
-import com.application.exceptions.enseignant.EmailUboFormatException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
-import com.application.exceptions.enseignant.PhoneNumberFormatException;
+import com.application.exceptions.promotions.DatesOrderException;
 import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
@@ -234,6 +232,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EnseignantSQLException.class)
     public ResponseEntity<Object> handleEnseignantSQLException(EnseignantSQLException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(DatesOrderException.class)
+    public ResponseEntity<Object> handleDatesOrderException(DatesOrderException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
