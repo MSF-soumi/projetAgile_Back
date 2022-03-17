@@ -116,7 +116,7 @@ public class EnseignantServiceImp implements EnseignantService {
 		catch (DataIntegrityViolationException e)
 		{
 			System.out.println("SQLException: "+e.getMessage());
-			throw new EnseignantSQLException(getClass(), id);
+			throw new EnseignantSQLException(Enseignant.class, id);
 			
 		}
 		catch (Exception e)
