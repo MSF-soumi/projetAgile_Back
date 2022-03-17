@@ -44,7 +44,7 @@ public class EnseignantDTO {
 	private String adresse;
     
 
-    @Email(message="Format d'email not respectée, merci de suivre l'exemple abcd@gmail.com")
+    @Email(message="Format d'email non respecté, merci de suivre l'exemple abcd@gmail.com")
     private String email_Perso;
    
     

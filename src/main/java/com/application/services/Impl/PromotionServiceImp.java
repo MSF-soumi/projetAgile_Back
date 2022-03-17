@@ -57,8 +57,10 @@ public class PromotionServiceImp implements PromotionService {
 	@Override
 	public Promotion getById(PromotionPK id)
 	{
-		Optional<Promotion> res=promotionRepository.findById(id);
-		return res.isPresent()?res.get():null;
+//		Optional<Promotion> res=promotionRepository.findById(id);
+//		return res.isPresent()?res.get():null;
+        return promotionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Promotion.class, id.toString()));
 	}
 
     @Override
