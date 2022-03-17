@@ -69,7 +69,16 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+	
+//	@Test
+//	public void verfierSuppEnseignant()
+//	{
+//		enseignantService.delete(Long.valueOf(1013));
+//		
+//		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
+//	}
 
+	
 	@Test
 	public void verfierEnseignantParEmail()
 	{
@@ -107,18 +116,15 @@ class ProjetAgileApplicationTests {
 	@Test
 	public void verfierUpdateEnseignant()
 	{
-		Enseignant oldenseignant;
-		
+		Enseignant oldenseignant;		
 		Enseignant newenseignant;
-		
-		
 		oldenseignant = enseignantService.getById(Long.valueOf(1030));
 		System.out.println(oldenseignant);
 		oldenseignant.setNom("SUp");
 		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
 		assertThat(newenseignant.getNom().equals("SUp"));
-		
-	}
+
+
 	
 //	@Test
 //	public void verfierSuppEnseignant()
@@ -129,6 +135,7 @@ class ProjetAgileApplicationTests {
 //	}
 	
 	//--------------- Promotion -------------------------
+	
 	@Test
 	public void verfierDonneePromotions()
 	{

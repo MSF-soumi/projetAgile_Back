@@ -11,4 +11,6 @@ public class EnseignantSQLException extends RuntimeException {
 	public EnseignantSQLException(Class c, Long id) {
 		super(EnseignantSQLException.generateMessage(c.getSimpleName(), id));
 	}
+
 }
+

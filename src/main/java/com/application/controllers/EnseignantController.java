@@ -130,4 +130,3 @@ public class EnseignantController {
 		return modelMapper.map(enseignantDTO, Enseignant.class);
 	}
 }
-
