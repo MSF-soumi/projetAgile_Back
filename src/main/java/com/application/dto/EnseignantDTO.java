@@ -54,7 +54,8 @@ public class EnseignantDTO {
     @NotBlank(message = "Le mobile enseignant est obligatoire")
 	private String mobile;
     
-	@NotBlank(message = "Le telephone enseignant est obligatoire")
+
+	@NotBlank(message = "Le numéro de téléphone de l'enseignant doit être renseigné.")
 	private String telephone;
 	
     @NotBlank(message = "Le code postal de l'enseignant doit être renseigné.")

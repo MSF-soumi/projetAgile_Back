@@ -16,7 +16,9 @@ import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.EnseignantSQLException;
+
 import com.application.exceptions.enseignant.PhoneNumberFormatException;
+
 import com.application.models.Enseignant;
 import com.application.repositories.EnseignantRepository;
 
@@ -139,6 +141,7 @@ public class EnseignantServiceImp implements EnseignantService {
 		return enseignantRepository.findByEmail_Ubo(email_Ubo);
 	}
 
+
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
@@ -154,7 +157,7 @@ public class EnseignantServiceImp implements EnseignantService {
 
 							throw new EmailUboIsTakenException(Enseignant.class, enseignantRequest.getEmail_Ubo());
 							return this.update(enseignantRequest);
-							
+
 				}
 			} catch (DifferentIdRequestException e) {
 					e.printStackTrace();

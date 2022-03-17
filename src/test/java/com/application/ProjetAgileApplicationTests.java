@@ -141,6 +141,7 @@ class ProjetAgileApplicationTests {
 		enseignant = enseignantService.create(enseignant);
 		
 		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+
 		
 		enseignantService.delete(enseignant.getNo_Enseignant());
 		
