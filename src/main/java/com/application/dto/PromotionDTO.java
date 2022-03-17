@@ -18,7 +18,7 @@ public class PromotionDTO {
     private Enseignant Enseignant;
 
     @NotBlank(message = "Le sigle de la promotion doit être renseigné.")
-    @Size(min = 1, max = 16, message = "Le Sigle Promotion ne doit pas dépasser 16 caractères.")
+    @Size(min = 1, max = 16, message = "Le sigle Promotion ne doit pas dépasser 16 caractères.")
     private String sigle_Promotion;
 
     @NotNull(message = "Le nombre maximum des étudiants doit être renseigné.")
@@ -35,7 +35,7 @@ public class PromotionDTO {
     private LocalDate date_Reponse_Lalp;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de rentrée doit être rensiegnée.")
+    @NotNull(message = "La date de rentrée doit être renseignée.")
     private LocalDate date_Rentree;
 
     @NotBlank(message = "Le lieu de rentrée doit être renseigné.")

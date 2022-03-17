@@ -61,10 +61,6 @@ public class PromotionServiceImp implements PromotionService {
 		Optional<Promotion> res=promotionRepository.findById(id);
 		return res.isPresent()?res.get():null;
 	}
-<<<<<<< HEAD
-=======
-    
->>>>>>> 229deb778dce31f70168112fb664ab9f27be6aa5
 
     @Override
     public List<Promotion> updateWorkflow(List<Promotion> promotions){
@@ -80,10 +76,9 @@ public class PromotionServiceImp implements PromotionService {
 	public boolean delete(PromotionPK id) {
 		try{
 			promotionRepository.deleteById(id);
-			System.out.println("delete passed ");
 			return true;
 		}catch (Exception e){
-			System.out.println("Exception "+e.getMessage());
+			System.out.println("Exception " + e.getMessage());
 			return false;
 		}
 		
