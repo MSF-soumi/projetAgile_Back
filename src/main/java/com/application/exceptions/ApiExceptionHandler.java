@@ -1,6 +1,10 @@
 package com.application.exceptions;
 
 import com.application.exceptions.apierror.ApiError;
+
+import com.application.exceptions.enseignant.PhoneNumberFormatException;
+import com.google.i18n.phonenumbers.NumberParseException;
+
 import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
@@ -243,6 +247,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
+    
+    @ExceptionHandler(PhoneNumberFormatException.class)
+    public ResponseEntity<Object> handlePhoneNumberFormat(PhoneNumberFormatException ex) {
+		var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+	}
+
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<Object> handleEntityAlreadyExists(EntityAlreadyExistsException ex) {

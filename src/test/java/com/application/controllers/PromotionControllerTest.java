@@ -31,6 +31,7 @@ public class PromotionControllerTest {
     }
 
     @Test
+
     public void getPromotionById() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("http://localhost:9191/api/v1/promotions/M2DOSI/2013-2014")
                 .contentType(MediaType.APPLICATION_JSON)

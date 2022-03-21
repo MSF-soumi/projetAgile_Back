@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.dto.EnseignantDTO;
 import com.application.models.Enseignant;
 import com.application.services.Impl.EnseignantServiceImp;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -85,6 +86,7 @@ public class EnseignantController {
 		}
 		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
 	}
+
 	@ApiOperation(value="Créer un enseignant")
 	@ApiResponses(value= {
 			@ApiResponse(code=200,message="Requêtte réussie"),

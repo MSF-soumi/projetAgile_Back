@@ -12,10 +12,14 @@ import com.application.controllers.EnseignantController;
 import com.application.controllers.PromotionController;
 import com.application.models.Enseignant;
 
+
+import com.application.models.PromotionPK;
+
+
 import com.application.models.ProcessusStage;
 import com.application.models.Promotion;
 
-import com.application.models.PromotionPK;
+
 import com.application.services.EnseignantService;
 import com.application.services.PromotionService;
 
@@ -82,6 +86,9 @@ class ProjetAgileApplicationTests {
 	@Test
 	public void verfierEnseignantParEmail()
 	{
+
+		assertThat(enseignantService.getByEmailUbo("ps@univ-brest.fr")).isNotNull();
+
 		assertThat(enseignantService.getByEmailUbo("ps@univ-brest.fr").getNom()).isNotEmpty();
 	}
 	
@@ -134,6 +141,7 @@ class ProjetAgileApplicationTests {
 		enseignant = enseignantService.create(enseignant);
 		
 		assertThat(enseignantService.getById(enseignant.getNo_Enseignant()).getNom()).isNotNull();
+
 		
 		enseignantService.delete(enseignant.getNo_Enseignant());
 		
@@ -141,6 +149,7 @@ class ProjetAgileApplicationTests {
 		
 	}
 	
+
 	@Test
 	public void verfierUpdateEnseignant()
 	{
@@ -152,6 +161,7 @@ class ProjetAgileApplicationTests {
 		oldenseignant.setNom("SUp");
 		newenseignant = enseignantService.updateById(Long.valueOf(1030),oldenseignant);
 		assertThat(newenseignant.getNom().equals("SUp"));
+
   }
 	
 //	@Test
@@ -162,6 +172,7 @@ class ProjetAgileApplicationTests {
 //		assertThat(enseignantService.getById(Long.valueOf(1013))).isNull();
 //	}
 	
+
 	//--------------- Promotion -------------------------
 	
 	@Test
