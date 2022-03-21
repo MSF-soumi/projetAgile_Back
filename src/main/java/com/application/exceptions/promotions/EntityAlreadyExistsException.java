@@ -9,9 +9,6 @@ public class EntityAlreadyExistsException extends RuntimeException{
     }
 
     private static String generateMessage(String entity, String typeParametre, String valeurParametre) {
-        return "Un(e) " + StringUtils.capitalize(entity) +
-                " existe déjà avec " +
-                typeParametre + " = " +
-                valeurParametre;
+        return "Cette promotion existe déjà ";
     }
 }
