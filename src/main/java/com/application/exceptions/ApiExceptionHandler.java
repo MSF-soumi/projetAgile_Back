@@ -266,7 +266,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class )
     public ResponseEntity<Object> handleException(Exception ex) {
         var apiError = new ApiError(BAD_REQUEST);
-        apiError.setMessage("Erreur technique: veuillez contacter votre administrateur ");
+        apiError.setMessage("Erreur technique : veuillez contacter votre administrateur.");
         return buildResponseEntity(apiError);
     }
 
