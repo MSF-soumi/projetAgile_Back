@@ -74,7 +74,7 @@ private final ModelMapper modelMapper;
 	}
 
 
-	@DeleteMapping(path="{id}")
+	@DeleteMapping(path="/{id}")
 	public boolean deleteEtudiant(@PathVariable String id){
 		return etudiantService.deleteById(id);
 	}
