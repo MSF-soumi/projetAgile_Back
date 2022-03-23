@@ -55,6 +55,11 @@ public class UniteEnseignementController {
         var unitesEnseignement = uniteEnseignementService.getUEByEnseignant(noEnseignant);
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
     }
+    
+    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
+    public double getSumEtd(Long noEnseignant) {
+    	return uniteEnseignementService.getSumEtd(noEnseignant);
+    }
 
     private UniteEnseignementDTO convertToDto(UniteEnseignement uniteEnseignement) {
         return modelMapper.map(uniteEnseignement, UniteEnseignementDTO.class);

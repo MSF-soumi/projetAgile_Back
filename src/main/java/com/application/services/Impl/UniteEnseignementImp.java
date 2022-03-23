@@ -66,4 +66,17 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     public boolean enseignantExists(Long noEnseignant) throws EntityNotFoundException {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
+
+	@Override
+	public double getSumEtd(Long noEnseignant) 
+	{
+		List<UniteEnseignement> list =getUEByEnseignant(noEnseignant);
+		double res=0;
+		// TODO Auto-generated method stub
+		for (UniteEnseignement ue : list) {
+	          res+=ue.getNbh_etd();
+	      }
+		System.out.println(res);
+		return res;
+	}
 }
