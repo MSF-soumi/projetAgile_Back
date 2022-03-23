@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.application.models.TypeEnseignant;
+
 import lombok.Data;
 
 @Data
@@ -24,8 +26,7 @@ public class EnseignantDTO {
 	private String sexe;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]*", message = "Le Type doit être une chaine de caractères.")
-	private String type;
+	private TypeEnseignant type;
     
     @NotBlank(message = "Ce champs est oligatoire.")
     @Pattern(regexp = "[a-zA-Z]*", message = "Le pays doit être une chaine de caractères.")

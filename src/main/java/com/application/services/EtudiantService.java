@@ -10,5 +10,7 @@ public interface EtudiantService {
 	public List<Etudiant> getAll();
 	
 	public Etudiant getById(String id);
+	
+	public List<Etudiant> findByPromo(String code_Formation,String annee_Universitaire);
 
 }

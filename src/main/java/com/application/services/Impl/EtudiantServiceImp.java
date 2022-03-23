@@ -35,4 +35,10 @@ public class EtudiantServiceImp implements EtudiantService{
 
 	}
 
+	@Override
+	public List<Etudiant> findByPromo(String code_Formation, String annee_Universitaire) {
+		// TODO Auto-generated method stub
+		return etudiantRepository.findByPromo(code_Formation, annee_Universitaire);
+	}
+
 }

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.dto.EtudiantDTO;
+import com.application.dto.PromotionDTO;
 import com.application.models.Enseignant;
 import com.application.models.Etudiant;
+import com.application.models.PromotionPK;
 import com.application.services.Impl.EtudiantServiceImp;
 
 import io.swagger.annotations.ApiOperation;
@@ -64,6 +66,19 @@ private final ModelMapper modelMapper;
 		return new ResponseEntity<>(this.convertToDto(etudiant), HttpStatus.OK);
 
 	}
+	
+	@ApiOperation(value="Lister les étudiants d'une promotion")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requêtte réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+			@ApiResponse(code=400,message="Requêtte non réussie")
+	})
+	@GetMapping(path = "/{code_Formation}/{annee_Universitaire}")
+	public List<EtudiantDTO> getById(@PathVariable String code_Formation,@PathVariable String annee_Universitaire){
+		var etudiants = etudiantService.findByPromo(code_Formation, annee_Universitaire);
+		return etudiants.stream().map(this::convertToDto).collect(Collectors.toList());
+	}
+
 	private EtudiantDTO convertToDto(Etudiant etudiant) {
 		return modelMapper.map(etudiant, EtudiantDTO.class);
 	}
