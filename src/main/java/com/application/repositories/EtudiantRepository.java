@@ -13,4 +13,7 @@ public interface EtudiantRepository extends JpaRepository<Etudiant,String>{
 	List<Etudiant> findByPromo(String code_Formation,String annee_Universitaire);
 
     public boolean existsById(String id);
+    
+    @Query(value = "select * from etudiant where email_Ubo = ?1", nativeQuery=true)
+	Etudiant findByEmail_Ubo(String email_Ubo);
 }

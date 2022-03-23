@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.application.dto.EtudiantDTO;
-import com.application.models.Enseignant;
 import com.application.models.Etudiant;
 import com.application.services.Impl.EtudiantServiceImp;
 
@@ -72,6 +71,18 @@ private final ModelMapper modelMapper;
 		var etudiants = etudiantService.findByPromo(code_Formation, annee_Universitaire);
 		return etudiants.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
+	
+	
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<EtudiantDTO> updateEtudiant(@Valid@PathVariable String id,@Valid@RequestBody EtudiantDTO etudiantRequest){
+		Etudiant etudiant = convertToEntity(etudiantRequest);
+		var newEtudiant = etudiantService.updateById(id,etudiant);
+		if(newEtudiant == null)
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+		}
+		return new ResponseEntity<>(convertToDto(newEtudiant), HttpStatus.OK);
+	}
 
 
 	@DeleteMapping(path="{id}")
@@ -83,7 +94,7 @@ private final ModelMapper modelMapper;
 		return modelMapper.map(etudiant, EtudiantDTO.class);
 	}
 	
-	private Enseignant convertToEntity(EtudiantDTO etudiantDTO) {
-		return modelMapper.map(etudiantDTO, Enseignant.class);
+	private Etudiant convertToEntity(EtudiantDTO etudiantDTO) {
+		return modelMapper.map(etudiantDTO, Etudiant.class);
 	}
 }
