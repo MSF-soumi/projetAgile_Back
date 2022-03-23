@@ -2,6 +2,8 @@ package com.application;
 
 import java.util.List;
 
+import com.application.models.Promotion;
+import com.application.models.UniteEnseignement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,9 +29,9 @@ public class ProjetAgileApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		String sql = "select * from v_sexe";
-		List<Sexe> sexes = jdbcTemplate.query(sql,
-				BeanPropertyRowMapper.newInstance(Sexe.class));
+		String sql = "select * from unite_enseignement";
+		List<UniteEnseignement> sexes = jdbcTemplate.query(sql,
+				BeanPropertyRowMapper.newInstance(UniteEnseignement.class));
 		
 		sexes.forEach(System.out :: println);
 	}
