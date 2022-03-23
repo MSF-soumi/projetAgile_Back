@@ -1,5 +1,7 @@
 package com.application.services.Impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +50,15 @@ public class EnseignantServiceImp implements EnseignantService {
 		if( phoneNumberFormat(ens.getTelephone()))
 			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
 		
-		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
+<<<<<<< HEAD
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant(),
 				 ens.getNom(),
 				 ens.getPrenom(), 
+=======
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
+				 ens.getNom().toUpperCase(),
+				 ens.getPrenom().substring(0,1).toUpperCase() + ens.getPrenom().substring(1), 
+>>>>>>> 13dc9f0b62c537967e33a4148ad612fb8a9dc0ce
 				 ens.getSexe(), 
 				 ens.getType(), 
 				 ens.getPays(),
@@ -70,7 +78,10 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public List<Enseignant> getAll()
 	{
-		return enseignantRepository.findAll();
+		List<Enseignant> enseignants = new ArrayList<Enseignant>();
+		enseignants = enseignantRepository.findAll();
+		Collections.sort(enseignants);
+		return enseignants;
 	}
 	
 	@Override
@@ -83,8 +94,8 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		Enseignant.setNom(enseignant.getNom());
-		Enseignant.setPrenom(enseignant.getPrenom());
+		Enseignant.setNom(enseignant.getNom().toUpperCase());
+		Enseignant.setPrenom(enseignant.getPrenom().substring(0,1).toUpperCase() + enseignant.getPrenom().substring(1));
 		Enseignant.setSexe(enseignant.getSexe());
 		Enseignant.setType(enseignant.getType());
 		Enseignant.setPays(enseignant.getPays());
