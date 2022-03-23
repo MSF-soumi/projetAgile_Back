@@ -49,8 +49,8 @@ public class EnseignantServiceImp implements EnseignantService {
 			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
 		
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
-				 ens.getNom(),
-				 ens.getPrenom(), 
+				 ens.getNom().toUpperCase(),
+				 ens.getPrenom().substring(0,1).toUpperCase() + ens.getPrenom().substring(1), 
 				 ens.getSexe(), 
 				 ens.getType(), 
 				 ens.getPays(),
@@ -86,8 +86,8 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant update(Enseignant enseignant) {
 		Enseignant Enseignant=enseignantRepository.getById(enseignant.getNo_Enseignant());
-		Enseignant.setNom(enseignant.getNom());
-		Enseignant.setPrenom(enseignant.getPrenom());
+		Enseignant.setNom(enseignant.getNom().toUpperCase());
+		Enseignant.setPrenom(enseignant.getPrenom().substring(0,1).toUpperCase() + enseignant.getPrenom().substring(1));
 		Enseignant.setSexe(enseignant.getSexe());
 		Enseignant.setType(enseignant.getType());
 		Enseignant.setPays(enseignant.getPays());
