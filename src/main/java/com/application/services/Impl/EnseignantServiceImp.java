@@ -48,7 +48,7 @@ public class EnseignantServiceImp implements EnseignantService {
 		if( phoneNumberFormat(ens.getTelephone()))
 			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
 		
-		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
+		Enseignant newEns=new Enseignant(ens.getNo_Enseignant(),
 				 ens.getNom(),
 				 ens.getPrenom(), 
 				 ens.getSexe(), 
