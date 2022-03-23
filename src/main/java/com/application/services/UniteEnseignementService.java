@@ -7,4 +7,6 @@ import java.util.List;
 public interface UniteEnseignementService {
 
     public List<UniteEnseignement> getAll();
+
+    public List<UniteEnseignement> getUEByEnseignant(Long noEnseignant);
 }
