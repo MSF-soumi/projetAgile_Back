@@ -11,4 +11,6 @@ public interface EtudiantService {
 	
 	public Etudiant getById(String id);
 
+	public boolean deleteById(String id);
+
 }

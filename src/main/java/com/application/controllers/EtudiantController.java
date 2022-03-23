@@ -8,11 +8,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.application.dto.EtudiantDTO;
 import com.application.models.Enseignant;
@@ -63,6 +59,11 @@ private final ModelMapper modelMapper;
 		}
 		return new ResponseEntity<>(this.convertToDto(etudiant), HttpStatus.OK);
 
+	}
+
+	@DeleteMapping(path="{id}")
+	public boolean deleteEtudiant(@PathVariable String id){
+		return etudiantService.deleteById(id);
 	}
 	private EtudiantDTO convertToDto(Etudiant etudiant) {
 		return modelMapper.map(etudiant, EtudiantDTO.class);
