@@ -42,7 +42,7 @@ public class EtudiantDTO {
 	private String lieu_Naissance;
 	
 	@NotBlank(message = "Ce champs est oligatoire.")
-	private String nationalité;
+	private String nationalite;
 	
 	private String telephone;
 	

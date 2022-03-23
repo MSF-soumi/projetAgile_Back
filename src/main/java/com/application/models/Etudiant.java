@@ -31,7 +31,7 @@ public class Etudiant {
 	private String sexe;
 	private LocalDate date_Naissance;
 	private String lieu_Naissance;
-	private String nationalité;
+	private String nationalite;
 	private String telephone;
 	private String mobile;
 	private String email;
