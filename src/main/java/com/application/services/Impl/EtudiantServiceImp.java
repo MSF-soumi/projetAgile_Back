@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.application.exceptions.EntityNotFoundException;
-import com.application.exceptions.enseignant.EtudiantSQLException;
+import com.application.exceptions.etudiant.EtudiantSQLException;
 import com.application.exceptions.etudiant.EtudiantNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
