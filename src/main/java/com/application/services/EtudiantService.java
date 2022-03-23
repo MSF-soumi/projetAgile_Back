@@ -13,4 +13,6 @@ public interface EtudiantService {
 	
 	public List<Etudiant> findByPromo(String code_Formation,String annee_Universitaire);
 
+	public boolean deleteById(String id);
+
 }
