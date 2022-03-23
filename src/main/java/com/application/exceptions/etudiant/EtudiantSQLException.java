@@ -1,4 +1,4 @@
-package com.application.exceptions.enseignant;
+package com.application.exceptions.etudiant;
 
 import org.springframework.util.StringUtils;
 
