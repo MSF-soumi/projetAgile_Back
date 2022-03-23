@@ -23,12 +23,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name="V_pays")
-public class Pays {
+public class Pays implements Comparable<Pays>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonIgnore
 	private String code;
 	private String abreviation;
 	private String signification;
+	@Override
+	public int compareTo(Pays p) {
+		// TODO Auto-generated method stub
+		return this.signification.compareTo(p.getSignification());
+	}
 
 }
