@@ -18,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @Table(name="Enseignant")
-public class Enseignant implements Serializable {
+public class Enseignant implements Comparable<Enseignant>, Serializable {
 	@Id
     @SequenceGenerator(name = "gen", sequenceName = "ENS_SEQ",schema="DOSI", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
@@ -35,4 +35,14 @@ public class Enseignant implements Serializable {
 	private String mobile;
 	private String telephone;
 	private String code_Postal;
+	
+	@Override
+	public int compareTo(Enseignant o) {
+		if(this.nom.equals(o.nom)) {
+			return this.prenom.compareTo(o.prenom);
+		}
+		else {
+			return this.nom.compareTo(o.nom);
+		}
+	}
 }

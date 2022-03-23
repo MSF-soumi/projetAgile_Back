@@ -1,5 +1,7 @@
 package com.application.services.Impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +70,10 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public List<Enseignant> getAll()
 	{
-		return enseignantRepository.findAll();
+		List<Enseignant> enseignants = new ArrayList<Enseignant>();
+		enseignants = enseignantRepository.findAll();
+		Collections.sort(enseignants);
+		return enseignants;
 	}
 	
 	@Override
