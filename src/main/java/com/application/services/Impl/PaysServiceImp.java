@@ -1,5 +1,6 @@
 package com.application.services.Impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ public class PaysServiceImp implements PaysService {
 	@Override
 	public List<Pays> getAll() {
 		// TODO Auto-generated method stub
-		return paysRepository.findAll();
+		List<Pays> p=paysRepository.findAll();
+		Collections.sort(p);
+		return p;
 	}
 
 }
