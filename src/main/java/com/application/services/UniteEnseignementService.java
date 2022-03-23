@@ -10,5 +10,5 @@ public interface UniteEnseignementService {
 
     public List<UniteEnseignement> getUEByEnseignant(Long noEnseignant);
 
-    public UniteEnseignement updateUE(UniteEnseignement UE);
+    public UniteEnseignement updateUE(UniteEnseignement UE); 
 }
