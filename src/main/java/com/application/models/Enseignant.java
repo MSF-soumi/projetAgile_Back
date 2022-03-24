@@ -1,19 +1,15 @@
 package com.application.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -42,7 +38,19 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String mobile;
 	private String telephone;
 	private String code_Postal;
-	
+
+	@OneToMany(mappedBy = "enseignant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
+	@Transient
+	private Integer nbh_cm;
+	@Transient
+	private Integer nbh_td;
+	@Transient
+	private Integer nbh_tp;
+	@Transient
+	private Double nbh_etd;
+
 	@Override
 	public int compareTo(Enseignant o) {
 		if(this.nom.equals(o.nom)) {
@@ -51,5 +59,21 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 		else {
 			return this.nom.compareTo(o.nom);
 		}
+	}
+
+	public Enseignant(Long no_Enseignant, String nom, String prenom, String sexe, TypeEnseignant type, String pays, String ville, String adresse, String email_Perso, String email_Ubo, String mobile, String telephone, String code_Postal) {
+		this.no_Enseignant = no_Enseignant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.sexe = sexe;
+		this.type = type;
+		this.pays = pays;
+		this.ville = ville;
+		this.adresse = adresse;
+		this.email_Perso = email_Perso;
+		this.email_Ubo = email_Ubo;
+		this.mobile = mobile;
+		this.telephone = telephone;
+		this.code_Postal = code_Postal;
 	}
 }

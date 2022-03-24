@@ -81,7 +81,6 @@ public class EtudiantServiceImp implements EtudiantService{
 	
 	
 	public Etudiant updateById(String id, Etudiant etudiantRequest) {
-		try {
 			if(differentId(id.toString(),etudiantRequest)) {
 				if(etudiantRequest.getEmail_Ubo() != null) {
 					Etudiant etudiantTrouve = etudiantRepository.findByEmail_Ubo(etudiantRequest.getEmail_Ubo());
@@ -99,10 +98,6 @@ public class EtudiantServiceImp implements EtudiantService{
 					return this.update(etudiantRequest);
 					
 			}
-		}catch (DifferentIdRequestException e) {
-			e.printStackTrace();
-	}
-
 			return null;
 	}
 	
