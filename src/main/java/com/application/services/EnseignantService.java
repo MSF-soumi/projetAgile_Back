@@ -16,7 +16,9 @@ public interface EnseignantService {
 	
 	public boolean delete(Long id);
 
-//	public Enseignant calculerEtd(Enseignant enseignant);
+	public Double sumEtd(Long id);
+
+	public Enseignant calculerEtd(Enseignant enseignant);
 
 	Enseignant getByEmailUbo(String emailUbo);
 

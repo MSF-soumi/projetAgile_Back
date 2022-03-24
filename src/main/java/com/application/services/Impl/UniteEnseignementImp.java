@@ -19,10 +19,13 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     @Autowired
     private final UniteEnseignementRepository uniteEnseignementRepository;
     public final EnseignantRepository enseignantRepository;
+    @Autowired
+    public final EnseignantServiceImp enseignantService;
 
-    public UniteEnseignementImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository) {
+    public UniteEnseignementImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository, EnseignantServiceImp enseignantService) {
         this.uniteEnseignementRepository = uniteEnseignementRepository;
         this.enseignantRepository = enseignantRepository;
+        this.enseignantService = enseignantService;
     }
 
     @Override
@@ -65,18 +68,16 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     @Override
     public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant){
-        var uniteEnseignements = getUEByEnseignant(enseignant.getNo_Enseignant());
-        Double sumEtd = 0.00;
-        for(UniteEnseignement uniteEnseignement: uniteEnseignements){
-            sumEtd += uniteEnseignement.getNbhEtd();
-        }
-        var uniteEnseignement = uniteEnseignementRepository.getById(id);
-
-
+        var uniteEnseignements = enseignant.getUniteEnseignementSet();
     }
 
     @Override
-    public Double getCurrentEtdDifference(UniteEnseignementPK id, Long id){
+    public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id){
+        var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
+        Double ens_etd = enseignantService.sumEtd(id);
+        Double ue_etd = uniteEnseignement.getNbh_etd();
+        Double result = ens_etd + ue_etd;
+        return result;
 
     }
 
@@ -85,16 +86,16 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
 
-	@Override
-	public double getSumEtd(Long noEnseignant) 
-	{
-		List<UniteEnseignement> list =getUEByEnseignant(noEnseignant);
-		double res=0;
-		// TODO Auto-generated method stub
-		for (UniteEnseignement ue : list) {
-	          res+=ue.getNbh_etd();
-	      }
-		System.out.println(res);
-		return res;
-	}
+//	@Override
+//	public double getSumEtd(Long noEnseignant)
+//	{
+//		List<UniteEnseignement> list =getUEByEnseignant(noEnseignant);
+//		double res=0;
+//		// TODO Auto-generated method stub
+//		for (UniteEnseignement ue : list) {
+//	          res+=ue.getNbh_etd();
+//	      }
+//		System.out.println(res);
+//		return res;
+//	}
 }

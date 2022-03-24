@@ -13,7 +13,7 @@ public interface UniteEnseignementService {
     
     public double getSumEtd(Long noEnseignant);
 
-    public Double getCurrentEtdDifference(UniteEnseignementPK id, Long id);
+    public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 
     public UniteEnseignement updateUE(UniteEnseignement UE);
 }

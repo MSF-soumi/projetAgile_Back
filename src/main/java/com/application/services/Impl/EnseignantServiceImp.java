@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.application.models.UniteEnseignement;
+import com.application.models.UniteEnseignementPK;
 import com.application.services.EnseignantService;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -135,33 +136,45 @@ public class EnseignantServiceImp implements EnseignantService {
 		
 	}
 
-//	@Override
-//	public Enseignant calculerEtd(Enseignant enseignant){
-//		if(!enseignantRepository.existsById(enseignant.getNo_Enseignant())){
-//			throw new EnseignantNotFoundException(Enseignant.class, enseignant.getNo_Enseignant());
-//		}
-//		else{
-//			Integer nbh_cm =0;
-//			Integer nbh_td =0;
-//			Integer nbh_tp =0;
-//			Double nbh_etd =0.00;
-//			for(UniteEnseignement uniteEnseignement : enseignant.getUniteEnseignementSet() ){
-//				nbh_cm += uniteEnseignement.getNbh_cm();
-//				nbh_td += uniteEnseignement.getNbh_td();
-//				nbh_tp += uniteEnseignement.getNbh_tp();
-//				nbh_etd += uniteEnseignement.getNbh_etd();
-//			}
-//			enseignant.setNbh_cm(nbh_cm);
-//			enseignant.setNbh_td(nbh_td);
-//			enseignant.setNbh_tp(nbh_tp);
-//		}
-//	}
-	
-	
+	@Override
+	public Enseignant calculerEtd(Enseignant enseignant){
+		if(!enseignantRepository.existsById(enseignant.getNo_Enseignant())){
+			throw new EnseignantNotFoundException(Enseignant.class, enseignant.getNo_Enseignant());
+		}
+		else{
+			Integer nbh_cm =0;
+			Integer nbh_td =0;
+			Integer nbh_tp =0;
+			Double nbh_etd =0.00;
+			for(UniteEnseignement uniteEnseignement : enseignant.getUniteEnseignementSet() ){
+				nbh_cm += uniteEnseignement.getNbh_cm();
+				nbh_td += uniteEnseignement.getNbh_td();
+				nbh_tp += uniteEnseignement.getNbh_tp();
+				nbh_etd += uniteEnseignement.getNbh_etd();
+			}
+			enseignant.setNbh_cm(nbh_cm);
+			enseignant.setNbh_td(nbh_td);
+			enseignant.setNbh_tp(nbh_tp);
+			enseignant.setNbh_etd(nbh_etd);
+		}
+		return enseignant;
+	}
+
+	@Override
+	public Double sumEtd(Long id){
+		var uniteEnseignements = enseignantRepository.getById(id).getUniteEnseignementSet();
+		Double sumEtd = 0.00;
+		for(UniteEnseignement uniteEnseignement: uniteEnseignements){
+			sumEtd += uniteEnseignement.getNbhEtd();
+		}
+		return sumEtd;
+	}
+
+
 	/*public void deleteEnseignant(Long id) throws SQLException
 	{
 		enseignantRepository.deleteById(id);
-		
+
 	}*/
 	
 	@Override
