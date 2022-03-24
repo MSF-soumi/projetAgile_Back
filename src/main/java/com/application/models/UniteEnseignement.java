@@ -1,9 +1,11 @@
 package com.application.models;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 @Entity
 @Builder
@@ -40,7 +42,12 @@ public class UniteEnseignement implements Serializable {
 
     @PostLoad
     private void postLoad() {
-        this.nbh_etd = this.nbh_cm * 1.5 + this.nbh_td + (double)this.nbh_tp * 2/3;
+        DecimalFormat value = new DecimalFormat("#.#");
+        if(this.enseignant.getType().getCode().equals("MCF")) {
+            this.nbh_etd = this.nbh_cm * 1.5 + this.nbh_td + (double)this.nbh_tp * 2/3;
+        } else {
+            this.nbh_etd = this.nbh_cm * 1.5 + this.nbh_td + (double)this.nbh_tp;
+        }
     }
 
     public double getNbhEtd() {
