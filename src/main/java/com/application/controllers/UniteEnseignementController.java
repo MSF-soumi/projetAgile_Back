@@ -1,8 +1,10 @@
 package com.application.controllers;
 
+import com.application.dto.EnseignantDTO;
 import com.application.dto.PromotionDTO;
 import com.application.dto.UniteEnseignementDTO;
 import com.application.exceptions.EntityNotFoundException;
+import com.application.models.Enseignant;
 import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.services.UniteEnseignementService;
@@ -11,8 +13,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,8 +66,22 @@ public class UniteEnseignementController {
     	return uniteEnseignementService.getSumEtd(noEnseignant);
     }
 
+
+
+    @PutMapping(path="/enseignant/etd/{noEnseignant}")
+    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement){
+        UniteEnseignement UE = convertToEntity(uniteEnseignement);
+        UniteEnseignement ue= uniteEnseignementService.updateUE(UE);
+        if (ue==null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
+    }
+
     private UniteEnseignementDTO convertToDto(UniteEnseignement uniteEnseignement) {
         return modelMapper.map(uniteEnseignement, UniteEnseignementDTO.class);
     }
-
+    private UniteEnseignement convertToEntity(UniteEnseignementDTO uniteEnseignementDTO) {
+        return modelMapper.map(uniteEnseignementDTO, UniteEnseignement.class);
+    }
 }
