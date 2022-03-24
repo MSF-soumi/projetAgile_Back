@@ -26,7 +26,6 @@ public class UniteEnseignement implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="NO_ENSEIGNANT")
-    @JsonBackReference
     private Enseignant enseignant;
 
     private String designation;

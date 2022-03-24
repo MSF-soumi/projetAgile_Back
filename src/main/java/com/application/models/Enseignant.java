@@ -38,8 +38,8 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String mobile;
 	private String telephone;
 	private String code_Postal;
-	@OneToMany(mappedBy = "enseignant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference
+	@OneToMany(mappedBy = "enseignant", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
 	@Transient
 	private Integer nbh_cm;

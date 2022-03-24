@@ -83,6 +83,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         return uniteEnseignement;
     }
 
+
     @Override
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
@@ -97,10 +98,6 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
 
-    @Override
-    public double getSumEtd(Long noEnseignant) {
-        return 0;
-    }
 
 //	@Override
 //	public double getSumEtd(Long noEnseignant)
