@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UniteEnseignementRepository extends JpaRepository<UniteEnseignement, String> {
+public interface UniteEnseignementRepository extends JpaRepository<UniteEnseignement, UniteEnseignementPK> {
 
     List<UniteEnseignement> findUniteEnseignementByEnseignant(Enseignant enseignant);
     UniteEnseignement findUniteEnseignementsById(UniteEnseignementPK id);

@@ -1,12 +1,19 @@
 package com.application.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -24,7 +31,9 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String nom;
 	private String prenom;
 	private String sexe;
-	private String type;
+	@ManyToOne
+    @JoinColumn(name="type")
+	private TypeEnseignant type;
 	private String pays;
 	private String ville;
 	private String adresse;	
@@ -33,16 +42,6 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String mobile;
 	private String telephone;
 	private String code_Postal;
-//	@OneToMany(mappedBy = "enseignant")
-//	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
-//	@Transient
-//	private Integer nbh_cm;
-//	@Transient
-//	private Integer nbh_td;
-//	@Transient
-//	private Integer nbh_tp;
-//	@Transient
-//	private Double nbh_etd;
 
 	@Override
 	public int compareTo(Enseignant o) {

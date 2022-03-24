@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.application.dto.EtudiantDTO;
-import com.application.models.Enseignant;
 import com.application.models.Etudiant;
 import com.application.services.Impl.EtudiantServiceImp;
 
@@ -61,15 +60,41 @@ private final ModelMapper modelMapper;
 
 	}
 
-	@DeleteMapping(path="{id}")
+	@ApiOperation(value="Lister les étudiants d'une promotion")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requêtte réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+			@ApiResponse(code=400,message="Requêtte non réussie")
+	})
+	@GetMapping(path = "/{code_Formation}/{annee_Universitaire}")
+	public List<EtudiantDTO> getById(@PathVariable String code_Formation,@PathVariable String annee_Universitaire){
+		var etudiants = etudiantService.findByPromo(code_Formation, annee_Universitaire);
+		return etudiants.stream().map(this::convertToDto).collect(Collectors.toList());
+	}
+	
+	
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<EtudiantDTO> updateEtudiant(@Valid@PathVariable String id,@Valid@RequestBody EtudiantDTO etudiantRequest){
+		Etudiant etudiant = convertToEntity(etudiantRequest);
+		var newEtudiant = etudiantService.updateById(id,etudiant);
+		if(newEtudiant == null)
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+		}
+		return new ResponseEntity<>(convertToDto(newEtudiant), HttpStatus.OK);
+	}
+
+
+	@DeleteMapping(path="/{id}")
 	public boolean deleteEtudiant(@PathVariable String id){
 		return etudiantService.deleteById(id);
 	}
+
 	private EtudiantDTO convertToDto(Etudiant etudiant) {
 		return modelMapper.map(etudiant, EtudiantDTO.class);
 	}
 	
-	private Enseignant convertToEntity(EtudiantDTO etudiantDTO) {
-		return modelMapper.map(etudiantDTO, Enseignant.class);
+	private Etudiant convertToEntity(EtudiantDTO etudiantDTO) {
+		return modelMapper.map(etudiantDTO, Etudiant.class);
 	}
 }

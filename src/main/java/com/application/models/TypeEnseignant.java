@@ -1,5 +1,7 @@
 package com.application.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name="V_type_enseignant")
-public class TypeEnseignant {
+public class TypeEnseignant implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
