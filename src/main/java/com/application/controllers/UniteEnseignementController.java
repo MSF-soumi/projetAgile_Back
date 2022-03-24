@@ -86,6 +86,17 @@ public class UniteEnseignementController {
         }
         return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
     }
+    
+    @ApiOperation(value="Lister toutes les unités d'enseignement d'une promotion/formation")
+    @ApiResponses(value= {
+            @ApiResponse(code=200,message="Requêtte réussie"),
+            @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+            @ApiResponse(code=400,message="Requêtte non réussie")
+    })
+    @GetMapping(path = "/promotion/{code_Formation}")
+    public List<UniteEnseignementDTO> findByPromo(@PathVariable String code_Formation) {
+        return uniteEnseignementService.findByPromo(code_Formation).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
 
     private UniteEnseignementDTO convertToDto(UniteEnseignement uniteEnseignement) {
         return modelMapper.map(uniteEnseignement, UniteEnseignementDTO.class);
