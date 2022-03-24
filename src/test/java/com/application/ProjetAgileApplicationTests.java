@@ -14,8 +14,7 @@ import com.application.models.Enseignant;
 
 
 import com.application.models.PromotionPK;
-
-
+import com.application.models.TypeEnseignant;
 import com.application.models.ProcessusStage;
 import com.application.models.Promotion;
 
@@ -134,7 +133,7 @@ class ProjetAgileApplicationTests {
 		enseignant.setMobile("06.00.00.00.19");
 		enseignant.setCode_Postal("29200");
 		enseignant.setSexe("F");
-		enseignant.setType("MCF");
+		enseignant.setType(new TypeEnseignant("INT","Intervenant","Intervenant"));
 		enseignant.setPays("FR");
 		enseignant.setTelephone("02.08.01.67.32");
 		
@@ -303,7 +302,7 @@ class ProjetAgileApplicationTests {
 		enseignant.setMobile("06.00.00.00.19");
 		enseignant.setCode_Postal("29200");
 		enseignant.setSexe("F");
-		enseignant.setType("MCF");
+		enseignant.setType(new TypeEnseignant("INT","Intervenant","Intervenant"));
 		enseignant.setPays("FR");
 		enseignant.setTelephone("02.08.01.67.32");
 		
