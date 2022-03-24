@@ -1,5 +1,6 @@
 package com.application.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
