@@ -66,10 +66,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     }
 
-    @Override
-    public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant){
-        var uniteEnseignements = enseignant.getUniteEnseignementSet();
-    }
+//    @Override
+//    public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant){
+//        var uniteEnseignements = enseignant.getUniteEnseignementSet();
+//    }
 
     @Override
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id){

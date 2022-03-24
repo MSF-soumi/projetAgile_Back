@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.application.models.TypeEnseignant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -63,14 +64,14 @@ public class EnseignantDTO {
 	@Size(min = 1, max = 10)
 	private String code_Postal;
 
-//    private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
-//
-//    private Integer nbh_cm;
-//
-//    private Integer nbh_td;
-//
-//    private Integer nbh_tp;
-//
-//    private Double nbh_etd;
+    private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
+
+    private Integer nbh_cm;
+
+    private Integer nbh_td;
+
+    private Integer nbh_tp;
+
+    private Double nbh_etd;
 
 }

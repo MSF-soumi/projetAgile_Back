@@ -61,10 +61,10 @@ public class UniteEnseignementController {
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
     }
     
-    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
-    public double getSumEtd(Long noEnseignant) {
-    	return uniteEnseignementService.getSumEtd(noEnseignant);
-    }
+//    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
+//    public double getSumEtd(Long noEnseignant) {
+//    	return uniteEnseignementService.getSumEtd(noEnseignant);
+//    }
 
 
 

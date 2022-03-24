@@ -11,7 +11,7 @@ public interface UniteEnseignementService {
 
     public List<UniteEnseignement> getUEByEnseignant(Long noEnseignant);
     
-    public double getSumEtd(Long noEnseignant);
+//    public double getSumEtd(Long noEnseignant);
 
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 

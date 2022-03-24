@@ -1,5 +1,6 @@
 package com.application.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -25,6 +26,7 @@ public class UniteEnseignement implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="NO_ENSEIGNANT")
+    @JsonBackReference
     private Enseignant enseignant;
 
     private String designation;

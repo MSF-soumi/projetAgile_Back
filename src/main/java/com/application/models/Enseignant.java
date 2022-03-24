@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.io.Serializable;
@@ -37,7 +38,8 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String mobile;
 	private String telephone;
 	private String code_Postal;
-	@OneToMany(mappedBy = "enseignant")
+	@OneToMany(mappedBy = "enseignant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
 	@Transient
 	private Integer nbh_cm;
