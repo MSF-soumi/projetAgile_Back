@@ -97,10 +97,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
 
-    @Override
-    public double getSumEtd(Long noEnseignant) {
-        return 0;
-    }
+ //   @Override
+ //   public double getSumEtd(Long noEnseignant) {
+ //       return 0;
+ //   }
 
 //	@Override
 //	public double getSumEtd(Long noEnseignant)
@@ -114,4 +114,9 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 //		System.out.println(res);
 //		return res;
 //	}
+	@Override
+	public List<UniteEnseignement> findByPromo(String code_Formation) {
+		// TODO Auto-generated method stub
+		return uniteEnseignementRepository.findByPromo(code_Formation);
+	}
 }

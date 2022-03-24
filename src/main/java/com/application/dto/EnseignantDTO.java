@@ -31,7 +31,7 @@ public class EnseignantDTO {
 	private String sexe;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-	private TypeEnseignant type;
+	private TypeEnseignantDTO type;
     
     @NotBlank(message = "Ce champs est oligatoire.")
     @Pattern(regexp = "[a-zA-Z]*", message = "Le pays doit être une chaine de caractères.")
