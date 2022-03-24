@@ -3,6 +3,7 @@ package com.application.services.Impl;
 import com.application.exceptions.EntityNotFoundException;
 import com.application.exceptions.ue.ExceedETDException;
 import com.application.models.Enseignant;
+import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.repositories.EnseignantRepository;
@@ -34,10 +35,21 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     }
 
     @Override
+    public UniteEnseignement getById(UniteEnseignementPK id) {
+        return uniteEnseignementRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Promotion.class, id.toString()));
+    }
+
+    @Override
     public List<UniteEnseignement> getUEByEnseignant(Long noEnseignant) {
         if (enseignantExists(noEnseignant))
         return uniteEnseignementRepository.findUniteEnseignementByEnseignant(enseignantRepository.getById(noEnseignant));
         else throw new EntityNotFoundException(Enseignant.class, "Numéro Enseignant", noEnseignant.toString());
+    }
+
+    @Override
+    public double getSumEtd(Long noEnseignant) {
+        return 0;
     }
 
     @Override
@@ -66,10 +78,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     }
 
-    @Override
-    public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant){
-        var uniteEnseignements = enseignant.getUniteEnseignementSet();
-    }
+//    @Override
+//    public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant){
+//        var uniteEnseignements = enseignant.getUniteEnseignementSet();
+//    }
 
     @Override
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id){

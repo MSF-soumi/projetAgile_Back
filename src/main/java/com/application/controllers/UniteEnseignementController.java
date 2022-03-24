@@ -4,9 +4,7 @@ import com.application.dto.EnseignantDTO;
 import com.application.dto.PromotionDTO;
 import com.application.dto.UniteEnseignementDTO;
 import com.application.exceptions.EntityNotFoundException;
-import com.application.models.Enseignant;
-import com.application.models.Promotion;
-import com.application.models.UniteEnseignement;
+import com.application.models.*;
 import com.application.services.UniteEnseignementService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -49,6 +47,19 @@ public class UniteEnseignementController {
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @ApiOperation(value="Rechercher une UE par ID")
+    @ApiResponses(value= {
+            @ApiResponse(code=200,message="Requette réussie"),
+            @ApiResponse(code=500,message="Erreur serveur, Reessayez!"),
+            @ApiResponse(code=400,message="Requette non réussie")
+    })
+    @GetMapping(path = "/{code_Formation}/{code_ue}")
+    public UniteEnseignementDTO getById(@PathVariable String code_Formation,@PathVariable String code_ue){
+        UniteEnseignementPK id= new UniteEnseignementPK(code_Formation,code_ue);
+        var ue = uniteEnseignementService.getById(id);
+        return this.convertToDto(ue);
+    }
+
     @ApiOperation(value="Lister toutes les unités d'enseignement")
     @ApiResponses(value= {
             @ApiResponse(code=200,message="Requêtte réussie"),
@@ -68,8 +79,10 @@ public class UniteEnseignementController {
 
 
 
-    @PutMapping(path="/enseignant/etd/{noEnseignant}")
-    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement){
+    @PutMapping(path="/{code_formation}/{code_ue}")
+    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
+        uniteEnseignement.setId(id);
         UniteEnseignement UE = convertToEntity(uniteEnseignement);
         UniteEnseignement ue= uniteEnseignementService.updateUE(UE);
         if (ue==null) {
