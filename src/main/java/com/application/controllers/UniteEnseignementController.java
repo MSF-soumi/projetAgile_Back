@@ -45,7 +45,7 @@ public class UniteEnseignementController {
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @ApiOperation(value="Lister toutes les unités d'enseignement")
+    @ApiOperation(value="Lister toutes les unités d'enseignement d'un enseignant")
     @ApiResponses(value= {
             @ApiResponse(code=200,message="Requêtte réussie"),
             @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),

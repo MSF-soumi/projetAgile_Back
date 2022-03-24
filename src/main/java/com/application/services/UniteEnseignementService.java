@@ -1,5 +1,6 @@
 package com.application.services;
 
+import com.application.models.Enseignant;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 
@@ -14,6 +15,8 @@ public interface UniteEnseignementService {
     public UniteEnseignement getById(UniteEnseignementPK id);
     
     public double getSumEtd(Long noEnseignant);
+
+    UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant);
 
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 
