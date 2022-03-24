@@ -5,6 +5,7 @@ import com.application.models.UniteEnseignementPK;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
@@ -25,10 +26,13 @@ public class UniteEnseignementDTO {
     @Size(min = 0, max = 255, message = "Le champs ne doit pas dépasser 255 caractères.")
     private String description;
 
+    @Pattern(regexp="^[0-9]$", message="Le champs doit être un nombre")
     private int nbh_cm;
 
+    @Pattern(regexp="^[0-9]{1,2}$", message="Le champs ne doit pas dépasser 3 chiffres")
     private int nbh_td;
 
+    @Pattern(regexp="^[0-9]{1,2}$", message="Le champs ne doit pas dépasser 3 chiffres")
     private int nbh_tp;
 
     private double nbh_etd;
