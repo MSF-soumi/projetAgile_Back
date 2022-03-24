@@ -1,12 +1,8 @@
 package com.application.controllers;
 
-import com.application.dto.EnseignantDTO;
-import com.application.dto.PromotionDTO;
 import com.application.dto.UniteEnseignementDTO;
-import com.application.exceptions.EntityNotFoundException;
-import com.application.models.Enseignant;
-import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
+import com.application.models.UniteEnseignementPK;
 import com.application.services.UniteEnseignementService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -49,7 +45,7 @@ public class UniteEnseignementController {
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @ApiOperation(value="Lister toutes les unités d'enseignement")
+    @ApiOperation(value="Lister toutes les unités d'enseignement d'un enseignant")
     @ApiResponses(value= {
             @ApiResponse(code=200,message="Requêtte réussie"),
             @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
@@ -59,6 +55,19 @@ public class UniteEnseignementController {
     public List<UniteEnseignementDTO> getUEByNoEnseignant(@PathVariable Long noEnseignant) {
         var unitesEnseignement = uniteEnseignementService.getUEByEnseignant(noEnseignant);
         return unitesEnseignement.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    @ApiOperation(value="Récupérer une unité d'enseignement par ID")
+    @ApiResponses(value= {
+            @ApiResponse(code=200,message="Requêtte réussie"),
+            @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+            @ApiResponse(code=400,message="Requêtte non réussie")
+    })
+    @GetMapping(path = "/{code_Formation}/{code_ue}")
+    public UniteEnseignementDTO getById(@PathVariable String code_Formation,@PathVariable String code_ue){
+        UniteEnseignementPK id= new UniteEnseignementPK(code_Formation,code_ue);
+        var uniteenseignement = uniteEnseignementService.getById(id);
+        return this.convertToDto(uniteenseignement);
     }
     
 //    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
