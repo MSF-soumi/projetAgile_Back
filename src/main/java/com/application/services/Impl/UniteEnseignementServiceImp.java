@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UniteEnseignementImp implements UniteEnseignementService {
+public class UniteEnseignementServiceImp implements UniteEnseignementService {
 
     @Autowired
     private final UniteEnseignementRepository uniteEnseignementRepository;
     public final EnseignantRepository enseignantRepository;
 
-    public UniteEnseignementImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository) {
+    public UniteEnseignementServiceImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository) {
         this.uniteEnseignementRepository = uniteEnseignementRepository;
         this.enseignantRepository = enseignantRepository;
     }
@@ -35,6 +35,12 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         if (enseignantExists(noEnseignant))
         return uniteEnseignementRepository.findUniteEnseignementByEnseignant(enseignantRepository.getById(noEnseignant));
         else throw new EntityNotFoundException(Enseignant.class, "Numéro Enseignant", noEnseignant.toString());
+    }
+
+    @Override
+    public UniteEnseignement getById(UniteEnseignementPK id) {
+        return uniteEnseignementRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UniteEnseignement.class));
     }
 
     @Override
