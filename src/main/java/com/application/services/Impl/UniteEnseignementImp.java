@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UniteEnseignementServiceImp implements UniteEnseignementService {
+public class UniteEnseignementImp implements UniteEnseignementService {
 
     @Autowired
     private final UniteEnseignementRepository uniteEnseignementRepository;
     public final EnseignantRepository enseignantRepository;
 
-    public UniteEnseignementServiceImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository) {
+    public UniteEnseignementImp(UniteEnseignementRepository uniteEnseignementRepository, EnseignantRepository enseignantRepository) {
         this.uniteEnseignementRepository = uniteEnseignementRepository;
         this.enseignantRepository = enseignantRepository;
     }
