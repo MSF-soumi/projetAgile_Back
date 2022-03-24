@@ -1,5 +1,6 @@
 package com.application.dto;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -8,6 +9,9 @@ import javax.validation.constraints.Size;
 import com.application.models.TypeEnseignant;
 
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class EnseignantDTO {
@@ -58,5 +62,15 @@ public class EnseignantDTO {
     @NotBlank(message = "Ce champs est oligatoire.")
 	@Size(min = 1, max = 10)
 	private String code_Postal;
+
+//    private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
+//
+//    private Integer nbh_cm;
+//
+//    private Integer nbh_td;
+//
+//    private Integer nbh_tp;
+//
+//    private Double nbh_etd;
 
 }
