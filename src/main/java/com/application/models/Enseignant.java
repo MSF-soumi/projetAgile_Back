@@ -43,9 +43,6 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String telephone;
 	private String code_Postal;
 	
-<<<<<<< HEAD
-	
-=======
 	@Override
 	public int compareTo(Enseignant o) {
 		if(this.nom.equals(o.nom)) {
@@ -55,5 +52,4 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 			return this.nom.compareTo(o.nom);
 		}
 	}
->>>>>>> 13dc9f0b62c537967e33a4148ad612fb8a9dc0ce
 }

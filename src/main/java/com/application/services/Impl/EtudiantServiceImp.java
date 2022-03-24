@@ -83,16 +83,19 @@ public class EtudiantServiceImp implements EtudiantService{
 	public Etudiant updateById(String id, Etudiant etudiantRequest) {
 		try {
 			if(differentId(id.toString(),etudiantRequest)) {
-				Etudiant etudiantTrouve = etudiantRepository.findByEmail_Ubo(etudiantRequest.getEmail_Ubo());
-				if(etudiantTrouve !=null && etudiantTrouve.getEmail_Ubo() !=null && !etudiantTrouve.getNo_Etudiant().equals(etudiantRequest.getNo_Etudiant()))
-						
-					throw new EmailUboIsTakenException(Etudiant.class, etudiantRequest.getEmail_Ubo());
+				if(etudiantRequest.getEmail_Ubo() != null) {
+					Etudiant etudiantTrouve = etudiantRepository.findByEmail_Ubo(etudiantRequest.getEmail_Ubo());
+					if(etudiantTrouve !=null && etudiantTrouve.getEmail_Ubo() !=null && !etudiantTrouve.getNo_Etudiant().equals(etudiantRequest.getNo_Etudiant()))			
+						throw new EmailUboIsTakenException(Etudiant.class, etudiantRequest.getEmail_Ubo());
+					
+				}
 				if(etudiantRequest.getMobile()!=null && etudiantRequest.getMobile()!="" && phoneNumberFormat(etudiantRequest.getMobile()) )
 					throw new PhoneNumberFormatException(Etudiant.class, etudiantRequest.getMobile());
 			
 					if( etudiantRequest.getTelephone()!=null && etudiantRequest.getTelephone()!="" && phoneNumberFormat(etudiantRequest.getTelephone()))
 					throw new PhoneNumberFormatException(Etudiant.class, etudiantRequest.getTelephone());
 			
+					
 					return this.update(etudiantRequest);
 					
 			}
