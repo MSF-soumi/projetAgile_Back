@@ -102,6 +102,8 @@ public class EtudiantServiceImp implements EtudiantService{
 				etudiant.getGroupe_Tp(),
 				etudiant.getGroupe_Anglais());
 		
+		etudiantRepository.save(newEtudiant);
+		
 		return newEtudiant;
 	}
 	
