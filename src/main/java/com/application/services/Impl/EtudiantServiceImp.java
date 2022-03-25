@@ -79,7 +79,7 @@ public class EtudiantServiceImp implements EtudiantService{
 		if( etudiant.getTelephone()!=null && etudiant.getTelephone()!="" && phoneNumberFormat(etudiant.getTelephone()))
 			throw new PhoneNumberFormatException(Etudiant.class, etudiant.getTelephone());
 	
-			
+		etudiant.setNo_Etudiant(null);
 		Etudiant newEtudiant = new Etudiant(
 				etudiant.getNo_Etudiant(),
 				etudiant.getCode_Formation(),
