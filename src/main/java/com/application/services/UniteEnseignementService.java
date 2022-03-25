@@ -24,7 +24,7 @@ public interface UniteEnseignementService {
     public UniteEnseignement updateUE(UniteEnseignement UE);
 
     public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp);
-//    public List<UniteEnseignement> findByPromo(String code_Formation);
+    public List<UniteEnseignement> findByPromo(String code_Formation);
 
     //public UniteEnseignement updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant);
 }
