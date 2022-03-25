@@ -1,6 +1,7 @@
 package com.application.dto;
 
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -30,7 +31,7 @@ public class EnseignantDTO {
     @Pattern(regexp = "[a-zA-Z]", message = "Le sexe doit être une chaine de caractères.")
 	private String sexe;
     
-    @NotBlank(message = "Ce champs est oligatoire.")
+    @Valid
 	private TypeEnseignantDTO type;
     
     @NotBlank(message = "Ce champs est oligatoire.")

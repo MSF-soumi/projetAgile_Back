@@ -1,6 +1,8 @@
 package com.application.controllers;
 
 import com.application.dto.UniteEnseignementDTO;
+import com.application.exceptions.EntityNotFoundException;
+import com.application.models.*;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.services.UniteEnseignementService;
@@ -69,7 +71,7 @@ public class UniteEnseignementController {
         var uniteenseignement = uniteEnseignementService.getById(id);
         return this.convertToDto(uniteenseignement);
     }
-    
+
 //    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
 //    public double getSumEtd(Long noEnseignant) {
 //    	return uniteEnseignementService.getSumEtd(noEnseignant);
@@ -77,8 +79,10 @@ public class UniteEnseignementController {
 
 
 
-    @PutMapping(path="/enseignant/etd/{noEnseignant}")
-    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement){
+    @PutMapping(path="/{code_formation}/{code_ue}")
+    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
+        uniteEnseignement.setId(id);
         UniteEnseignement UE = convertToEntity(uniteEnseignement);
         UniteEnseignement ue= uniteEnseignementService.updateUE(UE);
         if (ue==null) {
@@ -86,7 +90,7 @@ public class UniteEnseignementController {
         }
         return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
     }
-    
+
     @ApiOperation(value="Lister toutes les unités d'enseignement d'une promotion/formation")
     @ApiResponses(value= {
             @ApiResponse(code=200,message="Requêtte réussie"),

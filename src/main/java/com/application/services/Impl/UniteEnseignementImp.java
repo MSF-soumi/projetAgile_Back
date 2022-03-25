@@ -103,4 +103,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     public boolean enseignantExists(Long noEnseignant) throws EntityNotFoundException {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
+
+    @Override
+    public List<UniteEnseignement> findByPromo(String code_Formation) {
+        // TODO Auto-generated method stub
+        return uniteEnseignementRepository.findByPromo(code_Formation);
+    }
 }
