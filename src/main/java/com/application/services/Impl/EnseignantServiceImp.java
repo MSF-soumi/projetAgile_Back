@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.application.exceptions.EntityNotFoundException;
+import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.services.EnseignantService;
@@ -81,12 +83,14 @@ public class EnseignantServiceImp implements EnseignantService {
 		Collections.sort(enseignants);
 		return enseignants;
 	}
-	
+
 	@Override
-	public Enseignant getById(Long id)
-	{
-		Optional<Enseignant> res = enseignantRepository.findById(id);
-		return res.isPresent() ? res.get() : null;
+	public Enseignant getById(Long id) {
+		if(enseignantRepository.existsById(id)){
+			Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EnseignantNotFoundException(Enseignant.class, id));
+			return calculerEtd(enseignant);
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
 	}
 	
 	@Override
@@ -159,6 +163,21 @@ public class EnseignantServiceImp implements EnseignantService {
 			enseignant.setNbh_etd(nbh_etd);
 		}
 		return enseignant;
+	}
+
+	@Override
+	public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
+		if(enseignantRepository.existsById(id)) {
+			var enseignant = enseignantRepository.getById(id);
+			Double etd = 0.00;
+			if (enseignant.getType().getCode().equals("MCF"))
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp * 2 / 3;
+			else
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp;
+
+			return etd;
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
 	}
 
 	@Override
