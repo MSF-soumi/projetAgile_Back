@@ -97,7 +97,6 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         Double ue_etd = uniteEnseignement.getNbh_etd();
         Double result = ens_etd + ue_etd;
         return result;
-
     }
 
     public boolean enseignantExists(Long noEnseignant) throws EntityNotFoundException {
