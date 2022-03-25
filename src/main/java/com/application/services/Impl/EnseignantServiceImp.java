@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.application.exceptions.EntityNotFoundException;
+import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.services.EnseignantService;
@@ -80,12 +82,14 @@ public class EnseignantServiceImp implements EnseignantService {
 		Collections.sort(enseignants);
 		return enseignants;
 	}
-	
+
 	@Override
-	public Enseignant getById(Long id)
-	{
-		Optional<Enseignant> res = enseignantRepository.findById(id);
-		return res.isPresent() ? res.get() : null;
+	public Enseignant getById(Long id) {
+		if(enseignantRepository.existsById(id)){
+			Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EnseignantNotFoundException(Enseignant.class, id));
+			return calculerEtd(enseignant);
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
 	}
 	
 	@Override

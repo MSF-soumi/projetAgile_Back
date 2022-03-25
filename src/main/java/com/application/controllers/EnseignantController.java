@@ -55,12 +55,14 @@ public class EnseignantController {
 			@ApiResponse(code=400,message="Requêtte non réussie")
 	})
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<EnseignantDTO> getById(@Valid@PathVariable Long id){
+	public EnseignantDTO getById(@Valid@PathVariable Long id){
+//		var enseignant = enseignantService.getById(id);
+//		if (enseignant==null) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
 		var enseignant = enseignantService.getById(id);
-		if (enseignant==null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(this.convertToDto(enseignant), HttpStatus.OK);
+		return this.convertToDto(enseignant);
 
 	}
 	
