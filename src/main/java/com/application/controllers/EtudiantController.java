@@ -73,6 +73,20 @@ private final ModelMapper modelMapper;
 	}
 	
 	
+	@ApiOperation(value="Créer un étudiant -- Ajouter un étudiant à une promotion")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Requêtte réussie"),
+			@ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
+			@ApiResponse(code=400,message="Requêtte non réussie")
+	})	
+	@PostMapping
+	public EtudiantDTO createEtudiant(@Valid @RequestBody EtudiantDTO etudiantRequest) {
+		Etudiant etudiant = convertToEntity(etudiantRequest);
+		var newEtudiant = etudiantService.create(etudiant);
+		return this.convertToDto(newEtudiant);
+	}
+	
+	
 	@PutMapping(path = "/{id}")
 	public ResponseEntity<EtudiantDTO> updateEtudiant(@Valid@PathVariable String id,@Valid@RequestBody EtudiantDTO etudiantRequest){
 		Etudiant etudiant = convertToEntity(etudiantRequest);

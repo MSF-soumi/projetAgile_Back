@@ -7,6 +7,8 @@ import com.application.models.Etudiant;
 
 public interface EtudiantService {
 	
+	public Etudiant create(Etudiant etudiant);
+	
 	public List<Etudiant> getAll();
 	
 	public Etudiant getById(String id);

@@ -53,6 +53,7 @@ public class EnseignantServiceImp implements EnseignantService {
 		if( phoneNumberFormat(ens.getTelephone()))
 			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
 
+
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
 				 ens.getNom().toUpperCase(),
 				 ens.getPrenom().substring(0,1).toUpperCase() + ens.getPrenom().substring(1),
@@ -187,8 +188,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		try 
-		{
 			if (differentId(id,enseignantRequest))
 				{		
 					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
@@ -205,13 +204,8 @@ public class EnseignantServiceImp implements EnseignantService {
 							if( phoneNumberFormat(enseignantRequest.getTelephone()))
 							throw new PhoneNumberFormatException(Enseignant.class, enseignantRequest.getTelephone());
 					
-					
 							return this.update(enseignantRequest);
-
 				}
-			} catch (DifferentIdRequestException e) {
-					e.printStackTrace();
-			}
 	
 		return null;
 		
