@@ -9,15 +9,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.application.dto.EnseignantDTO;
 import com.application.models.Enseignant;
@@ -113,6 +105,11 @@ public class EnseignantController {
 		map.put("message", "Entity deleted");
 		if (val) return ResponseEntity.ok(map);
 		else return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping(path="/getEtdPerEnseignantType/{id}")
+	public ResponseEntity<?> getEtdPerEnseignantType(@RequestParam Long id, @RequestParam int cm, @RequestParam int td, @RequestParam int tp){
+		return new ResponseEntity<>(enseignantService.getEtdPerEnseignantType(id, cm, tp, td), HttpStatus.OK);
 	}
 
 	@PutMapping(path = "/{id}")

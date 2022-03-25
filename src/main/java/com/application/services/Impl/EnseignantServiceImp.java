@@ -161,6 +161,21 @@ public class EnseignantServiceImp implements EnseignantService {
 	}
 
 	@Override
+	public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
+		if(enseignantRepository.existsById(id)) {
+			var enseignant = enseignantRepository.getById(id);
+			Double etd = 0.00;
+			if (enseignant.getType().getCode().equals("MCF"))
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp * 2 / 3;
+			else
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp;
+
+			return etd;
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
+	}
+
+	@Override
 	public Double sumEtd(Long id){
 		var uniteEnseignements = enseignantRepository.getById(id).getUniteEnseignementSet();
 		Double sumEtd = 0.00;
