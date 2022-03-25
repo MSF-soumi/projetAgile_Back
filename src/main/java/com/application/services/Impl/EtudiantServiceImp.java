@@ -9,6 +9,7 @@ import com.application.exceptions.enseignant.EmailUboIsTakenException;
 import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.enseignant.PhoneNumberFormatException;
 import com.application.exceptions.etudiant.EtudiantSQLException;
+import com.application.exceptions.promotions.EntityAlreadyExistsException;
 import com.application.exceptions.etudiant.EtudiantNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import com.application.models.Enseignant;
 import com.application.models.Etudiant;
+import com.application.models.Promotion;
+import com.application.models.PromotionPK;
 import com.application.repositories.EtudiantRepository;
+import com.application.repositories.PromotionRepository;
 import com.application.services.EtudiantService;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -28,10 +32,15 @@ public class EtudiantServiceImp implements EtudiantService{
 	@Autowired
 	private final EtudiantRepository etudiantRepository;
 	
+	
+	@Autowired
+	private final PromotionRepository promotionRepository;
+	
 	PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 	
-	public EtudiantServiceImp(EtudiantRepository etudiantRepo) {
+	public EtudiantServiceImp(EtudiantRepository etudiantRepo, PromotionRepository promotionRepository) {
 		etudiantRepository=etudiantRepo;
+		this.promotionRepository = promotionRepository;
 	}
 
 	@Override
@@ -53,6 +62,53 @@ public class EtudiantServiceImp implements EtudiantService{
 		// TODO Auto-generated method stub
 		return etudiantRepository.findByPromo(code_Formation, annee_Universitaire);
 	}
+	
+	
+	@Override
+	public Etudiant create(Etudiant etudiant) {
+		
+		PromotionPK promotionPK = new PromotionPK(etudiant.getCode_Formation(), etudiant.getAnnee_Universitaire());
+        if (promotionDoesNotExistID(promotionPK)) throw new EntityNotFoundException(Promotion.class, "ID", promotionPK.getCode_Formation() + " " + promotionPK.getAnnee_Universitaire());
+		
+		if(etudiant.getEmail_Ubo()!=null && etudiantRepository.findByEmail_Ubo(etudiant.getEmail_Ubo()) != null)
+			throw new EmailUboIsTakenException(Etudiant.class, etudiant.getEmail_Ubo());
+		
+		if(etudiant.getMobile()!=null && etudiant.getMobile()!="" && phoneNumberFormat(etudiant.getMobile()) )
+			throw new PhoneNumberFormatException(Etudiant.class, etudiant.getMobile());
+	
+		if( etudiant.getTelephone()!=null && etudiant.getTelephone()!="" && phoneNumberFormat(etudiant.getTelephone()))
+			throw new PhoneNumberFormatException(Etudiant.class, etudiant.getTelephone());
+	
+			
+		Etudiant newEtudiant = new Etudiant(
+				etudiant.getNo_Etudiant(),
+				etudiant.getCode_Formation(),
+				etudiant.getAnnee_Universitaire(),
+				etudiant.getNom().toUpperCase(),
+				etudiant.getPrenom().substring(0,1).toUpperCase() + etudiant.getPrenom().substring(1),
+				etudiant.getSexe(),
+				etudiant.getDate_Naissance(),
+				etudiant.getLieu_Naissance(),
+				etudiant.getNationalite(),
+				etudiant.getTelephone(),
+				etudiant.getMobile(),
+				etudiant.getEmail(),
+				etudiant.getEmail_Ubo(),
+				etudiant.getAdresse(),
+				etudiant.getCode_Postal(),
+				etudiant.getVille(),
+				etudiant.getPays_Origine(),
+				etudiant.getUniversite_origine(),
+				etudiant.getGroupe_Tp(),
+				etudiant.getGroupe_Anglais());
+		
+		return newEtudiant;
+	}
+	
+	public boolean promotionDoesNotExistID(PromotionPK id) throws EntityAlreadyExistsException{
+        return promotionRepository.findById(id).isEmpty();
+    }
+
 	
 	
 	public Etudiant update(Etudiant etudiant) {
@@ -146,4 +202,5 @@ public boolean phoneNumberFormat(String tel) throws PhoneNumberFormatException {
 		}
 	}
 
+	
 }
