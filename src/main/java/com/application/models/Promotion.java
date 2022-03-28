@@ -1,17 +1,22 @@
 package com.application.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Builder
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 @Table(name="Promotion")
 public class Promotion implements Serializable {
@@ -36,8 +41,14 @@ public class Promotion implements Serializable {
 	private LocalDate date_Rentree;
 
 	private String lieu_Rentree;
+	
+	@Transient
+	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
 
 	private String processus_Stage;
 
 	private String commentaire;
+
+
+	
 }

@@ -65,7 +65,6 @@ public class UniteEnseignementController {
             @ApiResponse(code=500,message="Erreur serveur, Réessayez!"),
             @ApiResponse(code=400,message="Requêtte non réussie")
     })
-
     @GetMapping(path = "/{code_Formation}/{code_ue}")
     public UniteEnseignementDTO getById(@PathVariable String code_Formation,@PathVariable String code_ue){
         UniteEnseignementPK id= new UniteEnseignementPK(code_Formation,code_ue);
@@ -73,13 +72,10 @@ public class UniteEnseignementController {
         return this.convertToDto(uniteenseignement);
     }
 
-
-    @PutMapping(path="modifierEnseignantUE/{ue_pk}")
-    public UniteEnseignementDTO updateEnseignantUE(@PathVariable UniteEnseignementPK ue_pk, @RequestBody Enseignant enseignant){
-        var uniteEnseignement = uniteEnseignementService.updateEnseignantUE(ue_pk, enseignant);
-        return this.convertToDto(uniteEnseignement);
-    }
-
+//    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
+//    public double getSumEtd(Long noEnseignant) {
+//    	return uniteEnseignementService.getSumEtd(noEnseignant);
+//    }
 
 
 

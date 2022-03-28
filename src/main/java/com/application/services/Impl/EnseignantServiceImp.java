@@ -3,12 +3,18 @@ package com.application.services.Impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
+import com.application.exceptions.EntityNotFoundException;
+import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
+import com.application.models.UniteEnseignementPK;
 import com.application.services.EnseignantService;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber.CountryCodeSource;
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

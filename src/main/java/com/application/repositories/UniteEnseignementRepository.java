@@ -17,4 +17,5 @@ public interface UniteEnseignementRepository extends JpaRepository<UniteEnseigne
     
     @Query(value = "select * from unite_enseignement where code_formation = ?1", nativeQuery=true)
     List<UniteEnseignement> findByPromo(String code_Formation);
+    
 }
