@@ -171,9 +171,9 @@ public class EnseignantServiceImp implements EnseignantService {
 			var enseignant = enseignantRepository.getById(id);
 			Double etd = 0.00;
 			if (enseignant.getType().getCode().equals("MCF"))
-				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp * 2 / 3;
+				etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp * 2 / 3;
 			else
-				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp;
+				etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp;
 
 			return etd;
 		}

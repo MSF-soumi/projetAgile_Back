@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import com.application.dto.EnseignantDTO;
 import com.application.dto.UniteEnseignementDTO;
 import com.application.exceptions.EntityNotFoundException;
 import com.application.models.*;
@@ -80,19 +81,26 @@ public class UniteEnseignementController {
 
 
 
-    @PutMapping(path="/{code_formation}/{code_ue}")
-    public ResponseEntity<UniteEnseignementDTO> updateUE(@RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
-        System.out.println("updateUE");
-        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
-        uniteEnseignement.setId(id);
-        UniteEnseignement UE = convertToEntity(uniteEnseignement);
-        System.out.println("this is ue "+UE);
-        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
-        System.out.println("this is updated ue "+ue);
-        if (ue==null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
+//    @PutMapping(path="/{code_formation}/{code_ue}")
+//    public ResponseEntity<UniteEnseignementDTO> updateUE(@RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+//        System.out.println("updateUE");
+//        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
+//        uniteEnseignement.setId(id);
+//        UniteEnseignement UE = convertToEntity(uniteEnseignement);
+//        System.out.println("this is ue "+UE);
+//        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
+//        System.out.println("this is updated ue "+ue);
+//        if (ue==null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
+//    }
+
+    @PutMapping(path = "/modifierEnseignantUE/{code_Formation}/{code_ue}")
+    public UniteEnseignementDTO updateEnseignantUE(@PathVariable String code_Formation, @PathVariable String code_ue, @RequestBody EnseignantDTO enseignantDTO){
+        UniteEnseignementPK ue_pk = new UniteEnseignementPK(code_Formation, code_ue);
+        Enseignant enseignant = convertToEntity(enseignantDTO);
+        return convertToDto(uniteEnseignementService.updateEnseignantUE(ue_pk, enseignant));
     }
 
     @ApiOperation(value="Lister toutes les unités d'enseignement d'une promotion/formation")
@@ -111,5 +119,9 @@ public class UniteEnseignementController {
     }
     private UniteEnseignement convertToEntity(UniteEnseignementDTO uniteEnseignementDTO) {
         return modelMapper.map(uniteEnseignementDTO, UniteEnseignement.class);
+    }
+
+    private Enseignant convertToEntity(EnseignantDTO enseignantDTO) {
+        return modelMapper.map(enseignantDTO, Enseignant.class);
     }
 }

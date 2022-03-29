@@ -4,6 +4,7 @@ import com.application.exceptions.EntityNotFoundException;
 import com.application.exceptions.etudiant.DifferentIdRequestException;
 import com.application.exceptions.ue.ExceedETDException;
 import com.application.exceptions.ue.UENotFoundException;
+import com.application.exceptions.ue.UeAlreadyBelongsToChosenTeacherException;
 import com.application.models.Enseignant;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
@@ -140,10 +141,14 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     @Override
     public UniteEnseignement updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
-        var currentEnseignant = uniteEnseignementRepository.getById(ue_pk).getEnseignant();
+        var currentEnseignant = new Enseignant();
+        if(uniteEnseignementRepository.getById(ue_pk).getEnseignant() != null){
+            currentEnseignant = uniteEnseignementRepository.getById(ue_pk).getEnseignant();
+        }
         Double newEtd = enseignantService.getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_cm(),uniteEnseignement.getNbh_td(), uniteEnseignement.getNbh_tp());
         Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
-
+        if(uniteEnseignement.getEnseignant().equals(currentEnseignant))
+            throw new UeAlreadyBelongsToChosenTeacherException(UniteEnseignement.class, uniteEnseignement.getId().toString());
         if(newEtd + enseignant_etd <= 192){
             currentEnseignant.getUniteEnseignementSet().remove(uniteEnseignement);
             newEnseignant.getUniteEnseignementSet().add(uniteEnseignement);

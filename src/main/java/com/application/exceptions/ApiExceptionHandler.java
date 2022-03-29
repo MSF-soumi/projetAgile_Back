@@ -3,7 +3,8 @@ package com.application.exceptions;
 import com.application.exceptions.apierror.ApiError;
 
 import com.application.exceptions.enseignant.PhoneNumberFormatException;
-import com.google.i18n.phonenumbers.NumberParseException;
+import com.application.exceptions.ue.ExceedETDException;
+import com.application.exceptions.ue.UeAlreadyBelongsToChosenTeacherException;
 
 import com.application.exceptions.enseignant.DifferentIdRequestException;
 import com.application.exceptions.enseignant.EmailUboIsTakenException;
@@ -270,12 +271,26 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    /*@ExceptionHandler(Exception.class )
+    @ExceptionHandler(ExceedETDException.class )
+    public ResponseEntity<Object> handleException(ExceedETDException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(UeAlreadyBelongsToChosenTeacherException.class )
+    public ResponseEntity<Object> handleException(UeAlreadyBelongsToChosenTeacherException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(Exception.class )
     public ResponseEntity<Object> handleException(Exception ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage("Erreur technique : veuillez contacter votre administrateur.");
         return buildResponseEntity(apiError);
-    }*/
+    }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
