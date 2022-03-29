@@ -30,6 +30,9 @@ public class Promotion implements Serializable {
 	@JoinColumn(name="NO_ENSEIGNANT")
 	private Enseignant Enseignant;
 
+	@OneToMany(mappedBy="promotion",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Etudiant> etudiants=new HashSet<>();
+
 	private String sigle_Promotion;
 
 	private int nb_Max_Etudiant;

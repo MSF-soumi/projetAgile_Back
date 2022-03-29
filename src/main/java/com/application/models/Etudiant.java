@@ -2,11 +2,7 @@ package com.application.models;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +23,12 @@ public class Etudiant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String no_Etudiant;
+
+	@ManyToOne
+	@JoinColumns({@JoinColumn(name="code_Formation",referencedColumnName ="code_Formation",insertable = false, updatable = false),
+			@JoinColumn(name="annee_Universitaire",referencedColumnName="annee_Universitaire",insertable = false, updatable = false)})
+	private Promotion promotion;
+
 	private String code_Formation;
 	private String annee_Universitaire;
 	private String nom;

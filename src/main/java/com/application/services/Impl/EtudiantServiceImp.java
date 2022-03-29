@@ -82,6 +82,7 @@ public class EtudiantServiceImp implements EtudiantService{
 			
 		Etudiant newEtudiant = new Etudiant(
 				etudiant.getNo_Etudiant(),
+				etudiant.getPromotion(),
 				etudiant.getCode_Formation(),
 				etudiant.getAnnee_Universitaire(),
 				etudiant.getNom().toUpperCase(),

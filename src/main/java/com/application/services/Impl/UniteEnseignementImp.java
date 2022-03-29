@@ -49,15 +49,6 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 .orElseThrow(() -> new EntityNotFoundException(UniteEnseignement.class));
     }
 
-    @Override
-    public UniteEnseignement updateUE(UniteEnseignement UE) {
-        //double nbh_etd=UE.getNbh_etd();
-        Long id=UE.getEnseignant().getNo_Enseignant();
-        List<UniteEnseignement> UEens_list=getUEByEnseignant(id);
-
-        double nbh_etd_ens=0;
-        for(int i=0;i<UEens_list.size();i++){
-           nbh_etd_ens+= UEens_list.get(i).getNbhEtd();
 //    @Override
 //    public double getSumEtd(Long noEnseignant) {
 //        return 0;
@@ -202,4 +193,5 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 //		System.out.println(res);
 //		return res;
 //	}
+
 }
