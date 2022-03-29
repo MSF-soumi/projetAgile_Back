@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -80,11 +81,14 @@ public class UniteEnseignementController {
 
 
     @PutMapping(path="/{code_formation}/{code_ue}")
-    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+    public ResponseEntity<UniteEnseignementDTO> updateUE(@RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+        System.out.println("updateUE");
         UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
         uniteEnseignement.setId(id);
         UniteEnseignement UE = convertToEntity(uniteEnseignement);
-        UniteEnseignement ue= uniteEnseignementService.updateUE(UE);
+        System.out.println("this is ue "+UE);
+        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
+        System.out.println("this is updated ue "+ue);
         if (ue==null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -6,6 +6,7 @@ import com.application.models.UniteEnseignementPK;
 import com.application.models.*;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UniteEnseignementService {
 
@@ -21,7 +22,7 @@ public interface UniteEnseignementService {
 
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 
-    public UniteEnseignement updateUE(UniteEnseignement UE);
+    public UniteEnseignement updateUE(UniteEnseignementPK id,UniteEnseignement UE);
 
     public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp);
 //    public List<UniteEnseignement> findByPromo(String code_Formation);

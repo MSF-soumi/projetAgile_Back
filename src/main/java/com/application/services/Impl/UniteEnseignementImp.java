@@ -1,9 +1,10 @@
 package com.application.services.Impl;
 
 import com.application.exceptions.EntityNotFoundException;
+import com.application.exceptions.etudiant.DifferentIdRequestException;
 import com.application.exceptions.ue.ExceedETDException;
+import com.application.exceptions.ue.UENotFoundException;
 import com.application.models.Enseignant;
-import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.repositories.EnseignantRepository;
@@ -12,6 +13,7 @@ import com.application.services.UniteEnseignementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Service
@@ -36,8 +38,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     @Override
     public List<UniteEnseignement> getUEByEnseignant(Long noEnseignant) {
-        if (enseignantExists(noEnseignant))
-        return uniteEnseignementRepository.findUniteEnseignementByEnseignant(enseignantRepository.getById(noEnseignant));
+        if (enseignantExists(noEnseignant)){
+            Enseignant ens=enseignantRepository.getById(noEnseignant);
+            System.out.println("inside"+ens);
+        return uniteEnseignementRepository.findUniteEnseignementByEnseignant(enseignantRepository.getById(noEnseignant));}
         else throw new EntityNotFoundException(Enseignant.class, "Numéro Enseignant", noEnseignant.toString());
     }
 
@@ -47,36 +51,93 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 .orElseThrow(() -> new EntityNotFoundException(UniteEnseignement.class));
     }
 
-    @Override
-    public double getSumEtd(Long noEnseignant) {
-        return 0;
-    }
+//    @Override
+//    public double getSumEtd(Long noEnseignant) {
+//        return 0;
+//    }
+
+//    @Override
+//    public UniteEnseignement updateUE(UniteEnseignement UE) {
+//        //double nbh_etd=UE.getNbh_etd();
+//        Long id = UE.getEnseignant().getNo_Enseignant();
+//        System.out.println("this is id ens " + id);
+////        System.out.println("hello");
+////        var  UEens_list = getUEByEnseignant(id);
+////
+////        System.out.println("this is ens==> " + UEens_list);
+//
+//        var enseignant=enseignantService.getById(id);
+//        System.out.println("this is ens==> "+enseignant);
+//        Set<UniteEnseignement> UEens_set=enseignant.getUniteEnseignementSet();
+//        for(UniteEnseignement ue : UEens_set){
+//            System.out.println("ue "+ue.getNbhEtd());
+//        }
+//
+//
+////        double nbh_etd_ens=0;
+////        for(int i=0;i<UEens_list.size();i++){
+////           nbh_etd_ens+= UEens_set.stream().map((e)=> e.getNbh_etd())
+////        }
+////        nbh_etd_ens+=getDiffupdatedUE(UE);
+////
+////        if(nbh_etd_ens <= 192)
+////            return uniteEnseignementRepository.save(UE);
+////        else throw new ExceedETDException(UniteEnseignement.class,id.toString());
+//return UE;
+//    }
+
+    //    public double getDiffupdatedUE(UniteEnseignement UE){
+//        double new_etd=UE.getNbh_etd();
+//        UniteEnseignement old_UE=uniteEnseignementRepository.findUniteEnseignementsById(UE.getId());
+//        double old_etd=old_UE.getNbh_etd();
+//        double diff=new_etd-old_etd;
+//        return diff;
+//
+//    }
+
 
     @Override
-    public UniteEnseignement updateUE(UniteEnseignement UE) {
-        //double nbh_etd=UE.getNbh_etd();
-        Long id=UE.getEnseignant().getNo_Enseignant();
-        List<UniteEnseignement> UEens_list=getUEByEnseignant(id);
+    public UniteEnseignement updateUE(UniteEnseignementPK id,UniteEnseignement ue){
+        try
+        {
+            if (differentId(id,ue))
+            {
+                var enseignement=uniteEnseignementRepository.findById(id);
 
-        double nbh_etd_ens=0;
-        for(int i=0;i<UEens_list.size();i++){
-           nbh_etd_ens+= UEens_list.get(i).getNbhEtd();
+                if(NumberFormat(enseignement.get().getNbh_cm()) )
+                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+                if(NumberFormat(enseignement.get().getNbh_td()))
+                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+                if(NumberFormat(enseignement.get().getNbh_tp()))
+                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+
+
+                return uniteEnseignementRepository.save(ue);
+
+            }
+        } catch (DifferentIdRequestException e) {
+            e.printStackTrace();
         }
-        nbh_etd_ens+=getDiffupdatedUE(UE);
 
-        if(nbh_etd_ens <= 192)
-            return uniteEnseignementRepository.save(UE);
-        else throw new ExceedETDException(UniteEnseignement.class,id.toString());
+        return null;
     }
 
-    public double getDiffupdatedUE(UniteEnseignement UE){
-        double new_etd=UE.getNbh_etd();
-        UniteEnseignement old_UE=uniteEnseignementRepository.findUniteEnseignementsById(UE.getId());
-        double old_etd=old_UE.getNbh_etd();
-        double diff=new_etd-old_etd;
-        return diff;
+    public boolean differentId(UniteEnseignementPK id,UniteEnseignement ue){
+
+        if(this.getById(id) == null){
+
+            throw new UENotFoundException(UniteEnseignement.class, id);
+        }
+        else {
+
+            if(!id.equals(ue.getEnseignant().getNo_Enseignant()))
+                throw new DifferentIdRequestException(UniteEnseignement.class, id.getCode_Formation().toString());
+            else return true;
+        }
 
     }
+
+
 
     @Override
     public UniteEnseignement updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
@@ -123,6 +184,12 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         return enseignantRepository.findById(noEnseignant).isPresent();
     }
 
+    public boolean NumberFormat(int nbr)  {
+            if(nbr==(int)(nbr))
+                return true;
+        return false;
+
+    }
 
 //	@Override
 //	public double getSumEtd(Long noEnseignant)
