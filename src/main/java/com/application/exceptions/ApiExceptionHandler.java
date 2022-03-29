@@ -218,6 +218,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
     }
+    
+    @ExceptionHandler(com.application.exceptions.etudiant.DifferentIdRequestException.class)
+    public ResponseEntity<Object> handleDifferentIdEtudiantRequestException(com.application.exceptions.etudiant.DifferentIdRequestException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
 
 
     @ExceptionHandler(EmailUboIsTakenException.class)
@@ -263,12 +270,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(Exception.class )
+    /*@ExceptionHandler(Exception.class )
     public ResponseEntity<Object> handleException(Exception ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage("Erreur technique : veuillez contacter votre administrateur.");
         return buildResponseEntity(apiError);
-    }
+    }*/
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());

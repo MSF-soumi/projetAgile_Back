@@ -1,8 +1,10 @@
 package com.application.services.Impl;
 
 import com.application.exceptions.EntityNotFoundException;
+import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.promotions.DatesOrderException;
 import com.application.exceptions.promotions.EntityAlreadyExistsException;
+import com.application.exceptions.promotions.PromotionNotFoundException;
 import com.application.models.*;
 import com.application.repositories.*;
 import com.application.services.PromotionService;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PromotionServiceImp implements PromotionService {
@@ -23,13 +26,15 @@ public class PromotionServiceImp implements PromotionService {
     public final FormationRepository formationRepository;
     public final SalleRepository salleRepository;
     public final ProcessusStageRepository processusStageRepository;
+    private final UniteEnseignementRepository uniteEnseignementRepository;
 
-    public PromotionServiceImp(PromotionRepository promotionRepository, EnseignantRepository enseignantRepository, FormationRepository formationRepository, SalleRepository salleRepository, ProcessusStageRepository processusStageRepository) {
+    public PromotionServiceImp(PromotionRepository promotionRepository, EnseignantRepository enseignantRepository, FormationRepository formationRepository, SalleRepository salleRepository, ProcessusStageRepository processusStageRepository,UniteEnseignementRepository uniteEnseignementRepository) {
         this.promotionRepository = promotionRepository;
         this.enseignantRepository = enseignantRepository;
         this.formationRepository = formationRepository;
         this.salleRepository = salleRepository;
         this.processusStageRepository = processusStageRepository;
+		this.uniteEnseignementRepository = uniteEnseignementRepository;
     }
 
     @Override
@@ -58,9 +63,13 @@ public class PromotionServiceImp implements PromotionService {
 	public Promotion getById(PromotionPK id)
 	{
 //		Optional<Promotion> res=promotionRepository.findById(id);
-//		return res.isPresent()?res.get():null;
-        return promotionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Promotion.class, id.toString()));
+//		return res;
+		if(promotionRepository.existsById(id)){
+		Promotion p =promotionRepository.getById(id);
+		p.setUniteEnseignementSet(Set.copyOf(uniteEnseignementRepository.findByPromo(id.getCode_Formation())));
+        return p;
+		}throw new PromotionNotFoundException(Promotion.class, id);
+		//orElseThrow(() -> new EntityNotFoundException(Promotion.class, id.toString()));|
 	}
 
     @Override

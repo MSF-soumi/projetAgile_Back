@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.application.exceptions.EntityNotFoundException;
+import com.application.models.Promotion;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.services.EnseignantService;
@@ -53,6 +55,7 @@ public class EnseignantServiceImp implements EnseignantService {
 		if( phoneNumberFormat(ens.getTelephone()))
 			throw new PhoneNumberFormatException(Enseignant.class, ens.getTelephone());
 
+
 		Enseignant newEns=new Enseignant(ens.getNo_Enseignant() ,
 				 ens.getNom().toUpperCase(),
 				 ens.getPrenom().substring(0,1).toUpperCase() + ens.getPrenom().substring(1),
@@ -80,12 +83,14 @@ public class EnseignantServiceImp implements EnseignantService {
 		Collections.sort(enseignants);
 		return enseignants;
 	}
-	
+
 	@Override
-	public Enseignant getById(Long id)
-	{
-		Optional<Enseignant> res = enseignantRepository.findById(id);
-		return res.isPresent() ? res.get() : null;
+	public Enseignant getById(Long id) {
+		if(enseignantRepository.existsById(id)){
+			Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EnseignantNotFoundException(Enseignant.class, id));
+			return calculerEtd(enseignant);
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
 	}
 	
 	@Override
@@ -161,6 +166,21 @@ public class EnseignantServiceImp implements EnseignantService {
 	}
 
 	@Override
+	public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
+		if(enseignantRepository.existsById(id)) {
+			var enseignant = enseignantRepository.getById(id);
+			Double etd = 0.00;
+			if (enseignant.getType().getCode().equals("MCF"))
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp * 2 / 3;
+			else
+				etd = nbh_cm * 1.5 * nbh_td + (double) nbh_tp;
+
+			return etd;
+		}
+		else throw new EnseignantNotFoundException(Enseignant.class, id);
+	}
+
+	@Override
 	public Double sumEtd(Long id){
 		var uniteEnseignements = enseignantRepository.getById(id).getUniteEnseignementSet();
 		Double sumEtd = 0.00;
@@ -187,8 +207,6 @@ public class EnseignantServiceImp implements EnseignantService {
 	@Override
 	public Enseignant updateById(Long id, Enseignant enseignantRequest)
 	{
-		try 
-		{
 			if (differentId(id,enseignantRequest))
 				{		
 					Enseignant enseignantTrouve = enseignantRepository.findByEmail_Ubo(enseignantRequest.getEmail_Ubo());
@@ -205,13 +223,8 @@ public class EnseignantServiceImp implements EnseignantService {
 							if( phoneNumberFormat(enseignantRequest.getTelephone()))
 							throw new PhoneNumberFormatException(Enseignant.class, enseignantRequest.getTelephone());
 					
-					
 							return this.update(enseignantRequest);
-
 				}
-			} catch (DifferentIdRequestException e) {
-					e.printStackTrace();
-			}
 	
 		return null;
 		

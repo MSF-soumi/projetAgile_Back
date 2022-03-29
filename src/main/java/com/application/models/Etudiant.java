@@ -3,6 +3,8 @@ package com.application.models;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,6 +25,7 @@ import lombok.ToString;
 @Table(name="Etudiant")
 public class Etudiant {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String no_Etudiant;
 	private String code_Formation;
 	private String annee_Universitaire;

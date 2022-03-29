@@ -9,6 +9,8 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class PromotionDTO {
@@ -40,6 +42,7 @@ public class PromotionDTO {
 
     @NotBlank(message = "Le lieu de rentrée doit être renseigné.")
     private String lieu_Rentree;
+    private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
     private String processus_Stage;
     private String commentaire;
 }
