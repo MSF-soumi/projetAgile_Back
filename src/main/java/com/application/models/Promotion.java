@@ -30,8 +30,8 @@ public class Promotion implements Serializable {
 	@JoinColumn(name="NO_ENSEIGNANT")
 	private Enseignant Enseignant;
 
-	@OneToMany(mappedBy="promotion",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Etudiant> etudiants=new HashSet<>();
+//	@OneToMany(mappedBy="promotion",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	private Set<Etudiant> etudiants=new HashSet<>();
 
 	private String sigle_Promotion;
 
@@ -44,9 +44,13 @@ public class Promotion implements Serializable {
 	private LocalDate date_Rentree;
 
 	private String lieu_Rentree;
+
+	@Transient
+	private Set<Etudiant> etudiantSet= new HashSet<>();
 	
 	@Transient
 	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
+
 
 	private String processus_Stage;
 

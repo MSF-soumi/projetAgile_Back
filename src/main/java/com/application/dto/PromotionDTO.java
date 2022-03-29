@@ -43,6 +43,7 @@ public class PromotionDTO {
     @NotBlank(message = "Le lieu de rentrée doit être renseigné.")
     private String lieu_Rentree;
     private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
+    private Set<EtudiantDTO> etudiantSet = new HashSet<>();
     private String processus_Stage;
     private String commentaire;
 }

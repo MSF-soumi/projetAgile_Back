@@ -27,14 +27,16 @@ public class PromotionServiceImp implements PromotionService {
     public final SalleRepository salleRepository;
     public final ProcessusStageRepository processusStageRepository;
     private final UniteEnseignementRepository uniteEnseignementRepository;
+    private final EtudiantRepository etudiantRepository;
 
-    public PromotionServiceImp(PromotionRepository promotionRepository, EnseignantRepository enseignantRepository, FormationRepository formationRepository, SalleRepository salleRepository, ProcessusStageRepository processusStageRepository,UniteEnseignementRepository uniteEnseignementRepository) {
+    public PromotionServiceImp(PromotionRepository promotionRepository, EnseignantRepository enseignantRepository, FormationRepository formationRepository, SalleRepository salleRepository, ProcessusStageRepository processusStageRepository,UniteEnseignementRepository uniteEnseignementRepository,EtudiantRepository etudiantRepository) {
         this.promotionRepository = promotionRepository;
         this.enseignantRepository = enseignantRepository;
         this.formationRepository = formationRepository;
         this.salleRepository = salleRepository;
         this.processusStageRepository = processusStageRepository;
 		this.uniteEnseignementRepository = uniteEnseignementRepository;
+        this.etudiantRepository= etudiantRepository;
     }
 
     @Override
@@ -62,11 +64,10 @@ public class PromotionServiceImp implements PromotionService {
 	@Override
 	public Promotion getById(PromotionPK id)
 	{
-//		Optional<Promotion> res=promotionRepository.findById(id);
-//		return res;
 		if(promotionRepository.existsById(id)){
 		Promotion p =promotionRepository.getById(id);
 		p.setUniteEnseignementSet(Set.copyOf(uniteEnseignementRepository.findByPromo(id.getCode_Formation())));
+        p.setEtudiantSet(Set.copyOf(etudiantRepository.findByPromo((id.getCode_Formation()),id.getAnnee_Universitaire())));
         return p;
 		}throw new PromotionNotFoundException(Promotion.class, id);
 		//orElseThrow(() -> new EntityNotFoundException(Promotion.class, id.toString()));|
