@@ -111,7 +111,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 if(NumberFormat(enseignement.get().getNbh_tp()))
                     throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
 
-
+                updateEnseignantUE(id,ue.getEnseignant());
                 return uniteEnseignementRepository.save(ue);
 
             }
