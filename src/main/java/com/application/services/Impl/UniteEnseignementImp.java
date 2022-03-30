@@ -99,42 +99,42 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     @Override
     public UniteEnseignement updateUE(UniteEnseignementPK id,UniteEnseignement ue){
         var uniteEnseignement = uniteEnseignementRepository.getById(id);
-        uniteEnseignement.setDescription(ue.getDescription());
+        var currentEnseignant = new Enseignant();
+        var newEnseignant = ue.getEnseignant();
+        if(uniteEnseignementRepository.getById(id).getEnseignant() != null){
+            currentEnseignant = uniteEnseignementRepository.getById(id).getEnseignant();
+        }
         try
         {
-            if (differentId(id,ue))
-            {
-                var enseignement=uniteEnseignementRepository.findById(id);
 
-//                if(NumberFormat(enseignement.get().getNbh_cm()) )
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-//                if(NumberFormat(enseignement.get().getNbh_td()))
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-//                if(NumberFormat(enseignement.get().getNbh_tp()))
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-               var id_ens_old=enseignement.get().getEnseignant().getNo_Enseignant();
+               var id_ens_old=uniteEnseignement.getEnseignant().getNo_Enseignant();
                var id_ens_new=ue.getEnseignant().getNo_Enseignant();
-               if(!id_ens_old.equals(id_ens_new)){
-                   updateEnseignantUE(id,ue.getEnseignant());
+                Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), ue.getNbh_cm(),ue.getNbh_td(), ue.getNbh_tp());
+                Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
+                Double somme = newEtd + enseignant_etd;
+                //System.out.println("newEtd: "+ newEtd + "enseignantEtd: " + enseignant_etd + "somme: " + somme );
+                if(somme > 192) {
+                    throw new ExceedETDException(Enseignant.class, newEnseignant.getNo_Enseignant().toString());
+                }
+                else{
+                    if(!id_ens_old.equals(id_ens_new)) {
+                    uniteEnseignement.setEnseignant(newEnseignant);
+                    currentEnseignant.getUniteEnseignementSet().remove(uniteEnseignement);
+                    newEnseignant.getUniteEnseignementSet().add(uniteEnseignement);
+                }
+                    uniteEnseignement.setDesignation(ue.getDesignation());
+                    uniteEnseignement.setSemestre(ue.getSemestre());
+                    uniteEnseignement.setDescription(ue.getDescription());
+                    uniteEnseignement.setNbh_cm(ue.getNbh_cm());
+                    uniteEnseignement.setNbh_td(ue.getNbh_td());
+                    uniteEnseignement.setNbh_tp(ue.getNbh_tp());
+                    uniteEnseignement.setNbh_etd(ue.getNbh_etd());
+                }
+            return uniteEnseignementRepository.save(ue);
 
-               }
-
-                UniteEnseignement  uniteEnseignement=uniteEnseignementRepository.getById(id);
-                uniteEnseignement.setDesignation(ue.getDesignation());
-                uniteEnseignement.setSemestre(ue.getSemestre());
-                uniteEnseignement.setDesignation(ue.getDescription());
-                uniteEnseignement.setNbh_cm(ue.getNbh_cm());
-                uniteEnseignement.setNbh_td(ue.getNbh_td());
-                uniteEnseignement.setNbh_tp(ue.getNbh_tp());
-                uniteEnseignement.setNbh_etd(ue.getNbh_etd());
-
-                return uniteEnseignementRepository.save(ue);
-
-            }
         } catch (DifferentIdRequestException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -154,7 +154,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     }
 
     @Override
-    public UniteEnseignement updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
+    public void updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
         var currentEnseignant = new Enseignant();
         if(uniteEnseignementRepository.getById(ue_pk).getEnseignant() != null){
@@ -162,14 +162,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         }
         Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_cm(),uniteEnseignement.getNbh_td(), uniteEnseignement.getNbh_tp());
         Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
-        if(uniteEnseignement.getEnseignant().equals(currentEnseignant))
-            throw new UeAlreadyBelongsToChosenTeacherException(UniteEnseignement.class, uniteEnseignement.getId().toString());
         if(newEtd + enseignant_etd <= 192){
+            uniteEnseignement.setEnseignant(newEnseignant);
             currentEnseignant.getUniteEnseignementSet().remove(uniteEnseignement);
             newEnseignant.getUniteEnseignementSet().add(uniteEnseignement);
-            uniteEnseignement.setEnseignant(newEnseignant);
-            enseignantRepository.save(newEnseignant);
-            return uniteEnseignementRepository.save(uniteEnseignement);
         }else
             throw new ExceedETDException(Enseignant.class, newEnseignant.getNo_Enseignant().toString());
     }
@@ -194,7 +190,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp * 2 / 3;
             else
                 etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp;
-
+            System.out.println(etd);
             return Math.round(etd *2)/2.0;
         }
         else throw new EnseignantNotFoundException(Enseignant.class, id);

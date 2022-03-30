@@ -80,6 +80,9 @@ public class EnseignantServiceImp implements EnseignantService {
 	{
 		List<Enseignant> enseignants = new ArrayList<Enseignant>();
 		enseignants = enseignantRepository.findAll();
+		for(Enseignant enseignant : enseignants){
+			calculerEtd(enseignant);
+		}
 		Collections.sort(enseignants);
 		return enseignants;
 	}

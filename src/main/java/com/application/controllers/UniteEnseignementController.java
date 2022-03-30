@@ -86,27 +86,20 @@ public class UniteEnseignementController {
 
 
 
-    @PutMapping(path="/{code_formation}/{code_ue}")
-    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
-        System.out.println("updateUE");
-        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
-        //uniteEnseignement.setId(id);
-        UniteEnseignement UE = convertToEntity(uniteEnseignement);
-        System.out.println("this is ue "+UE);
-        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
-        System.out.println("this is updated ue "+ue);
-        if (ue==null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
+    @PutMapping(path="/modifierUE/{code_Formation}/{code_ue}")
+    public UniteEnseignementDTO updateUE(@PathVariable String code_Formation,@PathVariable String code_ue,@Valid @RequestBody UniteEnseignementDTO uniteEnseignementDTO){
+        UniteEnseignementPK id=new UniteEnseignementPK(code_Formation,code_ue);
+        UniteEnseignement ue = convertToEntity(uniteEnseignementDTO);
+        return convertToDto(uniteEnseignementService.updateUE(id,ue));
+
     }
 
-    @PutMapping(path = "/modifierEnseignantUE/{code_Formation}/{code_ue}")
-    public UniteEnseignementDTO updateEnseignantUE(@PathVariable String code_Formation, @PathVariable String code_ue, @RequestBody EnseignantDTO enseignantDTO){
-        UniteEnseignementPK ue_pk = new UniteEnseignementPK(code_Formation, code_ue);
-        Enseignant enseignant = convertToEntity(enseignantDTO);
-        return convertToDto(uniteEnseignementService.updateEnseignantUE(ue_pk, enseignant));
-    }
+//    @PutMapping(path = "/modifierEnseignantUE/{code_Formation}/{code_ue}")
+//    public UniteEnseignementDTO updateEnseignantUE(@PathVariable String code_Formation, @PathVariable String code_ue, @RequestBody EnseignantDTO enseignantDTO){
+//        UniteEnseignementPK ue_pk = new UniteEnseignementPK(code_Formation, code_ue);
+//        Enseignant enseignant = convertToEntity(enseignantDTO);
+//        return convertToDto(uniteEnseignementService.updateEnseignantUE(ue_pk, enseignant));
+//    }
 
     @ApiOperation(value="Lister toutes les unités d'enseignement d'une promotion/formation")
     @ApiResponses(value= {

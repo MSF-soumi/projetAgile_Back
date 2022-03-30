@@ -27,7 +27,7 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	private String nom;
 	private String prenom;
 	private String sexe;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="type")
 	private TypeEnseignant type;
 	private String pays;
