@@ -5,8 +5,7 @@ import org.springframework.util.StringUtils;
 public class EtudiantSQLException extends RuntimeException {
 
     private static String generateMessage(String entity, String id) {
-
-        return "L'étudiant ne peut pas être supprimé car il a des évaluations.";
+        return "L'étudiant ne peut pas être supprimé car il a des évaluations en cours.";
     }
 
 

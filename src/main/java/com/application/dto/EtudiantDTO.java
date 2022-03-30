@@ -31,11 +31,11 @@ public class EtudiantDTO {
 	private String prenom;
 	
 	@NotBlank(message = "Ce champs est oligatoire.")
-	@Pattern(regexp = "[a-zA-Z]", message = "Le sexe doit être une chaine de caractères.")
+	@Pattern(regexp = "[a-zA-Z]", message = "Ce champs doit être une chaine de caractères.")
 	private String sexe;
 	
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
-    @NotNull(message = "La date de réponse à la liste principale doit être renseignée.")
+    @NotNull(message = "Ce champs est obligatoire.")
 	private LocalDate date_Naissance;
 	
 	@NotBlank(message = "Ce champs est oligatoire.")

@@ -20,38 +20,38 @@ public class EnseignantDTO {
 
 	private Long no_Enseignant;
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]*", message = "Le nom doit être une chaine de caractères.")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Ce champs doit être une chaine de caractères.")
 	private String nom;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]*", message = "Le prénom doit être une chaine de caractères.")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Ce champs doit être une chaine de caractères.")
 	private String prenom;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]", message = "Le sexe doit être une chaine de caractères.")
+    @Pattern(regexp = "[a-zA-Z]", message = "Ce champs doit être une chaine de caractères.")
 	private String sexe;
     
     @Valid
 	private TypeEnseignantDTO type;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]*", message = "Le pays doit être une chaine de caractères.")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Ce champs doit être une chaine de caractères.")
 	private String pays;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "[a-zA-Z]*", message = "La ville doit être une chaine de caractères")
+    @Pattern(regexp = "[a-zA-Z]*", message = "Ce champs doit être une chaine de caractères")
 	private String ville;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Pattern(regexp = "^.*[a-zA-Z0-9]+.*$", message = "L'adresse doit être une chaine de caractères.")
+    @Pattern(regexp = "^.*[a-zA-Z0-9]+.*$", message = "Ce champs doit être une chaine de caractères.")
 	private String adresse;
     
     @Email(message="Le format de l'email ne correspond pas au bon format, veuillez suivre le format \"abcd@gmail.com\".")
     private String email_Perso;
     
     @NotBlank(message = "Ce champs est oligatoire.")
-    @Email(message="Le format de l'email ne correspond pas au bon format, merci de suivre le format \"nomprenom@univ-brest.fr\".")
-    @Pattern(regexp= "^[\\w-\\.]+@(univ-brest+\\.)+fr", message="Le format de l'email ne correspond pas au bon format, veuillez suivre le format \"nomprenom@univ-brest.fr\".")
+    @Email(message="Le format de l'email ne correspond pas au bon format, l'adresse mail doit se terminer par \'@univ-brest.fr\'.")
+    @Pattern(regexp= "^[\\w-\\.]+@(univ-brest+\\.)+fr", message="Le format de l'email ne correspond pas au bon format, l'adresse mail doit se terminer par \'@univ-brest.fr\'.")
     private String email_Ubo;
     
     @NotBlank(message = "Ce champs est oligatoire.")
