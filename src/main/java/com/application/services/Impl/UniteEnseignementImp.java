@@ -98,6 +98,8 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     @Override
     public UniteEnseignement updateUE(UniteEnseignementPK id,UniteEnseignement ue){
+        var uniteEnseignement = uniteEnseignementRepository.getById(id);
+        uniteEnseignement.setDescription(ue.getDescription());
         try
         {
             if (differentId(id,ue))
