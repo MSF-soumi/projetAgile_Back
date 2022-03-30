@@ -86,20 +86,20 @@ public class UniteEnseignementController {
 
 
 
-//    @PutMapping(path="/{code_formation}/{code_ue}")
-//    public ResponseEntity<UniteEnseignementDTO> updateUE(@RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
-//        System.out.println("updateUE");
-//        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
-//        uniteEnseignement.setId(id);
-//        UniteEnseignement UE = convertToEntity(uniteEnseignement);
-//        System.out.println("this is ue "+UE);
-//        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
-//        System.out.println("this is updated ue "+ue);
-//        if (ue==null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
-//    }
+    @PutMapping(path="/{code_formation}/{code_ue}")
+    public ResponseEntity<UniteEnseignementDTO> updateUE(@Valid @RequestBody UniteEnseignementDTO uniteEnseignement,@RequestParam String code_formation,@RequestParam String code_ue){
+        System.out.println("updateUE");
+        UniteEnseignementPK id=new UniteEnseignementPK(code_formation,code_ue);
+        //uniteEnseignement.setId(id);
+        UniteEnseignement UE = convertToEntity(uniteEnseignement);
+        System.out.println("this is ue "+UE);
+        UniteEnseignement ue= uniteEnseignementService.updateUE(id,UE);
+        System.out.println("this is updated ue "+ue);
+        if (ue==null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(convertToDto(ue), HttpStatus.OK);
+    }
 
     @PutMapping(path = "/modifierEnseignantUE/{code_Formation}/{code_ue}")
     public UniteEnseignementDTO updateEnseignantUE(@PathVariable String code_Formation, @PathVariable String code_ue, @RequestBody EnseignantDTO enseignantDTO){
