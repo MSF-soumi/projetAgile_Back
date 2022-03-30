@@ -102,22 +102,16 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         {
             if (differentId(id,ue))
             {
-                var enseignement=uniteEnseignementRepository.findById(id);
+                var  uniteEnseignement=uniteEnseignementRepository.getById(id);
 
-//                if(NumberFormat(enseignement.get().getNbh_cm()) )
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-//                if(NumberFormat(enseignement.get().getNbh_td()))
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-//                if(NumberFormat(enseignement.get().getNbh_tp()))
-//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-               var id_ens_old=enseignement.get().getEnseignant().getNo_Enseignant();
+
+               var id_ens_old=uniteEnseignement.getEnseignant().getNo_Enseignant();
                var id_ens_new=ue.getEnseignant().getNo_Enseignant();
+
                if(!id_ens_old.equals(id_ens_new)){
                    updateEnseignantUE(id,ue.getEnseignant());
-
                }
 
-                UniteEnseignement  uniteEnseignement=uniteEnseignementRepository.getById(id);
                 uniteEnseignement.setDesignation(ue.getDesignation());
                 uniteEnseignement.setSemestre(ue.getSemestre());
                 uniteEnseignement.setDesignation(ue.getDescription());
@@ -126,15 +120,18 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 uniteEnseignement.setNbh_tp(ue.getNbh_tp());
                 uniteEnseignement.setNbh_etd(ue.getNbh_etd());
 
-                return uniteEnseignementRepository.save(ue);
+        System.out.println("unite => "+uniteEnseignement);
 
-            }
-        } catch (DifferentIdRequestException e) {
-            e.printStackTrace();
+                 return uniteEnseignementRepository.save(uniteEnseignement);
+
+           }
+       } catch (DifferentIdRequestException e) {
+           e.printStackTrace();
         }
 
         return null;
     }
+
 
     public boolean differentId(UniteEnseignementPK id,UniteEnseignement ue){
 
