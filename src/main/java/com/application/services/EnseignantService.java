@@ -18,8 +18,6 @@ public interface EnseignantService {
 
 	public Double sumEtd(Long id);
 
-	public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp);
-
 	public Enseignant calculerEtd(Enseignant enseignant);
 
 	public Enseignant getByEmailUbo(String emailUbo);

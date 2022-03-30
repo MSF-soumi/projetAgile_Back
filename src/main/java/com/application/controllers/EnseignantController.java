@@ -109,11 +109,6 @@ public class EnseignantController {
 		else return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping(path="/getEtdPerEnseignantType/{id}")
-	public ResponseEntity<?> getEtdPerEnseignantType(@RequestParam Long id, @RequestParam int cm, @RequestParam int td, @RequestParam int tp){
-		return new ResponseEntity<>(enseignantService.getEtdPerEnseignantType(id, cm, tp, td), HttpStatus.OK);
-	}
-
 	@PutMapping(path = "/{id}")
 	public ResponseEntity<EnseignantDTO> updateEnseignant(@Valid@PathVariable Long id,@Valid@RequestBody EnseignantDTO enseignantRequest) {
 		Enseignant enseignant = convertToEntity(enseignantRequest);

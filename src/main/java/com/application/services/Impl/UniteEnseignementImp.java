@@ -1,6 +1,7 @@
 package com.application.services.Impl;
 
 import com.application.exceptions.EntityNotFoundException;
+import com.application.exceptions.enseignant.EnseignantNotFoundException;
 import com.application.exceptions.etudiant.DifferentIdRequestException;
 import com.application.exceptions.ue.ExceedETDException;
 import com.application.exceptions.ue.UENotFoundException;
@@ -136,8 +137,6 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     }
 
-
-
     @Override
     public UniteEnseignement updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
@@ -145,7 +144,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         if(uniteEnseignementRepository.getById(ue_pk).getEnseignant() != null){
             currentEnseignant = uniteEnseignementRepository.getById(ue_pk).getEnseignant();
         }
-        Double newEtd = enseignantService.getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_cm(),uniteEnseignement.getNbh_td(), uniteEnseignement.getNbh_tp());
+        Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_cm(),uniteEnseignement.getNbh_td(), uniteEnseignement.getNbh_tp());
         Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
         if(uniteEnseignement.getEnseignant().equals(currentEnseignant))
             throw new UeAlreadyBelongsToChosenTeacherException(UniteEnseignement.class, uniteEnseignement.getId().toString());
@@ -168,6 +167,21 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         Double result = ens_etd + ue_etd;
         return result;
 
+    }
+
+    @Override
+    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
+        if(enseignantRepository.existsById(id)) {
+            var enseignant = enseignantRepository.getById(id);
+            Double etd = 0.00;
+            if (enseignant.getType().getCode().equals("MCF"))
+                etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp * 2 / 3;
+            else
+                etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp;
+
+            return Math.round(etd *2)/2.0;
+        }
+        else throw new EnseignantNotFoundException(Enseignant.class, id);
     }
 
     public boolean enseignantExists(Long noEnseignant) throws EntityNotFoundException {

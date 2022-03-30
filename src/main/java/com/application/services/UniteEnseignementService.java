@@ -21,6 +21,8 @@ public interface UniteEnseignementService {
 
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 
+    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp);
+
     public UniteEnseignement updateUE(UniteEnseignementPK id,UniteEnseignement UE);
 
     public List<UniteEnseignement> findByPromo(String code_Formation);

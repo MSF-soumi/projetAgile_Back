@@ -74,6 +74,11 @@ public class UniteEnseignementController {
         return this.convertToDto(uniteenseignement);
     }
 
+    @GetMapping(path="/getEtdPerEnseignantType")
+    public ResponseEntity<?> getEtdPerEnseignantType(@RequestParam Long id, @RequestParam int cm, @RequestParam int td, @RequestParam int tp){
+        return new ResponseEntity<>(uniteEnseignementService.getEtdPerEnseignantType(id, cm, tp, td), HttpStatus.OK);
+    }
+
 //    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
 //    public double getSumEtd(Long noEnseignant) {
 //    	return uniteEnseignementService.getSumEtd(noEnseignant);
