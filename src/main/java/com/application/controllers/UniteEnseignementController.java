@@ -91,7 +91,6 @@ public class UniteEnseignementController {
         UniteEnseignementPK id=new UniteEnseignementPK(code_Formation,code_ue);
         UniteEnseignement ue = convertToEntity(uniteEnseignementDTO);
         return convertToDto(uniteEnseignementService.updateUE(id,ue));
-
     }
 
 //    @PutMapping(path = "/modifierEnseignantUE/{code_Formation}/{code_ue}")
