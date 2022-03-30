@@ -285,12 +285,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(Exception.class )
-    public ResponseEntity<Object> handleException(Exception ex) {
-        var apiError = new ApiError(BAD_REQUEST);
-        apiError.setMessage("Erreur technique : veuillez contacter votre administrateur.");
-        return buildResponseEntity(apiError);
-    }
+//    @ExceptionHandler(Exception.class )
+//    public ResponseEntity<Object> handleException(Exception ex) {
+//        var apiError = new ApiError(BAD_REQUEST);
+//        apiError.setMessage("Erreur technique : veuillez contacter votre administrateur.");
+//        return buildResponseEntity(apiError);
+//    }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());

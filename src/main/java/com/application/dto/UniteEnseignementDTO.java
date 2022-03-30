@@ -26,13 +26,13 @@ public class UniteEnseignementDTO {
     @Size(min = 0, max = 255, message = "Ce champs ne doit pas dépasser 255 caractères.")
     private String description;
 
-    @Pattern(regexp="^[0-9]$", message="Ce champs doit être un nombre.")
+    //@Pattern(regexp="^[0-9]$", message="Ce champs doit être un nombre.")
     private int nbh_cm;
 
-    @Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
+    //@Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
     private int nbh_td;
 
-    @Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
+    //@Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
     private int nbh_tp;
 
     private double nbh_etd;

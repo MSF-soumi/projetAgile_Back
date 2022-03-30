@@ -104,14 +104,28 @@ public class UniteEnseignementImp implements UniteEnseignementService {
             {
                 var enseignement=uniteEnseignementRepository.findById(id);
 
-                if(NumberFormat(enseignement.get().getNbh_cm()) )
-                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-                if(NumberFormat(enseignement.get().getNbh_td()))
-                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
-                if(NumberFormat(enseignement.get().getNbh_tp()))
-                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+//                if(NumberFormat(enseignement.get().getNbh_cm()) )
+//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+//                if(NumberFormat(enseignement.get().getNbh_td()))
+//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+//                if(NumberFormat(enseignement.get().getNbh_tp()))
+//                    throw new InputMismatchException("la valeur doit contenir uniquement un nombre entier");
+               var id_ens_old=enseignement.get().getEnseignant().getNo_Enseignant();
+               var id_ens_new=ue.getEnseignant().getNo_Enseignant();
+               if(!id_ens_old.equals(id_ens_new)){
+                   updateEnseignantUE(id,ue.getEnseignant());
 
-                updateEnseignantUE(id,ue.getEnseignant());
+               }
+
+                UniteEnseignement  uniteEnseignement=uniteEnseignementRepository.getById(id);
+                uniteEnseignement.setDesignation(ue.getDesignation());
+                uniteEnseignement.setSemestre(ue.getSemestre());
+                uniteEnseignement.setDesignation(ue.getDescription());
+                uniteEnseignement.setNbh_cm(ue.getNbh_cm());
+                uniteEnseignement.setNbh_td(ue.getNbh_td());
+                uniteEnseignement.setNbh_tp(ue.getNbh_tp());
+                uniteEnseignement.setNbh_etd(ue.getNbh_etd());
+
                 return uniteEnseignementRepository.save(ue);
 
             }
@@ -130,7 +144,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         }
         else {
 
-            if(!id.equals(ue.getEnseignant().getNo_Enseignant()))
+            if(!id.equals(ue.getId()))
                 throw new DifferentIdRequestException(UniteEnseignement.class, id.getCode_Formation().toString());
             else return true;
         }
