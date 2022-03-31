@@ -79,7 +79,7 @@ public class UniteEnseignementController {
     @GetMapping(path="/getEtdPerEnseignantType")
     public ResponseEntity<?> getEtdPerEnseignantType(@RequestParam Long id, @RequestParam int cm, @RequestParam int td, @RequestParam int tp){
         HashMap<String, Double> map = new HashMap<>();
-        map.put("nbh_Etd", uniteEnseignementService.getEtdPerEnseignantType(id, cm, tp, td));
+        map.put("nbh_Etd", uniteEnseignementService.getEtdPerEnseignantType(id, cm, td, tp));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

@@ -17,7 +17,7 @@ public interface UniteEnseignementService {
     
 //    public double getSumEtd(Long noEnseignant);
 
-    public void updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant);
+    //public void updateEnseignantUE(UniteEnseignementPK id, Enseignant enseignant);
 
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id);
 

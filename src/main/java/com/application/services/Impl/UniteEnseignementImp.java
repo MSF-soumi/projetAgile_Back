@@ -153,7 +153,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
     }
 
-    @Override
+   /* @Override
     public void updateEnseignantUE(UniteEnseignementPK ue_pk, Enseignant newEnseignant){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
         var currentEnseignant = new Enseignant();
@@ -171,7 +171,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
             newEnseignant.getUniteEnseignementSet().add(uniteEnseignement);
         }else
             throw new ExceedETDException(Enseignant.class, newEnseignant.getNo_Enseignant().toString());
-    }
+    }*/
 
 
     @Override
@@ -185,19 +185,22 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     }
 
     @Override
-    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_tp, int nbh_td){
+    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
         if(enseignantRepository.existsById(id)) {
             var enseignant = enseignantRepository.getById(id);
             Double etd = 0.00;
             if (enseignant.getType().getCode().equals("INT"))
                 etd = nbh_cm * 1.5 + nbh_td + (double)nbh_tp * 2/3;
-            else
+            else {
+                System.out.println("inside");
                 etd = nbh_cm * 1.5 + nbh_td + (double)nbh_tp;
+            }
 
             System.out.println("cm"+nbh_cm);
             System.out.println("td"+nbh_td);
             System.out.println("tp"+nbh_tp);
             System.out.println(Math.round(etd* 2) / 2.0);
+            System.out.println("ETD++>"+Math.round(etd* 2) / 2.0);
             return Math.round(etd* 2) / 2.0;
         }
         else throw new EnseignantNotFoundException(Enseignant.class, id);
