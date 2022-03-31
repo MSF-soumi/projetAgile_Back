@@ -34,27 +34,27 @@ public class UniteEnseignement implements Serializable {
 
     private String description;
 
-    private int nbh_cm;
+    private int nbh_Cm;
 
-    private int nbh_td;
+    private int nbh_Td;
 
-    private int nbh_tp;
+    private int nbh_Tp;
 
     @Transient
-    private double nbh_etd;
+    private double nbh_Etd;
 
     @PostLoad
     private void postLoad() {
         if(this.enseignant.getType().getCode().equals("MCF")) {
-            this.nbh_etd = this.nbh_cm * 1.5 + this.nbh_td + (double)this.nbh_tp * 2/3;
+            this.nbh_Etd = this.nbh_Cm * 1.5 + this.nbh_Td + (double)this.nbh_Tp * 2/3;
         } else {
-            this.nbh_etd = this.nbh_cm * 1.5 + this.nbh_td + (double)this.nbh_tp;
+            this.nbh_Etd = this.nbh_Cm * 1.5 + this.nbh_Td + (double)this.nbh_Tp;
         }
-        this.nbh_etd = Math.round(this.nbh_etd * 2) / 2.0;
+        this.nbh_Etd = Math.round(this.nbh_Etd * 2) / 2.0;
     }
 
     public double getNbhEtd() {
-        return this.nbh_etd;
+        return this.nbh_Etd;
     }
 
 }

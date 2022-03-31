@@ -27,13 +27,13 @@ public class UniteEnseignementDTO {
     private String description;
 
     //@Pattern(regexp="^[0-9]$", message="Ce champs doit être un nombre.")
-    private int nbh_cm;
+    private int nbh_Cm;
 
     //@Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
-    private int nbh_td;
+    private int nbh_Td;
 
     //@Pattern(regexp="^[0-9]{1,2}$", message="Ce champs ne doit pas dépasser 3 chiffres.")
-    private int nbh_tp;
+    private int nbh_Tp;
 
-    private double nbh_etd;
+    private double nbh_Etd;
 }

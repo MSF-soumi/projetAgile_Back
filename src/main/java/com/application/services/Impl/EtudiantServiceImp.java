@@ -99,7 +99,7 @@ public class EtudiantServiceImp implements EtudiantService{
 				etudiant.getCode_Postal(),
 				etudiant.getVille(),
 				etudiant.getPays_Origine(),
-				etudiant.getUniversite_origine(),
+				etudiant.getUniversite_Origine(),
 				etudiant.getGroupe_Tp(),
 				etudiant.getGroupe_Anglais());
 		
@@ -132,7 +132,7 @@ public class EtudiantServiceImp implements EtudiantService{
 		Etudiant.setCode_Postal(etudiant.getCode_Postal());
 		Etudiant.setVille(etudiant.getVille());
 		Etudiant.setPays_Origine(etudiant.getPays_Origine());
-		Etudiant.setUniversite_origine(etudiant.getUniversite_origine());
+		Etudiant.setUniversite_Origine(etudiant.getUniversite_Origine());
 		Etudiant.setGroupe_Tp(etudiant.getGroupe_Tp());
 		Etudiant.setGroupe_Anglais(etudiant.getGroupe_Anglais());
 		return etudiantRepository.save(Etudiant);

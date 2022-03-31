@@ -17,5 +17,5 @@ public class UniteEnseignementPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String code_Formation;
-    private String code_ue;
+    private String code_Ue;
 }

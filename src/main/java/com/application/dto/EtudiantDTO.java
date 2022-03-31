@@ -69,7 +69,7 @@ public class EtudiantDTO {
 	private String pays_Origine;
 	
     @NotBlank(message = "Ce champs est oligatoire.")
-	private String universite_origine;
+	private String universite_Origine;
 	
 	private Long groupe_Tp;
 	
