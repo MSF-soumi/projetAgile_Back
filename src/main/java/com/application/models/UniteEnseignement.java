@@ -45,7 +45,7 @@ public class UniteEnseignement implements Serializable {
 
     @PostLoad
     private void postLoad() {
-        if(this.enseignant.getType().getCode().equals("MCF")) {
+        if(this.enseignant.getType().getCode().equals("INT")) {
             this.nbh_Etd = this.nbh_Cm * 1.5 + this.nbh_Td + (double)this.nbh_Tp * 2/3;
         } else {
             this.nbh_Etd = this.nbh_Cm * 1.5 + this.nbh_Td + (double)this.nbh_Tp;

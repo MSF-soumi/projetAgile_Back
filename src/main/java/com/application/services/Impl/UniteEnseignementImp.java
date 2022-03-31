@@ -112,7 +112,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                 Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), ue.getNbh_Cm(),ue.getNbh_Td(), ue.getNbh_Tp());
                 Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
                 Double somme = newEtd + enseignant_etd;
-                //System.out.println("newEtd: "+ newEtd + "enseignantEtd: " + enseignant_etd + "somme: " + somme );
+                System.out.println("newEtd: "+ newEtd + "enseignantEtd: " + enseignant_etd + "somme: " + somme );
                 if(somme > 192) {
                     throw new ExceedETDException(Enseignant.class, newEnseignant.getNo_Enseignant().toString());
                 }
@@ -162,7 +162,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         }
         Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_Cm(),uniteEnseignement.getNbh_Td(), uniteEnseignement.getNbh_Tp());
         Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
-        if(newEtd + enseignant_etd <= 192){
+        System.out.println("sum1=> "+ enseignant_etd);
+        System.out.println("sum2=> "+ newEtd);
+        System.out.println("sum=> "+ newEtd + enseignant_etd);
+        if(newEtd + enseignant_etd <= 192.0){
             uniteEnseignement.setEnseignant(newEnseignant);
             currentEnseignant.getUniteEnseignementSet().remove(uniteEnseignement);
             newEnseignant.getUniteEnseignementSet().add(uniteEnseignement);
@@ -182,16 +185,20 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     }
 
     @Override
-    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_td, int nbh_tp){
+    public Double getEtdPerEnseignantType(Long id, int nbh_cm, int nbh_tp, int nbh_td){
         if(enseignantRepository.existsById(id)) {
             var enseignant = enseignantRepository.getById(id);
             Double etd = 0.00;
-            if (enseignant.getType().getCode().equals("MCF"))
-                etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp * 2 / 3;
+            if (enseignant.getType().getCode().equals("INT"))
+                etd = nbh_cm * 1.5 + nbh_td + (double)nbh_tp * 2/3;
             else
-                etd = nbh_cm * 1.5 + nbh_td + (double) nbh_tp;
-            System.out.println(etd);
-            return Math.round(etd *2)/2.0;
+                etd = nbh_cm * 1.5 + nbh_td + (double)nbh_tp;
+
+            System.out.println("cm"+nbh_cm);
+            System.out.println("td"+nbh_td);
+            System.out.println("tp"+nbh_tp);
+            System.out.println(Math.round(etd* 2) / 2.0);
+            return Math.round(etd* 2) / 2.0;
         }
         else throw new EnseignantNotFoundException(Enseignant.class, id);
     }
