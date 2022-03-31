@@ -43,13 +43,13 @@ public class Enseignant implements Comparable<Enseignant>, Serializable {
 	@JsonIgnore
 	private Set<UniteEnseignement> uniteEnseignementSet = new HashSet<>();
 	@Transient
-	private Integer nbh_cm;
+	private Integer nbh_Cm;
 	@Transient
-	private Integer nbh_td;
+	private Integer nbh_Td;
 	@Transient
-	private Integer nbh_tp;
+	private Integer nbh_Tp;
 	@Transient
-	private Double nbh_etd;
+	private Double nbh_Etd;
 
 	@Override
 	public int compareTo(Enseignant o) {

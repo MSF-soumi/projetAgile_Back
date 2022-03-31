@@ -45,7 +45,7 @@ public class Etudiant {
 	private String code_Postal;
 	private String ville;
 	private String pays_Origine;
-	private String universite_origine;
+	private String universite_Origine;
 	private Long groupe_Tp;
 	private Long groupe_Anglais;
 

@@ -67,12 +67,12 @@ public class EnseignantDTO {
 
     private Set<UniteEnseignementDTO> uniteEnseignementSet = new HashSet<>();
 
-    private Integer nbh_cm;
+    private Integer nbh_Cm;
 
-    private Integer nbh_td;
+    private Integer nbh_Td;
 
-    private Integer nbh_tp;
+    private Integer nbh_Tp;
 
-    private Double nbh_etd;
+    private Double nbh_Etd;
 
 }

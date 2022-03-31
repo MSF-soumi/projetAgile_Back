@@ -155,15 +155,15 @@ public class EnseignantServiceImp implements EnseignantService {
 			Integer nbh_tp =0;
 			Double nbh_etd =0.00;
 			for(UniteEnseignement uniteEnseignement : enseignant.getUniteEnseignementSet() ){
-				nbh_cm += uniteEnseignement.getNbh_cm();
-				nbh_td += uniteEnseignement.getNbh_td();
-				nbh_tp += uniteEnseignement.getNbh_tp();
-				nbh_etd += uniteEnseignement.getNbh_etd();
+				nbh_cm += uniteEnseignement.getNbh_Cm();
+				nbh_td += uniteEnseignement.getNbh_Td();
+				nbh_tp += uniteEnseignement.getNbh_Tp();
+				nbh_etd += uniteEnseignement.getNbh_Etd();
 			}
-			enseignant.setNbh_cm(nbh_cm);
-			enseignant.setNbh_td(nbh_td);
-			enseignant.setNbh_tp(nbh_tp);
-			enseignant.setNbh_etd(nbh_etd);
+			enseignant.setNbh_Cm(nbh_cm);
+			enseignant.setNbh_Td(nbh_td);
+			enseignant.setNbh_Tp(nbh_tp);
+			enseignant.setNbh_Etd(nbh_etd);
 		}
 		return enseignant;
 	}

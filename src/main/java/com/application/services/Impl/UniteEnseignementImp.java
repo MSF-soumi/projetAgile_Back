@@ -109,7 +109,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
 
                var id_ens_old=uniteEnseignement.getEnseignant().getNo_Enseignant();
                var id_ens_new=ue.getEnseignant().getNo_Enseignant();
-                Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), ue.getNbh_cm(),ue.getNbh_td(), ue.getNbh_tp());
+                Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), ue.getNbh_Cm(),ue.getNbh_Td(), ue.getNbh_Tp());
                 Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
                 Double somme = newEtd + enseignant_etd;
                 //System.out.println("newEtd: "+ newEtd + "enseignantEtd: " + enseignant_etd + "somme: " + somme );
@@ -125,10 +125,10 @@ public class UniteEnseignementImp implements UniteEnseignementService {
                     uniteEnseignement.setDesignation(ue.getDesignation());
                     uniteEnseignement.setSemestre(ue.getSemestre());
                     uniteEnseignement.setDescription(ue.getDescription());
-                    uniteEnseignement.setNbh_cm(ue.getNbh_cm());
-                    uniteEnseignement.setNbh_td(ue.getNbh_td());
-                    uniteEnseignement.setNbh_tp(ue.getNbh_tp());
-                    uniteEnseignement.setNbh_etd(ue.getNbh_etd());
+                    uniteEnseignement.setNbh_Cm(ue.getNbh_Cm());
+                    uniteEnseignement.setNbh_Td(ue.getNbh_Td());
+                    uniteEnseignement.setNbh_Tp(ue.getNbh_Tp());
+                    uniteEnseignement.setNbh_Etd(ue.getNbh_Etd());
                 }
             return uniteEnseignementRepository.save(ue);
 
@@ -160,7 +160,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
         if(uniteEnseignementRepository.getById(ue_pk).getEnseignant() != null){
             currentEnseignant = uniteEnseignementRepository.getById(ue_pk).getEnseignant();
         }
-        Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_cm(),uniteEnseignement.getNbh_td(), uniteEnseignement.getNbh_tp());
+        Double newEtd = getEtdPerEnseignantType(newEnseignant.getNo_Enseignant(), uniteEnseignement.getNbh_Cm(),uniteEnseignement.getNbh_Td(), uniteEnseignement.getNbh_Tp());
         Double enseignant_etd = enseignantService.sumEtd(newEnseignant.getNo_Enseignant());
         if(newEtd + enseignant_etd <= 192){
             uniteEnseignement.setEnseignant(newEnseignant);
@@ -175,7 +175,7 @@ public class UniteEnseignementImp implements UniteEnseignementService {
     public Double getCurrentEtdSum(UniteEnseignementPK ue_pk, Long id){
         var uniteEnseignement = uniteEnseignementRepository.getById(ue_pk);
         Double ens_etd = enseignantService.sumEtd(id);
-        Double ue_etd = uniteEnseignement.getNbh_etd();
+        Double ue_etd = uniteEnseignement.getNbh_Etd();
         Double result = ens_etd + ue_etd;
         return result;
 
