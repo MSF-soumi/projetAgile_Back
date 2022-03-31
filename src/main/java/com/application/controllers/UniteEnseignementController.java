@@ -7,6 +7,7 @@ import com.application.models.*;
 import com.application.models.UniteEnseignement;
 import com.application.models.UniteEnseignementPK;
 import com.application.services.UniteEnseignementService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -76,7 +78,9 @@ public class UniteEnseignementController {
 
     @GetMapping(path="/getEtdPerEnseignantType")
     public ResponseEntity<?> getEtdPerEnseignantType(@RequestParam Long id, @RequestParam int cm, @RequestParam int td, @RequestParam int tp){
-        return new ResponseEntity<>(uniteEnseignementService.getEtdPerEnseignantType(id, cm, tp, td), HttpStatus.OK);
+        HashMap<String, Double> map = new HashMap<>();
+        map.put("nbh_Etd", uniteEnseignementService.getEtdPerEnseignantType(id, cm, tp, td));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 //    @GetMapping(path = "/enseignant/etd/{noEnseignant}")
