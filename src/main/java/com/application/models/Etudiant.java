@@ -1,5 +1,6 @@
 package com.application.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Builder
@@ -19,9 +21,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name="Etudiant")
-public class Etudiant {
+public class Etudiant implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String no_Etudiant;
 
 	@ManyToOne

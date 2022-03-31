@@ -34,7 +34,7 @@ public class EtudiantDTO {
 	@Pattern(regexp = "[a-zA-Z]", message = "Ce champs doit être une chaine de caractères.")
 	private String sexe;
 	
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yy")
     @NotNull(message = "Ce champs est obligatoire.")
 	private LocalDate date_Naissance;
 	
