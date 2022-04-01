@@ -3,6 +3,7 @@ package com.application.exceptions;
 import com.application.exceptions.apierror.ApiError;
 
 import com.application.exceptions.enseignant.PhoneNumberFormatException;
+import com.application.exceptions.etudiant.EtudiantSQLException;
 import com.application.exceptions.ue.ExceedETDException;
 import com.application.exceptions.ue.UeAlreadyBelongsToChosenTeacherException;
 
@@ -280,6 +281,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UeAlreadyBelongsToChosenTeacherException.class )
     public ResponseEntity<Object> handleException(UeAlreadyBelongsToChosenTeacherException ex) {
+        var apiError = new ApiError(BAD_REQUEST);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+    
+    @ExceptionHandler(EtudiantSQLException.class )
+    public ResponseEntity<Object> handleException(EtudiantSQLException ex) {
         var apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
